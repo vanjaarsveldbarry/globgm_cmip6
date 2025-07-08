@@ -11,18 +11,33 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    # This ensures a login shell is used, which helps with Conda activation
+    defaults:
+      run:
+        shell: bash -l {0}
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
       - name: Set up Conda environment
-        # Add an 'id' to this step so we can reference its output
         id: setup-conda
         uses: conda-incubator/setup-miniconda@v3
         with:
           environment-file: environment.yml
           activate-environment: quarto-env
           use-mamba: true
+
+      # --- NEW DEBUGGING STEP ---
+      - name: (DEBUG) Verify Conda environment and Python path
+        run: |
+          echo "--- DEBUGGING CONDA & PYTHON ---"
+          echo "Conda prefix path is: ${{ steps.setup-conda.outputs.conda-prefix }}"
+          echo "Verifying Python executable exists at that path:"
+          ls -l ${{ steps.setup-conda.outputs.conda-prefix }}/bin/python
+          echo "Running Python from that path to check its version:"
+          ${{ steps.setup-conda.outputs.conda-prefix }}/bin/python --version
+          echo "--- END DEBUGGING ---"
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
@@ -33,5 +48,5 @@ jobs:
           target: gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # This line explicitly tells Quarto which Python to use
           QUARTO_PYTHON: ${{ steps.setup-conda.outputs.conda-prefix }}/bin/python
+
