@@ -4,8 +4,8 @@ project:
 website: 
   page-navigation: true
   title: "GLOBGM_CMIP6" 
-  site-url: "UPDATE" 
-  repo-url: UPDATE 
+  site-url: https://vanjaarsveldbarry.github.io/globgm_cmip6/
+  repo-url: https://github.com/vanjaarsveldbarry/globgm_cmip6
   repo-actions: [edit, issue]
   
   page-footer:
