@@ -2,5 +2,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.10
-  - itables
   - jupyter
+  - nbformat
+  - ipykernel
+  - itables
