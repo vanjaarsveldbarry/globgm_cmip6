@@ -1,0 +1,111 @@
+---
+title: "Data Catalogue"
+toc: false
+---
+
+## Historical
+
+```{python}
+#| echo: False
+import pandas as pd
+from itables import init_notebook_mode, show
+from IPython.display import HTML, display
+
+df = pd.read_csv('historical_ref.csv', header=None, names=['path', 'size', 'hash'])
+df[['Temporal Resolution', 'Name']] = df['path'].str.split('/', n=1, expand=True)
+df['Temporal Resolution'] = df['Temporal Resolution'].str.capitalize()
+df['Size (Gb)'] = df['size'].str.replace(' GiB', '').astype(float).round().astype(int)
+df['Download Link'] = 'https://zenodo.org/records/10034346/files/' + df['path']
+df = df[['Temporal Resolution', 'Name', 'Size (Gb)', 'Download Link']]
+df.columns = ["Temporal Resolution", "Name", "Size (Gb)", "Download Link"]
+
+# Use a Styler to format the URL column into a clickable link
+styled_df = df.style.format({
+    "Download Link": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+
+# itables can render the Styler object directly
+show(
+    styled_df, 
+    classes="display compact", 
+    columnDefs=[{"className": "dt-left", "targets": "_all"}], 
+    allow_html=True
+)
+```
+
+## CMIP6 Ensemble
+```{python}
+#| echo: False
+
+df = pd.read_csv('cmip6_ensemble.csv', header=None, names=['path', 'size', 'hash'])
+df[['Temporal Resolution', 'Name']] = df['path'].str.split('/', n=1, expand=True)
+df['Temporal Resolution'] = df['Temporal Resolution'].str.capitalize()
+df['Size (Gb)'] = df['size'].str.replace(' GiB', '').astype(float).round().astype(int)
+df['Download Link'] = 'https://zenodo.org/records/10034346/files/' + df['path']
+df = df[['Temporal Resolution', 'Name', 'Size (Gb)', 'Download Link']]
+df.columns = ["Temporal Resolution", "Name", "Size (Gb)", "Download Link"]
+
+# Use a Styler to format the URL column into a clickable link
+styled_df = df.style.format({
+    "Download Link": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+
+# itables can render the Styler object directly
+show(
+    styled_df, 
+    classes="display compact", 
+    columnDefs=[{"className": "dt-left", "targets": "_all"}], 
+    allow_html=True
+)
+```
+
+## CMIP6 GCM
+```{python}
+#| echo: False
+df = pd.read_csv('cmip6_gcm.csv', header=None, names=['path', 'size', 'hash'])
+df[['Temporal Resolution', 'Name']] = df['path'].str.split('/', n=1, expand=True)
+df['Temporal Resolution'] = df['Temporal Resolution'].str.capitalize()
+df['Size (Gb)'] = df['size'].str.replace(' GiB', '').astype(float).round().astype(int)
+df['Download Link'] = 'https://zenodo.org/records/10034346/files/' + df['path']
+df = df[['Temporal Resolution', 'Name', 'Size (Gb)', 'Download Link']]
+df.columns = ["Temporal Resolution", "Name", "Size (Gb)", "Download Link"]
+
+# Use a Styler to format the URL column into a clickable link
+styled_df = df.style.format({
+    "Download Link": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+
+# itables can render the Styler object directly
+show(
+    styled_df, 
+    classes="display compact", 
+    columnDefs=[{"className": "dt-left", "targets": "_all"}], 
+    allow_html=True
+)
+```
+
+## Quality Warning
+```{python}
+#| echo: False
+df = pd.read_csv('quality.csv', header=None, names=['Name', 'size', 'hash'])
+df['Size (Gb)'] = df['size'].str.replace(' GiB', '').str.replace(' MiB', '').astype(float)
+# Convert MiB to GiB for consistency if needed, or just handle both units
+df['Size (Gb)'] = df.apply(lambda row: row['Size (Gb)'] / 1024 if 'MiB' in row['size'] else row['Size (Gb)'], axis=1)
+df['Size (Gb)'] = df['Size (Gb)'].round().astype(int)
+df['Download Link'] = 'https://zenodo.org/records/10034346/files/' + df['Name']
+df = df[['Name', 'Size (Gb)', 'Download Link']]
+df.columns = ["Name", "Size (Gb)", "Download Link"]
+
+# Use a Styler to format the URL column into a clickable link
+styled_df = df.style.format({
+    "Download Link": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+
+# itables can render the Styler object directly
+show(
+    styled_df, 
+    classes="display compact", 
+    columnDefs=[{"className": "dt-left", "targets": "_all"}], 
+    allow_html=True
+)
+```

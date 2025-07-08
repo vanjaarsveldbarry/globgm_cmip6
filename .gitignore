@@ -1,0 +1,8 @@
+# Quarto-specific files
+/.quarto/
+/_site/
+
+# Cache files for R and Python (optional but recommended)
+.Rproj.user/
+__pycache__/
+.ipynb_checkpoints/

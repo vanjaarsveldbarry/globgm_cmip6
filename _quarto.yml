@@ -1,0 +1,60 @@
+project: 
+  type: website
+  
+website: 
+  page-navigation: true
+  title: "GLOBGM_CMIP6" 
+  site-url: "UPDATE" 
+  repo-url: UPDATE 
+  repo-actions: [edit, issue]
+  
+  page-footer:
+    right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
+    left: "&copy; CC-By UPDATE"
+    
+  sidebar:
+    logo: "images/LogoGEOWAT.png"
+    pinned: true
+    align: center
+    tools: 
+      - icon: globe
+        href: https://globalhydrology.nl/research/models/pcr-globwb-2-0/
+      - icon: github
+        href: https://github.com/vanjaarsveldbarry/globgm_cmip6
+
+    style: "docked"
+    search: true
+    collapse-level: 1
+    contents:
+      - href: index.qmd
+        text: Getting Started
+
+      - section: "Data Access"
+        contents:
+          - href: data_access/single_machine.qmd
+            text: "Single Machine Access"
+          - href: data_access/hpc_usage.qmd
+            text: "HPC Access"
+
+      - section: "Using the Data"
+        contents:
+          - href: data_use/information.qmd
+            text: "Data Information"
+          - href: data_use/catalogue.qmd
+            text: "Data Catalogue"
+
+format:
+  html:
+    theme: 
+      - default
+      - custom-styles.scss
+    code-copy: true
+    code-overflow: wrap
+    toc: true
+
+
+filters:
+  # - include-files.lua
+  - quarto
+
+  

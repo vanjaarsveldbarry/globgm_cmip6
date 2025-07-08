@@ -1,0 +1,40 @@
+---
+title: "Data Catalogue"
+toc: false
+---
+
+## A Guide to Model Layers
+
+GLOBGM is a two-layer groundwater model, and all outputs are provided for both layers. Layer 1 (L1) represents the shallow, unconfined aquifer system, which may include a confining unit, while Layer 2 (L2) represents the deeper, confined aquifer. Understanding how to interpret these layers is key to selecting the correct data for your analysis.
+
+The relationship between the two layers determines the type of aquifer system at any given location:
+
+Confined System: A confined system exists where Layer 1 has valid data. In this case, Layer 1 represents the confining layer (the aquitard), and the corresponding data in Layer 2 represents the underlying confined aquifer.
+
+Unconfined System: An unconfined system is present where Layer 1 is null (has no data) and Layer 2 has data. In this scenario, the Layer 2 values represent the unconfined aquifer.
+
+Below are common use-case scenarios to help you decide which data to use based on your research question.
+
+## Common Use Cases and Data Selection
+
+1. I want to distinguish between confined and unconfined areas.
+To map out the locations of different aquifer systems, you should analyze Layer 1.
+
+Where Layer 1 contains data, the system is confined.
+
+Where Layer 1 is null, the system is unconfined.
+
+2. I am interested in the shallowest groundwater.
+If your research is focused on the first groundwater you would encounter from the surface (e.g., for shallow well analysis or surface-groundwater interactions), you should use a combination of both layers.
+
+In confined areas (where Layer 1 has data), the shallowest groundwater is in Layer 1 (the confining layer).
+
+In unconfined areas (where Layer 1 is null), the shallowest groundwater is in Layer 2.
+
+3. I want to study only the deep groundwater systems.
+To isolate and analyze only the deeper, typically confined groundwater resources, you should focus exclusively on Layer 2.
+
+This layer represents the confined aquifer where a confining layer exists and the main unconfined aquifer where one does not. It consistently provides data on the primary, deeper groundwater body in the model.
+
+
+
