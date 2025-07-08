@@ -51,10 +51,3 @@ format:
     code-copy: true
     code-overflow: wrap
     toc: true
-
-
-filters:
-  # - include-files.lua
-  - quarto
-
-  
