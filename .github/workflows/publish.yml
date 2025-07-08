@@ -2,13 +2,15 @@ name: Quarto Publish
 
 on:
   push:
-    branches: main
+    branches:
+      - main
 
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     defaults:
       run:
         shell: bash -l {0}
@@ -17,17 +19,18 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Conda environment
-        id: setup-conda
-        uses: conda-incubator/setup-miniconda@v3
-        with:
-          environment-file: environment.yml
-          activate-environment: quarto-env
-          use-mamba: true
+      - name: Set up Miniconda and Create Environment
+        run: |
+          wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+          bash miniconda.sh -b -p $HOME/miniconda
+          eval "$($HOME/miniconda/bin/conda shell.bash hook)"
+          conda create -y -n quarto-env python=3.10 jupyter nbformat ipykernel itables
+          conda activate quarto-env
+          python -m ipykernel install --user --name quarto-env
 
       - name: Add Conda environment to PATH
         run: |
-          echo "${{ steps.setup-conda.outputs.conda-prefix }}/bin" >> $GITHUB_PATH
+          echo "$HOME/miniconda/envs/quarto-env/bin" >> $GITHUB_PATH
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
@@ -38,4 +41,4 @@ jobs:
           target: gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          QUARTO_PYTHON: ${{ steps.setup-conda.outputs.conda-prefix }}/bin/python
+          QUARTO_PYTHON: $HOME/miniconda/envs/quarto-env/bin/python
