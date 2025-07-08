@@ -1,5 +1,3 @@
-# .github/workflows/publish.yml
-
 name: Quarto Publish
 
 on:
@@ -11,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    # Using a login shell can help Conda initialize correctly
     defaults:
       run:
         shell: bash -l {0}
@@ -28,12 +25,10 @@ jobs:
           activate-environment: quarto-env
           use-mamba: true
 
-      # --- THIS IS THE CRITICAL NEW STEP ---
       - name: Add Conda environment to PATH
         run: |
-          echo "Prepending Conda bin to GITHUB_PATH"
           echo "${{ steps.setup-conda.outputs.conda-prefix }}/bin" >> $GITHUB_PATH
-        
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
@@ -41,7 +36,6 @@ jobs:
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
-        # We still set QUARTO_PYTHON as a backup, but the PATH change should be the primary fix
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           QUARTO_PYTHON: ${{ steps.setup-conda.outputs.conda-prefix }}/bin/python
