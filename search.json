@@ -1,101 +1,46 @@
 [
   {
-    "objectID": "data_use/information.html",
-    "href": "data_use/information.html",
-    "title": "Data Catalogue",
-    "section": "",
-    "text": "GLOBGM is a two-layer groundwater model, and all outputs are provided for both layers. Layer 1 (L1) represents the shallow, unconfined aquifer system, which may include a confining unit, while Layer 2 (L2) represents the deeper, confined aquifer. Understanding how to interpret these layers is key to selecting the correct data for your analysis.\nThe relationship between the two layers determines the type of aquifer system at any given location:\nConfined System: A confined system exists where Layer 1 has valid data. In this case, Layer 1 represents the confining layer (the aquitard), and the corresponding data in Layer 2 represents the underlying confined aquifer.\nUnconfined System: An unconfined system is present where Layer 1 is null (has no data) and Layer 2 has data. In this scenario, the Layer 2 values represent the unconfined aquifer.\nBelow are common use-case scenarios to help you decide which data to use based on your research question.",
-    "crumbs": [
-      "Using the Data",
-      "Data Information"
-    ]
-  },
-  {
-    "objectID": "data_use/information.html#a-guide-to-model-layers",
-    "href": "data_use/information.html#a-guide-to-model-layers",
-    "title": "Data Catalogue",
-    "section": "",
-    "text": "GLOBGM is a two-layer groundwater model, and all outputs are provided for both layers. Layer 1 (L1) represents the shallow, unconfined aquifer system, which may include a confining unit, while Layer 2 (L2) represents the deeper, confined aquifer. Understanding how to interpret these layers is key to selecting the correct data for your analysis.\nThe relationship between the two layers determines the type of aquifer system at any given location:\nConfined System: A confined system exists where Layer 1 has valid data. In this case, Layer 1 represents the confining layer (the aquitard), and the corresponding data in Layer 2 represents the underlying confined aquifer.\nUnconfined System: An unconfined system is present where Layer 1 is null (has no data) and Layer 2 has data. In this scenario, the Layer 2 values represent the unconfined aquifer.\nBelow are common use-case scenarios to help you decide which data to use based on your research question.",
-    "crumbs": [
-      "Using the Data",
-      "Data Information"
-    ]
-  },
-  {
-    "objectID": "data_use/information.html#common-use-cases-and-data-selection",
-    "href": "data_use/information.html#common-use-cases-and-data-selection",
-    "title": "Data Catalogue",
-    "section": "Common Use Cases and Data Selection",
-    "text": "Common Use Cases and Data Selection\n\nI want to distinguish between confined and unconfined areas. To map out the locations of different aquifer systems, you should analyze Layer 1.\n\nWhere Layer 1 contains data, the system is confined.\nWhere Layer 1 is null, the system is unconfined.\n\nI am interested in the shallowest groundwater. If your research is focused on the first groundwater you would encounter from the surface (e.g., for shallow well analysis or surface-groundwater interactions), you should use a combination of both layers.\n\nIn confined areas (where Layer 1 has data), the shallowest groundwater is in Layer 1 (the confining layer).\nIn unconfined areas (where Layer 1 is null), the shallowest groundwater is in Layer 2.\n\nI want to study only the deep groundwater systems. To isolate and analyze only the deeper, typically confined groundwater resources, you should focus exclusively on Layer 2.\n\nThis layer represents the confined aquifer where a confining layer exists and the main unconfined aquifer where one does not. It consistently provides data on the primary, deeper groundwater body in the model.",
-    "crumbs": [
-      "Using the Data",
-      "Data Information"
-    ]
-  },
-  {
-    "objectID": "data_use/catalogue.html",
-    "href": "data_use/catalogue.html",
-    "title": "Data Catalogue",
-    "section": "",
-    "text": "Loading ITables v2.4.3 from the internet...\n    (need help?)",
-    "crumbs": [
-      "Using the Data",
-      "Data Catalogue"
-    ]
-  },
-  {
-    "objectID": "data_use/catalogue.html#historical",
-    "href": "data_use/catalogue.html#historical",
-    "title": "Data Catalogue",
-    "section": "",
-    "text": "Loading ITables v2.4.3 from the internet...\n    (need help?)",
-    "crumbs": [
-      "Using the Data",
-      "Data Catalogue"
-    ]
-  },
-  {
-    "objectID": "data_use/catalogue.html#cmip6-ensemble",
-    "href": "data_use/catalogue.html#cmip6-ensemble",
-    "title": "Data Catalogue",
-    "section": "CMIP6 Ensemble",
-    "text": "CMIP6 Ensemble\n\n\n\n\n    \n    \n    Loading ITables v2.4.3 from the internet...\n    (need help?)",
-    "crumbs": [
-      "Using the Data",
-      "Data Catalogue"
-    ]
-  },
-  {
-    "objectID": "data_use/catalogue.html#cmip6-gcm",
-    "href": "data_use/catalogue.html#cmip6-gcm",
-    "title": "Data Catalogue",
-    "section": "CMIP6 GCM",
-    "text": "CMIP6 GCM\n\n\n\n\n    \n    \n    Loading ITables v2.4.3 from the internet...\n    (need help?)",
-    "crumbs": [
-      "Using the Data",
-      "Data Catalogue"
-    ]
-  },
-  {
-    "objectID": "data_use/catalogue.html#quality-warning",
-    "href": "data_use/catalogue.html#quality-warning",
-    "title": "Data Catalogue",
-    "section": "Quality Warning",
-    "text": "Quality Warning\n\n\n\n\n    \n    \n    Loading ITables v2.4.3 from the internet...\n    (need help?)",
-    "crumbs": [
-      "Using the Data",
-      "Data Catalogue"
-    ]
-  },
-  {
-    "objectID": "data_access/hpc_usage.html",
-    "href": "data_access/hpc_usage.html",
+    "objectID": "data_overview/overview.html",
+    "href": "data_overview/overview.html",
     "title": "GLOBGM_CMIP6",
     "section": "",
-    "text": "HPC Access\n\n\nThis guide provides instructions for accessing the GLOBGM dataset on High-Performance Computing (HPC) systems. The recommended method depends on your specific system and preferences.\n\n\nDownload Remote Data\n\n\nThe primary method for downloading the complete dataset is directly from the YODA (Your Data) repository. Several command-line tools can be used for this purpose, including wget for recursive downloading, or iRODS clients like iCommands and iBridges for more advanced data management.\nA general wget command to recursively download a directory is as follows:\nwget -r -P PATH_ON_LOCAL_FILE_SYSTEM URL_TO_FOLDER_ON_YODA \n\n\nSnellius Users\n\n\nWe are actively working to make the GLOBGM dataset available as a managed dataset on the Snellius supercomputer. This will enable direct and optimized access for all Snellius users. Please watch this space for future updates on availability.\nIn the interim, users on Snellius can request direct access to the data. Please contact the project administrator to arrange a data transfer via the scratch file system.",
+    "text": "Overview\n\n\nGLOBGM employs a two-layer groundwater model, with outputs available for both layers. Layer 1 (l1) represents the shallow, unconfined aquifer system (potentially including a confining unit), while Layer 2 (l2) models the deeper, confined aquifer. Properly interpreting these layers is essential for selecting the appropriate data in your analysis.\nThe aquifer type at any location is determined by the data presence in each layer:\n\nConfined System: Occurs where Layer 1 contains valid data, representing the confining layer (aquitard), with Layer 2 data corresponding to the underlying confined aquifer.\nUnconfined System: Identified where Layer 1 is null (no data) and Layer 2 has valid data, indicating an unconfined aquifer in Layer 2.\n\n\n\n\nCaption for the image.",
     "crumbs": [
-      "Data Access",
-      "HPC Access"
+      "Data Overview",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "data_overview/catalogue.html#historical",
+    "href": "data_overview/catalogue.html#historical",
+    "title": "CMIP6 Ensemble",
+    "section": "Historical",
+    "text": "Historical\n\n\n\n\n    \n    \n    Loading ITables v2.4.4 from the internet...\n    (need help?)\n    \n\n\n\n\n\n\n\n\n    \n    \n    Loading ITables v2.4.4 from the internet...\n    (need help?)",
+    "crumbs": [
+      "Data Overview",
+      "Data Catalogue"
+    ]
+  },
+  {
+    "objectID": "data_overview/catalogue.html#cmip6-gcm",
+    "href": "data_overview/catalogue.html#cmip6-gcm",
+    "title": "CMIP6 Ensemble",
+    "section": "CMIP6 GCM",
+    "text": "CMIP6 GCM\n\n\n\n\n    \n    \n    Loading ITables v2.4.4 from the internet...\n    (need help?)",
+    "crumbs": [
+      "Data Overview",
+      "Data Catalogue"
+    ]
+  },
+  {
+    "objectID": "data_overview/catalogue.html#quality-assurance",
+    "href": "data_overview/catalogue.html#quality-assurance",
+    "title": "CMIP6 Ensemble",
+    "section": "Quality Assurance",
+    "text": "Quality Assurance\n\n\n\n\n    \n    \n    Loading ITables v2.4.4 from the internet...\n    (need help?)",
+    "crumbs": [
+      "Data Overview",
+      "Data Catalogue"
     ]
   },
   {
@@ -110,56 +55,57 @@
     ]
   },
   {
+    "objectID": "data_access/hpc_usage.html",
+    "href": "data_access/hpc_usage.html",
+    "title": "GLOBGM_CMIP6",
+    "section": "",
+    "text": "HPC Access\n\n\nThis guide provides instructions for accessing the GLOBGM dataset on High-Performance Computing (HPC) systems. The recommended method depends on your specific system and preferences.\n\n\nDownload Remote Data\n\n\nThe primary method for downloading the complete dataset is directly from the YODA (Your Data) repository. Several command-line tools can be used for this purpose, including wget for recursive downloading, or iRODS clients like iCommands and iBridges for more advanced data management.\nA general wget command to recursively download a directory is as follows:\nwget -r -P PATH_ON_LOCAL_FILE_SYSTEM URL_TO_FOLDER_ON_YODA \n\n\nSnellius Users\n\n\nWe are actively working to make the GLOBGM dataset available as a managed dataset on the Snellius supercomputer. This will enable direct and optimized access for all Snellius users. Please watch this space for future updates on availability.\nIn the interim, users on Snellius can request direct access to the data. Please contact the project administrator to arrange a data transfer via the scratch file system.",
+    "crumbs": [
+      "Data Access",
+      "HPC Access"
+    ]
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "\nGLOBGM CMIP6\n",
     "section": "",
-    "text": "⚠️ This website is currently under construction. Some features may not be available yet.\nGLOBGM (Global Groundwater Model) is a transient global-scale groundwater flow model operating at a high spatial resolution of 30 arc-seconds (~1 km). It employs a parallelized implementation of MODFLOW 6 with a structured Cartesian grid and up to two model layers representing confined and unconfined aquifers.\nDesigned for high-performance computing environments, GLOBGM efficiently simulates groundwater heads and water table depths worldwide, enabling detailed assessments of groundwater dynamics under historical and future climate and socioeconomic scenarios. The model uses refined input data and parameterization to capture global groundwater behavior while addressing computational challenges related to runtime, memory, and data storage at this fine resolution.\nWe present comprehensive groundwater heads and water table depth data following the ISIMIP framework protocols. To support researchers and practitioners, we provide:\nGiven the large volume of data in this package, we recognize that all users may not have the computing resources necessary to process the data at a global scale. Therefore, we have provided two sets of instructions tailored to different user needs. Please visit the data catalog page to review the disk storage requirements for each dataset to ensure you have adequate resources.",
+    "text": "⚠️ This website is currently under construction. Some features may not be available yet.\n\n\n\n\nA Global Hyper-Resolution Groundwater Dataset for the Past and Future Under Climate and Socioeconomic Change\n\n\n\n\n\n  \n  \n    🌍\n    Global Coverage\n  \n\n  \n  \n    🔍\n     ~1km Resolution\n  \n\n  \n  \n    🔓\n    Open Science\n  \n\n\nGLOBGM (Global Groundwater Model) is a transient global-scale groundwater flow model operating at a high spatial resolution of 30 arc-seconds (~1 km). It employs a parallelized implementation of MODFLOW 6 with two model layers representing confined and unconfined aquifers. Designed for high-performance computing environments, GLOBGM efficiently simulates groundwater heads and water table depths worldwide, enabling detailed assessments of groundwater dynamics under historical and future climate and socioeconomic scenarios. The model uses refined input data and parameterization to capture global groundwater behavior while addressing computational challenges related to runtime, memory, and data storage at this fine resolution. We present comprehensive groundwater heads and water table depth data following the ISIMIP framework protocols.\n\n\n\nData Overview\n\n\n\n  \n  \n    \n      🕰️\n    \n    \n      Historical Reference\n      \n        Historical simulations span 1960–2019, forced by GSWP3-W5E5 meteorological data, enabling rigorous validation and impact attribution against observed climate records.\n      \n    \n  \n\n  \n  \n    \n      📈\n    \n    \n      Climate Projections\n      \n        Projections cover 1960–2100, driven by SSP-RCP scenarios (SSP1-2.6: low; SSP3-7.0: medium-high; SSP5-8.5: high) and GCMs (GFDL-ESM4, IPSL-CM6A-LR, MPI-ESM1-2-HR, MRI-ESM2-0, UKESM1-0-LL) to quantify groundwater dynamics under changing climate-forcings.\n      \n    \n  \n\n\n\nData Access\n\n\n\nGiven the large volume of data in this package, we recognize that all users may not have the computing resources necessary to process the data at a global scale. Therefore, we have provided two sets of instructions tailored to different user needs. Please visit the data catalog page to review the disk storage requirements for each dataset to ensure you have adequate resources.\n\n\n  \n  \n    \n      💻\n    \n    \n      Single Machine\n      \n        Instructions for accessing data on a laptop or desktop.\n      \n    \n  \n\n  \n  \n    \n      🚀\n    \n    \n      HPC/Cluster\n      \n        Instructions for accessing data on a HPC system or cluster.",
     "crumbs": [
       "Getting Started"
     ]
   },
   {
-    "objectID": "index.html#citation",
-    "href": "index.html#citation",
-    "title": "\nGLOBGM CMIP6\n",
-    "section": "Citation",
-    "text": "Citation\nHelp us ensure proper credit and support reproducibility by citing both the original publication and the data in any resulting work.\nvan Jaarsveld, B., Wanders, N., Sutanudjaja, E. H., Hoch, J., Droppers, B., Janzing, J., van Beek, R. L. P. H., and Bierkens, M. F. P.: A first attempt to model global hydrology at hyper-resolution, Earth Syst. Dynam., 16, 29–54, https://doi.org/10.5194/esd-16-29-2025, 2025.\n\n@Article{esd-16-29-2025,\nAUTHOR = {van Jaarsveld, B. and Wanders, N. and Sutanudjaja, E. H. and Hoch, J. and Droppers, B. and Janzing, J. and van Beek, R. L. P. H. and Bierkens, M. F. P.},\nTITLE = {A first attempt to model global hydrology at hyper-resolution},\nJOURNAL = {Earth System Dynamics},\nVOLUME = {16},\nYEAR = {2025},\nNUMBER = {1},\nPAGES = {29--54},\nURL = {https://esd.copernicus.org/articles/16/29/2025/},\nDOI = {10.5194/esd-16-29-2025}\n}\n\nvan Jaarsveld, B., Wanders, N., Sutanudjaja, E. H., Hoch, J., Droppers, B., Janzing, J., van Beek, R. L. P. H., and Bierkens, M. F. P.: A first attempt to model global hydrology at hyper-resolution, Earth Syst. Dynam., 16, 29–54, https://doi.org/10.5194/esd-16-29-2025, 2025.\n\n@Article{esd-16-29-2025,\nAUTHOR = {van Jaarsveld, B. and Wanders, N. and Sutanudjaja, E. H. and Hoch, J. and Droppers, B. and Janzing, J. and van Beek, R. L. P. H. and Bierkens, M. F. P.},\nTITLE = {A first attempt to model global hydrology at hyper-resolution},\nJOURNAL = {Earth System Dynamics},\nVOLUME = {16},\nYEAR = {2025},\nNUMBER = {1},\nPAGES = {29--54},\nURL = {https://esd.copernicus.org/articles/16/29/2025/},\nDOI = {10.5194/esd-16-29-2025}\n}",
-    "crumbs": [
-      "Getting Started"
-    ]
-  },
-  {
-    "objectID": "data_use/data_catalogue_mannual.html",
-    "href": "data_use/data_catalogue_mannual.html",
+    "objectID": "data_overview/data_catalogue_mannual.html",
+    "href": "data_overview/data_catalogue_mannual.html",
     "title": "Data Catalogue",
     "section": "",
     "text": "Temporal Resolution\nName\nSize (Gb)\nFiles\nDownload Link\n\n\n\n\nAverage\n\n\n\n\n\n\n\nhds_reference_gswp3-w5e5_average_1960_2019.nc\n5.3\n\nDownload\n\n\n\nwtd_reference_gswp3-w5e5_average_1960_2019.nc\n5.3\n\nDownload\n\n\nAnnual\n\n\n\n\n\n\n\nhds_reference_gswp3-w5e5_annual_1960_2019.zarr.zip\n48\n\nDownload\n\n\n\nwtd_reference_gswp3-w5e5_annual_1960_2019.zarr.zip\n48\n\nDownload\n\n\nMonthly\n\n\n\n\n\n\n\nhds_reference_gswp3-w5e5_monthly_1960_2019.zarr.zip\n574\n\nDownload\n\n\n\nwtd_reference_gswp3-w5e5_monthly_1960_2019.zarr.zip\n659\n\nDownload"
   },
   {
-    "objectID": "data_use/data_catalogue_mannual.html#historical",
-    "href": "data_use/data_catalogue_mannual.html#historical",
+    "objectID": "data_overview/data_catalogue_mannual.html#historical",
+    "href": "data_overview/data_catalogue_mannual.html#historical",
     "title": "Data Catalogue",
     "section": "",
     "text": "Temporal Resolution\nName\nSize (Gb)\nFiles\nDownload Link\n\n\n\n\nAverage\n\n\n\n\n\n\n\nhds_reference_gswp3-w5e5_average_1960_2019.nc\n5.3\n\nDownload\n\n\n\nwtd_reference_gswp3-w5e5_average_1960_2019.nc\n5.3\n\nDownload\n\n\nAnnual\n\n\n\n\n\n\n\nhds_reference_gswp3-w5e5_annual_1960_2019.zarr.zip\n48\n\nDownload\n\n\n\nwtd_reference_gswp3-w5e5_annual_1960_2019.zarr.zip\n48\n\nDownload\n\n\nMonthly\n\n\n\n\n\n\n\nhds_reference_gswp3-w5e5_monthly_1960_2019.zarr.zip\n574\n\nDownload\n\n\n\nwtd_reference_gswp3-w5e5_monthly_1960_2019.zarr.zip\n659\n\nDownload"
   },
   {
-    "objectID": "data_use/data_catalogue_mannual.html#cmip6-ensemble",
-    "href": "data_use/data_catalogue_mannual.html#cmip6-ensemble",
+    "objectID": "data_overview/data_catalogue_mannual.html#cmip6-ensemble",
+    "href": "data_overview/data_catalogue_mannual.html#cmip6-ensemble",
     "title": "Data Catalogue",
     "section": "CMIP6 Ensemble",
     "text": "CMIP6 Ensemble\nThis is the mean over the 5 GCMs we ran.\n\n\n\nTemporal Resolution\nName\nSize (Gb)\nFiles\nDownload Link\n\n\n\n\nAverage\n\n\n\n\n\n\n\nhds_average_1960_2014_historical_ensemble.nc\n5\n\nDownload\n\n\n\nhds_average_2015_2100_ssp126_ensemble.nc\n5\n\nDownload\n\n\n\nhds_average_2015_2100_ssp370_ensemble.nc\n5\n\nDownload\n\n\n\nhds_average_2015_2100_ssp585_ensemble.nc\n5\n\nDownload\n\n\n\nwtd_average_1960_2014_historical_ensemble.nc\n5\n\nDownload\n\n\n\nwtd_average_2015_2100_ssp126_ensemble.nc\n5\n\nDownload\n\n\n\nwtd_average_2015_2100_ssp370_ensemble.nc\n5\n\nDownload\n\n\n\nwtd_average_2015_2100_ssp585_ensemble.nc\n5\n\nDownload\n\n\nAnnual\n\n\n\n\n\n\n\nhds_annual_1960_2014_historical_ensemble.zarr.zip\n44\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp126_ensemble.zarr.zip\n69\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp370_ensemble.zarr.zip\n69\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp585_ensemble.zarr.zip\n69\n\nDownload\n\n\n\nwtd_annual_1960_2014_historical_ensemble.zarr.zip\n50\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp126_ensemble.zarr.zip\n79\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp370_ensemble.zarr.zip\n79\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp585_ensemble.zarr.zip\n79\n\nDownload\n\n\nMonthly\n\n\n\n\n\n\n\nhds_monthly_1960_2014_historical_ensemble.zarr.zip\n526\n\nDownload\n\n\n\nhds_monthly_2015_2100_ssp126_ensemble.zarr.zip\n826\n\nDownload\n\n\n\nhds_monthly_2015_2100_ssp370_ensemble.zarr.zip\n826\n\nDownload\n\n\n\nhds_monthly_2015_2100_ssp585_ensemble.zarr.zip\n826\n\nDownload\n\n\n\nwtd_monthly_1960_2014_historical_ensemble.zarr.zip\n603\n\nDownload\n\n\n\nwtd_monthly_2015_2100_ssp126_ensemble.zarr.zip\n945\n\nDownload\n\n\n\nwtd_monthly_2015_2100_ssp370_ensemble.zarr.zip\n945\n\nDownload\n\n\n\nwtd_monthly_2015_2100_ssp585_ensemble.zarr.zip\n945\n\nDownload"
   },
   {
-    "objectID": "data_use/data_catalogue_mannual.html#cmip6-gcm",
-    "href": "data_use/data_catalogue_mannual.html#cmip6-gcm",
+    "objectID": "data_overview/data_catalogue_mannual.html#cmip6-gcm",
+    "href": "data_overview/data_catalogue_mannual.html#cmip6-gcm",
     "title": "Data Catalogue",
     "section": "CMIP6 GCM",
     "text": "CMIP6 GCM\nThis ese are the GCM’s, we only provide annual and monthly\n\n\n\nTemporal Resolution\nName\nSize (Gb)\nFiles\nDownload Link\n\n\n\n\nAverage\n\n\n\n\n\n\n\nhds_ average_1960_2014_historical_ipsl-cm6a-lr.nc\n44\n\nDownload\n\n\n\nhds_ average_1960_2014_historical_mpi-esm1-2-hr.nc\n44\n\nDownload\n\n\n\nhds_ average_1960_2014_historical_mri-esm2-0.nc\n44\n\nDownload\n\n\n\nhds_ average_1960_2014_historical_ukesm1-0-ll.nc\n44\n\nDownload\n\n\n\nhds_ average_2015_2100_ssp126_gfdl-esm4.nc\n69\n\nDownload\n\n\n\nhds_ average_2015_2100_ssp126_ipsl-cm6a-lr.nc\n69\n\nDownload\n\n\n\nhds_ average_2015_2100_ssp126_mpi-esm1-2-hr.nc\n69\n\nDownload\n\n\n\nhds_ average_2015_2100_ssp126_mri-esm2-0.nc\n69\n\nDownload\n\n\n\nhds_ average_2015_2100_ssp126_ukesm1-0-ll.nc\n69\n\nDownload\n\n\n\nhds_ average_2015_2100_ssp370_gfdl-esm4.nc\n69\n\nDownload\n\n\n\nhds_ average_2015_2100_ssp370_ipsl-cm6a-lr.nc\n69\n\nDownload\n\n\n\nhds_ average_2015_2100_ssp370_mpi-esm1-2-hr.nc\n69\n\nDownload\n\n\n\nhds_ average_2015_2100_ssp370_mri-esm2-0.nc\n69\n\nDownload\n\n\n\nhds_ average_2015_2100_ssp370_ukesm1-0-ll.nc\n69\n\nDownload\n\n\n\nhds_ average_2015_2100_ssp585_gfdl-esm4.nc\n69\n\nDownload\n\n\n\nhds_ average_2015_2100_ssp585_ipsl-cm6a-lr.nc\n69\n\nDownload\n\n\n\nhds_ average_2015_2100_ssp585_mpi-esm1-2-hr.nc\n69\n\nDownload\n\n\n\nhds_ average_2015_2100_ssp585_mri-esm2-0.nc\n69\n\nDownload\n\n\n\nhds_ average_2015_2100_ssp585_ukesm1-0-ll.nc\n69\n\nDownload\n\n\n\nwtd_ average_1960_2014_historical_gfdl-esm4.nc\n50\n\nDownload\n\n\n\nwtd_ average_1960_2014_historical_ipsl-cm6a-lr.nc\n50\n\nDownload\n\n\n\nwtd_ average_1960_2014_historical_mpi-esm1-2-hr.nc\n50\n\nDownload\n\n\n\nwtd_ average_1960_2014_historical_mri-esm2-0.nc\n50\n\nDownload\n\n\n\nwtd_ average_1960_2014_historical_ukesm1-0-ll.nc\n50\n\nDownload\n\n\n\nwtd_ average_2015_2100_ssp126_gfdl-esm4.nc\n78\n\nDownload\n\n\n\nwtd_ average_2015_2100_ssp126_ipsl-cm6a-lr.nc\n78\n\nDownload\n\n\n\nwtd_ average_2015_2100_ssp126_mpi-esm1-2-hr.nc\n78\n\nDownload\n\n\n\nwtd_ average_2015_2100_ssp126_mri-esm2-0.nc\n78\n\nDownload\n\n\n\nwtd_ average_2015_2100_ssp126_ukesm1-0-ll.nc\n78\n\nDownload\n\n\n\nwtd_ average_2015_2100_ssp370_gfdl-esm4.nc\n78\n\nDownload\n\n\n\nwtd_ average_2015_2100_ssp370_ipsl-cm6a-lr.nc\n78\n\nDownload\n\n\n\nwtd_ average_2015_2100_ssp370_mpi-esm1-2-hr.nc\n78\n\nDownload\n\n\n\nwtd_ average_2015_2100_ssp370_mri-esm2-0.nc\n78\n\nDownload\n\n\n\nwtd_ average_2015_2100_ssp370_ukesm1-0-ll.nc\n78\n\nDownload\n\n\n\nwtd_ average_2015_2100_ssp585_gfdl-esm4.nc\n78\n\nDownload\n\n\n\nwtd_ average_2015_2100_ssp585_ipsl-cm6a-lr.nc\n78\n\nDownload\n\n\n\nwtd_ average_2015_2100_ssp585_mpi-esm1-2-hr.nc\n78\n\nDownload\n\n\n\nwtd_ average_2015_2100_ssp585_mri-esm2-0.nc\n78\n\nDownload\n\n\n\nwtd_ average_2015_2100_ssp585_ukesm1-0-ll.nc\n78\n\nDownload\n\n\nAnnual\n\n\n\n\n\n\n\nhds_annual_1960_2014_historical_ipsl-cm6a-lr.zarr.zip\n44\n\nDownload\n\n\n\nhds_annual_1960_2014_historical_mpi-esm1-2-hr.zarr.zip\n44\n\nDownload\n\n\n\nhds_annual_1960_2014_historical_mri-esm2-0.zarr.zip\n44\n\nDownload\n\n\n\nhds_annual_1960_2014_historical_ukesm1-0-ll.zarr.zip\n44\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp126_gfdl-esm4.zarr.zip\n69\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp126_ipsl-cm6a-lr.zarr.zip\n69\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp126_mpi-esm1-2-hr.zarr.zip\n69\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp126_mri-esm2-0.zarr.zip\n69\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp126_ukesm1-0-ll.zarr.zip\n69\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp370_gfdl-esm4.zarr.zip\n69\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp370_ipsl-cm6a-lr.zarr.zip\n69\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp370_mpi-esm1-2-hr.zarr.zip\n69\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp370_mri-esm2-0.zarr.zip\n69\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp370_ukesm1-0-ll.zarr.zip\n69\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp585_gfdl-esm4.zarr.zip\n69\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp585_ipsl-cm6a-lr.zarr.zip\n69\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp585_mpi-esm1-2-hr.zarr.zip\n69\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp585_mri-esm2-0.zarr.zip\n69\n\nDownload\n\n\n\nhds_annual_2015_2100_ssp585_ukesm1-0-ll.zarr.zip\n69\n\nDownload\n\n\n\nwtd_annual_1960_2014_historical_gfdl-esm4.zarr.zip\n50\n\nDownload\n\n\n\nwtd_annual_1960_2014_historical_ipsl-cm6a-lr.zarr.zip\n50\n\nDownload\n\n\n\nwtd_annual_1960_2014_historical_mpi-esm1-2-hr.zarr.zip\n50\n\nDownload\n\n\n\nwtd_annual_1960_2014_historical_mri-esm2-0.zarr.zip\n50\n\nDownload\n\n\n\nwtd_annual_1960_2014_historical_ukesm1-0-ll.zarr.zip\n50\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp126_gfdl-esm4.zarr.zip\n78\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp126_ipsl-cm6a-lr.zarr.zip\n78\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp126_mpi-esm1-2-hr.zarr.zip\n78\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp126_mri-esm2-0.zarr.zip\n78\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp126_ukesm1-0-ll.zarr.zip\n78\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp370_gfdl-esm4.zarr.zip\n78\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp370_ipsl-cm6a-lr.zarr.zip\n78\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp370_mpi-esm1-2-hr.zarr.zip\n78\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp370_mri-esm2-0.zarr.zip\n78\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp370_ukesm1-0-ll.zarr.zip\n78\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp585_gfdl-esm4.zarr.zip\n78\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp585_ipsl-cm6a-lr.zarr.zip\n78\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp585_mpi-esm1-2-hr.zarr.zip\n78\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp585_mri-esm2-0.zarr.zip\n78\n\nDownload\n\n\n\nwtd_annual_2015_2100_ssp585_ukesm1-0-ll.zarr.zip\n78\n\nDownload"
   },
   {
-    "objectID": "data_use/data_catalogue_mannual.html#quality-warning",
-    "href": "data_use/data_catalogue_mannual.html#quality-warning",
+    "objectID": "data_overview/data_catalogue_mannual.html#quality-warning",
+    "href": "data_overview/data_catalogue_mannual.html#quality-warning",
     "title": "Data Catalogue",
     "section": "Quality Warning",
     "text": "Quality Warning\n\n\n\nName\nSize (Gb)\nFiles\nDownload Link\n\n\n\n\nspin_up_1960.nc\n0.7\n1\nDownload\n\n\nspin_up_1990.nc\n0.7\n1\nDownload\n\n\nspin_up_2030.nc\n0.7\n1\nDownload\n\n\nspin_up_2070.nc\n0.7\n1\nDownload\n\n\nstatic_quality_flags.nc\n2.7\n1\nDownload"
