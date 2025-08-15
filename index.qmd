@@ -3,157 +3,122 @@ title: ""
 toc: false
 ---
 
+
 <div style="color: #856404; background-color: #fff3cd; border: 1px solid #ffeaa7; font-weight: bold; font-size: 1.2em; padding: 15px; border-radius: 8px; text-align: center; margin: 2rem 0;">
   ⚠️ This website is currently under construction. Some features may not be available yet.
 </div>
 
 
-<div style="text-align: center; margin-top: 4rem; margin-bottom: 4rem;">
-  <h1 style="font-size: 3.5rem; font-weight: 700; color: #1a365d; margin-bottom: 1.5rem; letter-spacing: 0.02em;">
+<div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;">
+  <h1 style="text-align: center; font-size: 3.5rem; font-weight: 700; color: #1a365d; margin-bottom: 1.5rem; letter-spacing: 0.02em;">
     GLOBGM CMIP6
   </h1>
   <p style="font-size: 1.4rem; font-weight: 400; color: #2d3748; line-height: 1.6; max-width: 750px; margin: 0 auto;">
-    A Global Hyper-Resolution Groundwater Dataset for the Past and Future Under Climate and Socioeconomic Change.
+    A Global Hyper-Resolution Groundwater Dataset for the Past and Future Under Climate and Socioeconomic Change
   </p>
 </div>
 
-<!-- Feature Highlights -->
-<table style="width: 100%; border-collapse: separate; border-spacing: 1rem;">
-  <tr>
-    <td style="width: 25%; text-align: center; padding: 1.5rem; background: white; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); vertical-align: top;">
-      <div style="font-size: 2.5rem; margin-bottom: 1rem;">🌍</div>
-      <h3 style="font-size: 1.2rem; font-weight: 600; color: #1a365d; margin-bottom: 0.8rem;">Global Coverage</h3>
-      <p style="color: #4a5568; font-size: 0.95rem; line-height: 1.5;">Worldwide groundwater modeling at 1km resolution</p>
-    </td>
-    <td style="width: 25%; text-align: center; padding: 1.5rem; background: white; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); vertical-align: top;">
-      <div style="font-size: 2.5rem; margin-bottom: 1rem;">⚡</div>
-      <h3 style="font-size: 1.2rem; font-weight: 600; color: #1a365d; margin-bottom: 0.8rem;">Hyper-Resolution</h3>
-      <p style="color: #4a5568; font-size: 0.95rem; line-height: 1.5;">30 arc-seconds spatial resolution</p>
-    </td>
-    <td style="width: 25%; text-align: center; padding: 1.5rem; background: white; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); vertical-align: top;">
-      <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
-      <h3 style="font-size: 1.2rem; font-weight: 600; color: #1a365d; margin-bottom: 0.8rem;">Climate Scenarios</h3>
-      <p style="color: #4a5568; font-size: 0.95rem; line-height: 1.5;">Historical analysis and future projections</p>
-    </td>
-    <td style="width: 25%; text-align: center; padding: 1.5rem; background: white; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); vertical-align: top;">
-      <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔓</div>
-      <h3 style="font-size: 1.2rem; font-weight: 600; color: #1a365d; margin-bottom: 0.8rem;">Open Science</h3>
-      <p style="color: #4a5568; font-size: 0.95rem; line-height: 1.5;">Freely available dataset</p>
-    </td>
-  </tr>
-</table>
 
+
+<!-- This is a raw HTML block. Quarto will render the content inside as HTML. -->
+```{=html}
+<div class="feature-highlight">
+
+  <!-- Item 1: Global Coverage -->
+  <div class="feature-item">
+    <div class="feature-emoji">🌍</div>
+    <h3 class="feature-title">Global Coverage</h3>
+  </div>
+
+  <!-- Item 2: Hyper-Resolution -->
+  <div class="feature-item">
+    <div class="feature-emoji">🔍</div>
+    <h3 class="feature-title"> ~1km Resolution</h3>
+  </div>
+
+  <!-- Item 4: Open Science -->
+  <div class="feature-item">
+    <div class="feature-emoji">🔓</div>
+    <h3 class="feature-title">Open Science</h3>
+  </div>
+</div>
+```
+
+<div style="text-align: justify;">
+  **GLOBGM** (Global Groundwater Model) is a transient global-scale groundwater flow model operating at a high spatial resolution of 30 arc-seconds (~1 km). It employs a parallelized implementation of MODFLOW 6 with two model layers representing confined and unconfined aquifers. Designed for high-performance computing environments, GLOBGM efficiently simulates groundwater heads and water table depths worldwide, enabling detailed assessments of groundwater dynamics under historical and future climate and socioeconomic scenarios. The model uses refined input data and parameterization to capture global groundwater behavior while addressing computational challenges related to runtime, memory, and data storage at this fine resolution. We present comprehensive **groundwater heads and water table depth data** following the ISIMIP framework protocols.
+</div>
 
 <div style="text-align: center;">
-  <h3>About GLOBGM</h3>
+  <h2>Data Overview</h2>
 </div>
-
-
-**GLOBGM** (Global Groundwater Model) is a transient global-scale groundwater flow model operating at a high spatial resolution of 30 arc-seconds (~1 km). It employs a parallelized implementation of MODFLOW 6 with a structured Cartesian grid and up to two model layers representing confined and unconfined aquifers.
-
-Designed for high-performance computing environments, GLOBGM efficiently simulates groundwater heads and water table depths worldwide, enabling detailed assessments of groundwater dynamics under historical and future climate and socioeconomic scenarios. The model uses refined input data and parameterization to capture global groundwater behavior while addressing computational challenges related to runtime, memory, and data storage at this fine resolution.
-
-We present comprehensive **groundwater heads and water table depth data** following the ISIMIP framework protocols. To support researchers and practitioners, we provide:
-
-- **Download tools & Access utilities** for efficient data retrieval or for streaming data and regional data extraction
-- **Code examples** for common use cases and visualization approaches
-
-
-<div class="dataset-overview-header">
-  <h2>Dataset Overview</h2>
-  <p>The dataset includes two primary components developed under the ISIMIP framework, each designed for a specific scientific purpose. Select a tab below to explore the details of each component.</p>
-</div>
-
-::: {.panel-tabset}
-
-#### Historical Reference
-
-**Purpose:** Designed for model evaluation and impact attribution studies.
-
-*   **Temporal Range:** 1960–2019
-*   **Forcing Data:** Driven by GSWP3-W5E5 meteorological outputs.
-*   **Use Case:** Ideal for validating models against observed historical climate data.
-
-#### Climate Projections
-
-**Purpose:** Focused on prospective climate change impact assessment.
-
-*   **Temporal Range:** 1960–2100
-*   **Emission Scenarios (SSP-RCPs):**
-    *   SSP1-2.6 (Low emissions pathway)
-    *   SSP3-7.0 (Medium-to-high emissions)
-    *   SSP5-8.5 (High emissions "fossil-fueled development" pathway)
-*   **Global Climate Models (GCMs):**
-    *   GFDL-ESM4
-    *   IPSL-CM6A-LR
-    *   MPI-ESM1-2-HR
-    *   MRI-ESM2-0
-    *   UKESM1-0-LL
-
-:::
-
-<div style="text-align: center;">
-  <h3>Dataset Access</h3>
-</div>
-
-Given the large volume of data in this package, we recognize that all users may not have the computing resources necessary to process the data at a global scale. Therefore, we have provided two sets of instructions tailored to different user needs. Please visit the data catalog page to review the disk storage requirements for each dataset to ensure you have adequate resources.
 
 ```{=html}
-<table style="width: 100%; border-collapse: separate; border-spacing: 1rem; margin-top: 1.5rem;">
-  <tbody>
-    <tr>
-      <td style="width: 50%; vertical-align: top;">
-        <a href="data_access/single_machine.qmd" style="text-decoration: none; color: inherit; display: block; height: 100%;">
-          <div style="height: 100%; padding: 1.5rem; border: 1px solid #ddd; border-radius: 10px; transition: all 0.3s ease-in-out;" onmouseover="this.style.borderColor='#007bff'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.1)';" onmouseout="this.style.borderColor='#ddd'; this.style.boxShadow='none';">
-            <h4 style="margin-top: 0; color: #007bff;">Single Machine Access</h4>
-            <p style="color: #4a5568;">Instructions for accessing data on a laptop or desktop.</p>
-          </div>
-        </a>
-      </td>
-      <td style="width: 50%; vertical-align: top;">
-        <a href="data_access/hpc_usage.qmd" style="text-decoration: none; color: inherit; display: block; height: 100%;">
-          <div style="height: 100%; padding: 1.5rem; border: 1px solid #ddd; border-radius: 10px; transition: all 0.3s ease-in-out;" onmouseover="this.style.borderColor='#007bff'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.1)';" onmouseout="this.style.borderColor='#ddd'; this.style.boxShadow='none';">
-            <h4 style="margin-top: 0; color: #007bff;">HPC Access</h4>
-            <p style="color: #4a5568;">Instructions for accessing data on a HPC system or cluster.</p>
-          </div>
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="dataset-highlight">
+  <!-- Historical Reference (Block 1) -->
+  <div class="dataset-item dataset-historical">
+    <div class="dataset-avatar">
+      <span class="dataset-icon">🕰️</span>
+    </div>
+    <div class="dataset-content">
+      <h3 class="dataset-title">Historical Reference</h3>
+      <p class="dataset-purpose">
+        Historical simulations span 1960–2019, forced by GSWP3-W5E5 meteorological data, enabling rigorous validation and impact attribution against observed climate records.
+      </p>
+    </div>
+  </div>
 
+  <!-- Climate Projections (Block 2) -->
+  <div class="dataset-item dataset-projection">
+    <div class="dataset-avatar">
+      <span class="dataset-icon">📈</span>
+    </div>
+    <div class="dataset-content">
+      <h3 class="dataset-title">Climate Projections</h3>
+      <p class="dataset-purpose">
+        Projections cover 1960–2100, driven by SSP-RCP scenarios (SSP1-2.6: low; SSP3-7.0: medium-high; SSP5-8.5: high) and GCMs (GFDL-ESM4, IPSL-CM6A-LR, MPI-ESM1-2-HR, MRI-ESM2-0, UKESM1-0-LL) to quantify groundwater dynamics under changing climate-forcings.
+      </p>
+    </div>
+  </div>
+</div>
 ```
 
-## Citation
 
-Help us ensure proper credit and support reproducibility by citing both the original publication and the data in any resulting work.
+<div style="text-align: center;">
+  <h2>Data Access</h2>
+</div>
 
-```
-van Jaarsveld, B., Wanders, N., Sutanudjaja, E. H., Hoch, J., Droppers, B., Janzing, J., van Beek, R. L. P. H., and Bierkens, M. F. P.: A first attempt to model global hydrology at hyper-resolution, Earth Syst. Dynam., 16, 29–54, https://doi.org/10.5194/esd-16-29-2025, 2025.
+<div style="text-align: justify;">
+Given the large volume of data in this package, we recognize that all users may not have the computing resources necessary to process the data at a global scale. Therefore, we have provided two sets of instructions tailored to different user needs. Please visit the data catalog page to review the disk storage requirements for each dataset to ensure you have adequate resources.
+</div>
 
-@Article{esd-16-29-2025,
-AUTHOR = {van Jaarsveld, B. and Wanders, N. and Sutanudjaja, E. H. and Hoch, J. and Droppers, B. and Janzing, J. and van Beek, R. L. P. H. and Bierkens, M. F. P.},
-TITLE = {A first attempt to model global hydrology at hyper-resolution},
-JOURNAL = {Earth System Dynamics},
-VOLUME = {16},
-YEAR = {2025},
-NUMBER = {1},
-PAGES = {29--54},
-URL = {https://esd.copernicus.org/articles/16/29/2025/},
-DOI = {10.5194/esd-16-29-2025}
-}
 
-van Jaarsveld, B., Wanders, N., Sutanudjaja, E. H., Hoch, J., Droppers, B., Janzing, J., van Beek, R. L. P. H., and Bierkens, M. F. P.: A first attempt to model global hydrology at hyper-resolution, Earth Syst. Dynam., 16, 29–54, https://doi.org/10.5194/esd-16-29-2025, 2025.
+```{=html}
+<div class="dataset-highlight">
+  <!-- Single Machine Access -->
+  <div class="dataset-item dataset-single-machine">
+    <div class="dataset-avatar">
+      <span class="dataset-icon">💻</span>
+    </div>
+    <div class="dataset-content">
+      <h3 class="dataset-title">Single Machine</h3>
+      <p class="dataset-purpose">
+        Instructions for accessing data on a laptop or desktop.
+      </p>
+    </div>
+  </div>
 
-@Article{esd-16-29-2025,
-AUTHOR = {van Jaarsveld, B. and Wanders, N. and Sutanudjaja, E. H. and Hoch, J. and Droppers, B. and Janzing, J. and van Beek, R. L. P. H. and Bierkens, M. F. P.},
-TITLE = {A first attempt to model global hydrology at hyper-resolution},
-JOURNAL = {Earth System Dynamics},
-VOLUME = {16},
-YEAR = {2025},
-NUMBER = {1},
-PAGES = {29--54},
-URL = {https://esd.copernicus.org/articles/16/29/2025/},
-DOI = {10.5194/esd-16-29-2025}
-}
+  <!-- HPC Access -->
+  <div class="dataset-item dataset-hpc">
+    <div class="dataset-avatar">
+      <span class="dataset-icon">🚀</span>
+    </div>
+    <div class="dataset-content">
+      <h3 class="dataset-title">HPC/Cluster</h3>
+      <p class="dataset-purpose">
+        Instructions for accessing data on a HPC system or cluster.
+      </p>
+    </div>
+  </div>
+</div>
+
 ```

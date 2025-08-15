@@ -1,7 +1,11 @@
 ---
-title: "Data Catalogue"
+title: ""
 toc: false
 ---
+
+<div style="text-align: center;">
+  <h2>Catalogue</h2>
+</div>
 
 ## Historical
 
@@ -84,7 +88,7 @@ show(
 )
 ```
 
-## Quality Warning
+## Quality Assurance
 ```{python}
 #| echo: False
 df = pd.read_csv('quality.csv', header=None, names=['Name', 'size', 'hash'])

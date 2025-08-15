@@ -22,25 +22,132 @@ $enable-grid-classes: true;
   gap: 1rem;
 }
 
-// Your specific feature cards
+// --- Updated Feature Highlights Section ---
+
+// The main grid container for the feature items
 .feature-highlight {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); // Reduced min width for smaller boxes
   gap: 2rem;
-  margin: 3rem 0;
+  margin: 2rem 0;
+}
+
+// Each individual feature box
+.feature-item {
+  // Visual styling
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  padding: 0.35rem; // Reduced padding for smaller height
+  aspect-ratio: 1 / 0.55; // Slightly wider than tall to reduce height visually
   
-  .feature-item {
+  // Centering content with Flexbox
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  // Styles for the emoji inside the feature item
+  .feature-emoji {
+    font-size: 3.5rem;
+    margin-bottom: 0rem;
+  }
+
+  // Styles for the title inside the feature item
+  .feature-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a365d;
+    margin: 0;
     text-align: center;
-    padding: 2rem 1rem;
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease;
-    
-    &:hover {
-      transform: translateY(-5px);
-    }
+  }
+}
+// --- Dataset Blocks (Enhanced Aesthetics) ---
+
+.dataset-highlight {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); // Side-by-side for comparison
+  gap: 3rem;
+  margin: 3rem 0;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr; // Stack on mobile
+    gap: 2rem;
   }
 }
 
+.dataset-item {
+  background: linear-gradient(129deg, #f8fafc 75%, #e3ecfc 100%); // Soft gradient for depth
+  border-radius: 22px; // Softer rounded corners
+  box-shadow: 0 8px 28px rgba(24, 56, 120, 0.08); // Gentler shadow
+  padding: 2.5rem 2rem 2rem 2rem;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  min-height: 210px;
 
+  .dataset-avatar {
+    margin-right: 2rem;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+    background: linear-gradient(120deg, #e0eefe 60%, #bfdcf6 100%);
+    border-radius: 50%;
+    width: 62px;
+    height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(31, 66, 128, 0.06);
+  }
+
+  .dataset-icon {
+    font-size: 2.8rem;
+    color: #324a89;
+    vertical-align: middle;
+  }
+
+  .dataset-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    // No align-items—default is 'stretch'
+  }
+
+  .dataset-title {
+    font-size: 1.38rem;
+    font-weight: 700;
+    color: #1a365d;
+    margin: 0 0 0.6rem 0;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+    text-align: left;
+  }
+
+  .dataset-purpose {
+    font-size: 1.08rem;
+    line-height: 1.65;
+    color: #2d3748;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-variation-settings: "wght" 410;
+    text-align: left;    // <-- This is the key: keeps the paragraph left-aligned with the content start (icon)
+    width: 100%;         // Ensures full width, but NOT centered
+    padding-left: 0;     // No left padding, starts right after the icon
+  }
+}
+
+.dataset-historical .dataset-avatar {
+  background: linear-gradient(120deg, #d0eaff 60%, #a7cef6 100%);
+}
+.dataset-projection .dataset-avatar {
+  background: linear-gradient(120deg, #d3fbe9 60%, #b1f5d6 100%);
+}
+
+
+.dataset-single-machine .dataset-avatar {
+  background: linear-gradient(120deg, #d0eaff 60%, #a7cef6 100%);
+}
+.dataset-hpc .dataset-avatar {
+  background: linear-gradient(120deg, #d3fbe9 60%, #b1f5d6 100%);
+}
