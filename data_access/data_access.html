@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>overview – GLOBGM_CMIP6</title>
+<title>data_access – GLOBGM_CMIP6</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,8 +64,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../data_overview/catalogue.html" rel="next">
-<link href="../index.html" rel="prev">
+<link href="../data_overview/data_catalogue.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -72,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar docked fullcontent quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -81,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../data_overview/overview.html">Data Overview</a></li><li class="breadcrumb-item"><a href="../data_overview/overview.html">Overview</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../data_access/data_access.html">Data Access</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -113,84 +147,99 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Getting Started</span></a>
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Data Overview</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../data_overview/overview.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Overview</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../data_overview/catalogue.html" class="sidebar-item-text sidebar-link">
+  <a href="../data_overview/data_catalogue.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data Catalogue</span></a>
   </div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../data_access/data_access.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Data Access</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../data_access/single_machine.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Single Machine Access</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../data_access/hpc_usage.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">HPC Access</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../data_overview/overview.html">Data Overview</a></li><li class="breadcrumb-item"><a href="../data_overview/overview.html">Overview</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
 
 <div style="text-align: center;">
 <h2 class="anchored">
-Overview
+Data Access
 </h2>
 </div>
-<p>GLOBGM employs a two-layer groundwater model, with outputs available for both layers. Layer 1 (l1) represents the shallow, unconfined aquifer system (potentially including a confining unit), while Layer 2 (l2) models the deeper, confined aquifer. Properly interpreting these layers is essential for selecting the appropriate data in your analysis.</p>
-<p>The aquifer type at any location is determined by the data presence in each layer:</p>
-<ul>
-<li><p><strong>Confined System:</strong> Occurs where Layer 1 contains valid data, representing the confining layer (aquitard), with Layer 2 data corresponding to the underlying confined aquifer.</p></li>
-<li><p><strong>Unconfined System:</strong> Identified where Layer 1 is null (no data) and Layer 2 has valid data, indicating an unconfined aquifer in Layer 2.</p></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../images/layers_figure.png" class="img-fluid figure-img"></p>
-<figcaption>Caption for the image.</figcaption>
-</figure>
+<div style="text-align: center;">
+<h2 class="anchored">
+Laptops and Desktops
+</h2>
 </div>
+<p>Working with a dataset of this scale on a personal computer can be challenging. For this reason, you will likely find it most effective to analyze specific regions or time periods you are interested in. However, downloading and analyzing the entire global dataset might be feasible if you select a coarser temporal resolution, such as the annual or long-term average data. Please see the Data Catalogue to decide if you have enough disk space for the data you are interested in.</p>
+<p>To make this process as smooth as possible, we have formatted the data using Zarr, a modern format designed for cloud-native access. This allows you to stream only the data you need, saving significant time and disk space. Below, we provide functions to help you connect to our YODA data archive, select the data you wish to analyze, and save it to your disk. For quickly accessing information on the the latitude and longitude limits of your region of interest we suggest to make use of readily available tools such as <a href="https://geojson.io/">geojson</a>. In addition, it is possible to download the data directly from the YODA portal however user should be aware of the storage requirements.</p>
+<!-- TODO: add links, update gif -->
+<div style="text-align: left;">
+<h3 class="anchored">
+Streaming Data into memory
+</h3>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> fsspec</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fsspec.implementations.<span class="bu">zip</span> <span class="im">import</span> ZipFileSystem</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dask.diagnostics <span class="im">import</span> ProgressBar</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_dataset(url: <span class="bu">str</span>) <span class="op">-&gt;</span> xr.Dataset:</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    file_object <span class="op">=</span> fsspec.<span class="bu">open</span>(url).<span class="bu">open</span>()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    zip_fs <span class="op">=</span> ZipFileSystem(file_object, mode<span class="op">=</span><span class="st">'r'</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    store_mapper <span class="op">=</span> fsspec.FSMap(<span class="st">'/'</span>, zip_fs, check<span class="op">=</span><span class="va">False</span>, create<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xr.open_zarr(store_mapper, zarr_format<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://geo.public.data.uu.nl/vault-globgm-historical-reference-gswp3-w5e5/research-globgm-historical-reference-gswp3-w5e5%5B1754035745%5D/original/annual/hds_reference_gswp3-w5e5_annual_1960_2019.zarr.zip"</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>save_path <span class="op">=</span> Path(<span class="st">"local_path_to_save_data"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> load_dataset(url)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ds.to_netcdf(save_path / 'hds_reference_gswp3-w5e5_annual_1960_2019.nc')</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># ds.to_zarr(save_path / 'hds_reference_gswp3-w5e5_annual_1960_2019.zarr')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div style="text-align: left;">
+<h3 class="anchored">
+Direct Download
+</h3>
+</div>
+<p>If you think you have enough computational resources at hand then please do download the data at the global scale. For this, we provide you with a option to download the data using YODA’s web based acces.</p>
+<p><img src="../images/web_dav_gif.gif" class="img-fluid"></p>
+<div style="text-align: center;">
+<h2 class="anchored">
+High Performance Computing
+</h2>
+</div>
+<p>This guide provides instructions for accessing the GLOBGM dataset on High-Performance Computing (HPC) systems. The recommended method depends on your specific system and preferences.</p>
+<!-- #TODO: add codes for the yoda repo full download -->
+<div style="text-align: left;">
+<h3 class="anchored">
+Download Data
+</h3>
+</div>
+<p>The primary method for downloading the complete dataset is directly from the YODA (Your Data) repository. Several command-line tools can be used for this purpose, such as wget.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-r</span> <span class="at">-P</span> PATH_ON_LOCAL_FILE_SYSTEM URL_TO_FOLDER_ON_YODA </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div style="text-align: left;">
+<h3 class="anchored">
+Snellius Users
+</h3>
+</div>
+<p>We are actively working to make the GLOBGM dataset available as a managed dataset on the Snellius supercomputer. This will enable direct and optimized access for all Snellius users. Please watch this space for future updates on availability.</p>
+<p>In the interim, users on Snellius can request direct access to the data. Please contact the project administrator to arrange a data transfer via the scratch file system.</p>
 
 
 
@@ -596,25 +645,22 @@ Overview
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="Getting Started">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Getting Started</span>
+      <a href="../data_overview/data_catalogue.html" class="pagination-link" aria-label="Data Catalogue">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Data Catalogue</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../data_overview/catalogue.html" class="pagination-link" aria-label="Data Catalogue">
-        <span class="nav-page-text">Data Catalogue</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© CC-By STILL NEED TO UPDATE</p>
+<p>© Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/vanjaarsveldbarry/globgm_cmip6/edit/main/data_overview/overview.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/vanjaarsveldbarry/globgm_cmip6/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.com/vanjaarsveldbarry/globgm_cmip6/edit/main/data_access/data_access.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/vanjaarsveldbarry/globgm_cmip6/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

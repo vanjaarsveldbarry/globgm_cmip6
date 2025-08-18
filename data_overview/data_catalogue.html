@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>hpc_usage – GLOBGM_CMIP6</title>
+<title>data_catalogue – GLOBGM_CMIP6</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,51 +20,17 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../data_access/single_machine.html" rel="prev">
+<link href="../data_access/data_access.html" rel="next">
+<link href="../index.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -102,11 +68,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
 
-<body class="nav-sidebar docked quarto-light">
+<body class="nav-sidebar docked fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -115,7 +84,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../data_access/single_machine.html">Data Access</a></li><li class="breadcrumb-item"><a href="../data_access/hpc_usage.html">HPC Access</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../data_overview/data_catalogue.html">Data Catalogue</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -147,90 +116,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Getting Started</span></a>
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Data Overview</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../data_overview/overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Overview</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../data_overview/catalogue.html" class="sidebar-item-text sidebar-link">
+  <a href="../data_overview/data_catalogue.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Data Catalogue</span></a>
   </div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../data_access/data_access.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data Access</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../data_access/single_machine.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Single Machine Access</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../data_access/hpc_usage.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">HPC Access</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
-    </div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../data_access/single_machine.html">Data Access</a></li><li class="breadcrumb-item"><a href="../data_access/hpc_usage.html">HPC Access</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
 
 <div style="text-align: center;">
+<h2 class="anchored">
+Data Catalogue
+</h2>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../images/layers_figure.png" class="img-fluid figure-img"></p>
+<figcaption>The four continental scale groundwater models that constitute GLOBGM - a global groundwater model. Dark overlays indicate the presence of a confining layer and grids visualises the data structure regarding the two model layers.</figcaption>
+</figure>
+</div>
+<p>GLOBGM employs a two-layer groundwater model, with outputs available for both layers. Layer 1 (l1) represents the shallow, unconfined aquifer system (potentially including a confining unit), while Layer 2 (l2) models the deeper, confined aquifer. Properly interpreting these layers is essential for selecting the appropriate data in your analysis.</p>
+<p>The aquifer type at any location is determined by the data presence in each layer:</p>
+<ul>
+<li><p><strong>Confined System:</strong> Occurs where Layer 1 contains valid data, representing the confining layer (aquitard), with Layer 2 data corresponding to the underlying confined aquifer.</p></li>
+<li><p><strong>Unconfined System:</strong> Identified where Layer 1 is null (no data) and Layer 2 has valid data, indicating an unconfined aquifer in Layer 2.</p></li>
+</ul>
+<div style="text-align: justify;">
+<p>Tables below are provide the filenames and general overview of the data package. Filenames are clickable and will redirect to the YODA repo containing the data. In addition, direct downloads are possible via the download button.</p>
+</div>
+<div style="text-align:left;">
 <h3 class="anchored">
-HPC Access
+<a href="https://public.yoda.uu.nl/geo/UU01/AKSHOX.html" target="_blank" rel="noopener"> Historical Reference </a>
 </h3>
 </div>
-<p>This guide provides instructions for accessing the GLOBGM dataset on High-Performance Computing (HPC) systems. The recommended method depends on your specific system and preferences.</p>
-<div style="text-align: center;">
-<h3 class="anchored">
-Download Remote Data
-</h3>
+<div id="b71f840c" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<!--| quarto-html-table-processing: none -->
+<table id="T_c6da5"><tbody><tr>
+    <td style="vertical-align:middle; text-align:left">
+    
+    Loading ITables v2.4.4 from the internet...
+    (need <a href="https://mwouts.github.io/itables/troubleshooting.html">help</a>?)</td>
+    </tr></tbody></table>
+<link href="https://www.unpkg.com/dt_for_itables@2.3.3/dt_bundle.css" rel="stylesheet">
+<script type="module">
+    import { ITable, jQuery as $ } from 'https://www.unpkg.com/dt_for_itables@2.3.3/dt_bundle.js';
+
+    document.querySelectorAll("#T_c6da5:not(.dataTable)").forEach(table => {
+        if (!(table instanceof HTMLTableElement))
+            return;
+
+        let dt_args = {"classes": ["display", "compact"], "columnDefs": [{"className": "dt-left", "targets": "_all"}], "layout": {"topStart": null, "topEnd": null, "bottomStart": null, "bottomEnd": null}, "text_in_header_can_be_selected": true, "order": [], "style": {"table-layout": "auto", "width": "auto", "margin": "auto", "caption-side": "bottom"}, "table_style": "\n", "table_html": "\n<table id=\"T_c6da5\">\n  <thead>\n    <tr>\n      <th id=\"T_c6da5_level0_col0\" class=\"col_heading level0 col0\" >Aggregation</th>\n      <th id=\"T_c6da5_level0_col1\" class=\"col_heading level0 col1\" >Name</th>\n      <th id=\"T_c6da5_level0_col2\" class=\"col_heading level0 col2\" >Size (Gb)</th>\n      <th id=\"T_c6da5_level0_col3\" class=\"col_heading level0 col3\" >Download</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td id=\"T_c6da5_row0_col0\" class=\"data row0 col0\" >Average</td>\n      <td id=\"T_c6da5_row0_col1\" class=\"data row0 col1\" >hds_reference_gswp3-w5e5_average_1960_2019.nc</td>\n      <td id=\"T_c6da5_row0_col2\" class=\"data row0 col2\" >5</td>\n      <td id=\"T_c6da5_row0_col3\" class=\"data row0 col3\" ><a href='https://geo.public.data.uu.nl/vault-globgm-historical-reference-gswp3-w5e5/research-globgm-historical-reference-gswp3-w5e5%5B1754035745%5D/original/average/hds_reference_gswp3-w5e5_average_1960_2019.nc' target='_blank'>Download</a></td>\n    </tr>\n    <tr>\n      <td id=\"T_c6da5_row1_col0\" class=\"data row1 col0\" >Average</td>\n      <td id=\"T_c6da5_row1_col1\" class=\"data row1 col1\" >wtd_reference_gswp3-w5e5_average_1960_2019.nc</td>\n      <td id=\"T_c6da5_row1_col2\" class=\"data row1 col2\" >5</td>\n      <td id=\"T_c6da5_row1_col3\" class=\"data row1 col3\" ><a href='https://geo.public.data.uu.nl/vault-globgm-historical-reference-gswp3-w5e5/research-globgm-historical-reference-gswp3-w5e5%5B1754035745%5D/original/average/wtd_reference_gswp3-w5e5_average_1960_2019.nc' target='_blank'>Download</a></td>\n    </tr>\n    <tr>\n      <td id=\"T_c6da5_row2_col0\" class=\"data row2 col0\" >Annual</td>\n      <td id=\"T_c6da5_row2_col1\" class=\"data row2 col1\" >hds_reference_gswp3-w5e5_annual_1960_2019.zarr.zip</td>\n      <td id=\"T_c6da5_row2_col2\" class=\"data row2 col2\" >48</td>\n      <td id=\"T_c6da5_row2_col3\" class=\"data row2 col3\" ><a href='https://geo.public.data.uu.nl/vault-globgm-historical-reference-gswp3-w5e5/research-globgm-historical-reference-gswp3-w5e5%5B1754035745%5D/original/annual/hds_reference_gswp3-w5e5_annual_1960_2019.zarr.zip' target='_blank'>Download</a></td>\n    </tr>\n    <tr>\n      <td id=\"T_c6da5_row3_col0\" class=\"data row3 col0\" >Annual</td>\n      <td id=\"T_c6da5_row3_col1\" class=\"data row3 col1\" >wtd_reference_gswp3-w5e5_annual_1960_2019.zarr.zip</td>\n      <td id=\"T_c6da5_row3_col2\" class=\"data row3 col2\" >55</td>\n      <td id=\"T_c6da5_row3_col3\" class=\"data row3 col3\" ><a href='https://geo.public.data.uu.nl/vault-globgm-historical-reference-gswp3-w5e5/research-globgm-historical-reference-gswp3-w5e5%5B1754035745%5D/original/annual/wtd_reference_gswp3-w5e5_annual_1960_2019.zarr.zip' target='_blank'>Download</a></td>\n    </tr>\n    <tr>\n      <td id=\"T_c6da5_row4_col0\" class=\"data row4 col0\" >Monthly</td>\n      <td id=\"T_c6da5_row4_col1\" class=\"data row4 col1\" >hds_reference_gswp3-w5e5_monthly_1960_2019.zarr.zip</td>\n      <td id=\"T_c6da5_row4_col2\" class=\"data row4 col2\" >574</td>\n      <td id=\"T_c6da5_row4_col3\" class=\"data row4 col3\" ><a href='https://geo.public.data.uu.nl/vault-globgm-historical-reference-gswp3-w5e5/research-globgm-historical-reference-gswp3-w5e5%5B1754035745%5D/original/monthly/hds_reference_gswp3-w5e5_monthly_1960_2019.zarr.zip' target='_blank'>Download</a></td>\n    </tr>\n    <tr>\n      <td id=\"T_c6da5_row5_col0\" class=\"data row5 col0\" >Monthly</td>\n      <td id=\"T_c6da5_row5_col1\" class=\"data row5 col1\" >wtd_reference_gswp3-w5e5_monthly_1960_2019.zarr.zip</td>\n      <td id=\"T_c6da5_row5_col2\" class=\"data row5 col2\" >659</td>\n      <td id=\"T_c6da5_row5_col3\" class=\"data row5 col3\" ><a href='https://geo.public.data.uu.nl/vault-globgm-historical-reference-gswp3-w5e5/research-globgm-historical-reference-gswp3-w5e5%5B1754035745%5D/original/monthly/wtd_reference_gswp3-w5e5_monthly_1960_2019.zarr.zip' target='_blank'>Download</a></td>\n    </tr>\n  </tbody>\n</table>\n"};
+        new ITable(table, dt_args);
+    });
+</script>
 </div>
-<p>The primary method for downloading the complete dataset is directly from the YODA (Your Data) repository. Several command-line tools can be used for this purpose, including wget for recursive downloading, or iRODS clients like iCommands and iBridges for more advanced data management.</p>
-<p>A general wget command to recursively download a directory is as follows:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-r</span> <span class="at">-P</span> PATH_ON_LOCAL_FILE_SYSTEM URL_TO_FOLDER_ON_YODA </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div style="text-align: center;">
-<h3 class="anchored">
-Snellius Users
-</h3>
 </div>
-<p>We are actively working to make the GLOBGM dataset available as a managed dataset on the Snellius supercomputer. This will enable direct and optimized access for all Snellius users. Please watch this space for future updates on availability.</p>
-<p>In the interim, users on Snellius can request direct access to the data. Please contact the project administrator to arrange a data transfer via the scratch file system.</p>
 
 
 
@@ -636,22 +596,25 @@ Snellius Users
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../data_access/single_machine.html" class="pagination-link" aria-label="Single Machine Access">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Single Machine Access</span>
+      <a href="../index.html" class="pagination-link" aria-label="Introduction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../data_access/data_access.html" class="pagination-link" aria-label="Data Access">
+        <span class="nav-page-text">Data Access</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© CC-By STILL NEED TO UPDATE</p>
+<p>© Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/vanjaarsveldbarry/globgm_cmip6/edit/main/data_access/hpc_usage.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/vanjaarsveldbarry/globgm_cmip6/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.com/vanjaarsveldbarry/globgm_cmip6/edit/main/data_overview/data_catalogue.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/vanjaarsveldbarry/globgm_cmip6/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
