@@ -1,0 +1,75 @@
+---
+title: ""
+---
+
+::: {style="text-align: center;"}
+<h2>Data Access</h2>
+:::
+
+<div style="text-align: center;">
+  <h2>Laptops and Desktops</h2>
+</div>
+
+Working with a dataset of this scale on a personal computer can be challenging. For this reason, you will likely find it most effective to analyze specific regions or time periods you are interested in. However, downloading and analyzing the entire global dataset might be feasible if you select a coarser temporal resolution, such as the annual or long-term average data. Please see the Data Catalogue to decide if you have enough disk space for the data you are interested in.
+
+To make this process as smooth as possible, we have formatted the data using Zarr, a modern format designed for cloud-native access. This allows you to stream only the data you need, saving significant time and disk space. Below, we provide functions to help you connect to our YODA data archive, select the data you wish to analyze, and save it to your disk. For quickly accessing information on the the latitude and longitude limits of your region of interest we suggest to make use of readily available tools such as [geojson](https://geojson.io/). In addition, it is possible to download the data directly from the YODA portal however user should be aware of the storage requirements.
+
+<!-- TODO: add links, update gif -->
+
+<div style="text-align: left;">
+  <h3>Streaming Data into memory</h3>
+</div>
+
+```python
+import xarray as xr
+import fsspec
+from fsspec.implementations.zip import ZipFileSystem
+from pathlib import Path
+from dask.diagnostics import ProgressBar
+
+def load_dataset(url: str) -> xr.Dataset:
+    file_object = fsspec.open(url).open()
+    zip_fs = ZipFileSystem(file_object, mode='r')
+    store_mapper = fsspec.FSMap('/', zip_fs, check=False, create=False)
+    return xr.open_zarr(store_mapper, zarr_format=2)
+
+url = "https://geo.public.data.uu.nl/vault-globgm-historical-reference-gswp3-w5e5/research-globgm-historical-reference-gswp3-w5e5%5B1754035745%5D/original/annual/hds_reference_gswp3-w5e5_annual_1960_2019.zarr.zip"
+save_path = Path("local_path_to_save_data")
+
+ds = load_dataset(url)
+# ds.to_netcdf(save_path / 'hds_reference_gswp3-w5e5_annual_1960_2019.nc')
+# ds.to_zarr(save_path / 'hds_reference_gswp3-w5e5_annual_1960_2019.zarr')
+```
+
+<div style="text-align: left;">
+  <h3>Direct Download</h3>
+</div>
+
+If you think you have enough computational resources at hand then please do download the data at the global scale. For this, we provide you with a option to download the data using YODA's web based acces.
+
+![](../images/web_dav_gif.gif)
+
+<div style="text-align: center;">
+  <h2>High Performance Computing</h2>
+</div>
+
+This guide provides instructions for accessing the GLOBGM dataset on High-Performance Computing (HPC) systems. The recommended method depends on your specific system and preferences.
+
+<!-- #TODO: add codes for the yoda repo full download -->
+<div style="text-align: left;">
+  <h3>Download Data</h3>
+</div>
+
+The primary method for downloading the complete dataset is directly from the YODA (Your Data) repository. Several command-line tools can be used for this purpose, such as wget.
+
+```bash
+wget -r -P PATH_ON_LOCAL_FILE_SYSTEM URL_TO_FOLDER_ON_YODA 
+```
+
+<div style="text-align: left;">
+  <h3>Snellius Users</h3>
+</div>
+
+We are actively working to make the GLOBGM dataset available as a managed dataset on the Snellius supercomputer. This will enable direct and optimized access for all Snellius users. Please watch this space for future updates on availability.
+
+In the interim, users on Snellius can request direct access to the data. Please contact the project administrator to arrange a data transfer via the scratch file system.

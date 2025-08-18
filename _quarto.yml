@@ -10,7 +10,7 @@ website:
   
   page-footer:
     right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
-    left: "&copy; CC-By STILL NEED TO UPDATE" #TODO 
+    left: "&copy; Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)"
     
   sidebar:
     logo: "images/LogoGEOWAT.png"
@@ -27,21 +27,13 @@ website:
     collapse: false
     contents:
       - href: index.qmd
-        text: Getting Started
+        text: Introduction
 
-      - section: "Data Overview"
-        contents:
-          - href: data_overview/overview.qmd
-            text: "Overview"
-          - href: data_overview/catalogue.qmd
-            text: "Data Catalogue"
+      - href: data_overview/data_catalogue.qmd
+        text: "Data Catalogue"
 
-      - section: "Data Access"
-        contents:
-          - href: data_access/single_machine.qmd
-            text: "Single Machine Access"
-          - href: data_access/hpc_usage.qmd
-            text: "HPC Access"
+      - href: data_access/data_access.qmd
+        text: "Data Access"
 
 
 format:

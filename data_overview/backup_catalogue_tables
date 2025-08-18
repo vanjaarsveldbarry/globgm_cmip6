@@ -3,9 +3,19 @@ title: ""
 toc: false
 ---
 
-<div style="text-align: center;">
-  <h2>Catalogue</h2>
-</div>
+::: {style="text-align: center;"}
+<h2>Overview</h2>
+:::
+
+GLOBGM employs a two-layer groundwater model, with outputs available for both layers. Layer 1 (l1) represents the shallow, unconfined aquifer system (potentially including a confining unit), while Layer 2 (l2) models the deeper, confined aquifer. Properly interpreting these layers is essential for selecting the appropriate data in your analysis.
+
+The aquifer type at any location is determined by the data presence in each layer:
+
+-   **Confined System:** Occurs where Layer 1 contains valid data, representing the confining layer (aquitard), with Layer 2 data corresponding to the underlying confined aquifer.
+
+-   **Unconfined System:** Identified where Layer 1 is null (no data) and Layer 2 has valid data, indicating an unconfined aquifer in Layer 2.
+
+![The four continental scale groundwater models that constitute GLOBGM - a global groundwater model. Dark overlays indicate the presence of a confining layer and grids visualises the data structure regarding the two model layers.](../images/layers_figure.png){fig-align="center"}
 
 ## Historical
 
@@ -19,7 +29,7 @@ df = pd.read_csv('historical_ref.csv', header=None, names=['path', 'size', 'hash
 df[['Temporal Resolution', 'Name']] = df['path'].str.split('/', n=1, expand=True)
 df['Temporal Resolution'] = df['Temporal Resolution'].str.capitalize()
 df['Size (Gb)'] = df['size'].str.replace(' GiB', '').astype(float).round().astype(int)
-df['Download Link'] = 'https://zenodo.org/records/10034346/files/' + df['path']
+df['Download Link'] = 'https://geo.public.data.uu.nl/vault-globgm-historical-reference-gswp3-w5e5/research-globgm-historical-reference-gswp3-w5e5%5B1754035745%5D/original/' + df['path']
 df = df[['Temporal Resolution', 'Name', 'Size (Gb)', 'Download Link']]
 df.columns = ["Temporal Resolution", "Name", "Size (Gb)", "Download Link"]
 
@@ -36,8 +46,7 @@ show(
     allow_html=True
 )
 ```
-
-## CMIP6 Ensemble
+<!-- ## CMIP6 Ensemble
 ```{python}
 #| echo: False
 
@@ -112,4 +121,4 @@ show(
     columnDefs=[{"className": "dt-left", "targets": "_all"}], 
     allow_html=True
 )
-```
+``` -->

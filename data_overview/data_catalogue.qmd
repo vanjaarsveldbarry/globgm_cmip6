@@ -1,0 +1,72 @@
+---
+title: ""
+toc: false
+---
+
+::: {style="text-align: center;"}
+<h2>Data Catalogue</h2>
+:::
+
+![The four continental scale groundwater models that constitute GLOBGM - a global groundwater model. Dark overlays indicate the presence of a confining layer and grids visualises the data structure regarding the two model layers.](../images/layers_figure.png){fig-align="center"}
+
+GLOBGM employs a two-layer groundwater model, with outputs available for both layers. Layer 1 (l1) represents the shallow, unconfined aquifer system (potentially including a confining unit), while Layer 2 (l2) models the deeper, confined aquifer. Properly interpreting these layers is essential for selecting the appropriate data in your analysis.
+
+
+The aquifer type at any location is determined by the data presence in each layer:
+
+-   **Confined System:** Occurs where Layer 1 contains valid data, representing the confining layer (aquitard), with Layer 2 data corresponding to the underlying confined aquifer.
+
+-   **Unconfined System:** Identified where Layer 1 is null (no data) and Layer 2 has valid data, indicating an unconfined aquifer in Layer 2.
+
+
+<div style="text-align: justify;">
+  Tables below are provide the filenames and general overview of the data package. Filenames are clickable and will redirect to the YODA repo containing the data. In addition, direct downloads are possible via the download button.
+</div>
+
+
+<div style="text-align:left;">
+  <h3>
+    <a href="https://public.yoda.uu.nl/geo/UU01/AKSHOX.html" target="_blank" rel="noopener">
+      Historical Reference
+    </a>
+  </h3>
+</div>
+
+```{python}
+#| echo: False
+import pandas as pd
+from itables import init_notebook_mode, show
+from IPython.display import HTML, display
+
+df = pd.read_csv('historical_ref.csv', header=None, names=['path', 'size', 'hash'])
+df[['Aggregation', 'Name']] = df['path'].str.split('/', n=1, expand=True)
+df['Aggregation'] = df['Aggregation'].str.capitalize()
+df['Size (Gb)'] = df['size'].str.replace(' GiB', '').astype(float).round().astype(int)
+df['Download'] = 'https://geo.public.data.uu.nl/vault-globgm-historical-reference-gswp3-w5e5/research-globgm-historical-reference-gswp3-w5e5%5B1754035745%5D/original/' + df['path']
+df = df[['Aggregation', 'Name', 'Size (Gb)', 'Download']]
+df.columns = ["Aggregation", "Name", "Size (Gb)", "Download"]
+
+# Custom sort order for the resolution (Aggregation) column
+resolution_order = [
+    "Average",
+    "Annual",
+    "Monthly",
+]
+
+df['Aggregation'] = pd.Categorical(df['Aggregation'], categories=resolution_order, ordered=True)
+df = df.sort_values('Aggregation').reset_index(drop=True)
+# Use a Styler to format the URL column into a clickable link
+styled_df = df.style.format({
+    "Download": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+
+styled_df = df.style.format({
+    "Download": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+show(
+    styled_df, 
+    classes="display compact", 
+    columnDefs=[{"className": "dt-left", "targets": "_all"}], 
+    allow_html=True
+)
+```

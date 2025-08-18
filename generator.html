@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CMIP6 Downloader Code Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root { --bg:#0b1220; --card:#121a2b; --muted:#9fb0d2; --accent:#4fa3ff; --ok:#36c690; --warn:#ffb020; --err:#ff5d6c; }
+    body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu; color:#e8eefc; background:var(--bg); }
+    header { padding:24px; border-bottom:1px solid #1e2a44; }
+    main { max-width:1100px; margin:0 auto; padding:24px; display:grid; gap:16px; grid-template-columns: 1fr 1fr; }
+    h1,h2 { margin:0 0 8px; }
+    .card { background:var(--card); border:1px solid #1e2a44; border-radius:12px; padding:16px; }
+    label { font-size:14px; color:#c9d6f3; display:block; margin:10px 0 6px; }
+    input, select, textarea { width:100%; padding:10px 12px; border-radius:8px; border:1px solid #253457; background:#0c1426; color:#e8eefc; }
+    .row { display:grid; gap:12px; grid-template-columns: repeat(2, 1fr); }
+    .row3 { display:grid; gap:12px; grid-template-columns: repeat(3, 1fr); }
+    .help { color:var(--muted); font-size:12px; margin-top:4px; }
+    .toolbar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:12px; }
+    button { cursor:pointer; background:#162446; color:#e8eefc; border:1px solid #2a3b63; padding:10px 14px; border-radius:10px; }
+    button.primary { background:var(--accent); color:#00122a; border-color:#79bbff; font-weight:600; }
+    button.good { background:var(--ok); color:#001a0f; border-color:#66e0b6; font-weight:600; }
+    button.warn { background:var(--warn); color:#2a1900; border-color:#ffd27a; font-weight:600; }
+    pre { margin:0; background:#0c1426; border:1px solid #253457; border-radius:12px; padding:12px; overflow:auto; max-height:520px; }
+    code { color:#cfe6ff; }
+    .badge { font-size:12px; color:#00122a; background:#79bbff; padding:4px 8px; border-radius:999px; font-weight:700; }
+    .error { color:var(--err); font-size:13px; margin-top:8px; }
+    .preset { display:flex; gap:8px; flex-wrap:wrap; }
+    .mono { font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; }
+    @media (max-width: 980px) { main { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Code Generator: Download and Subset CMIP6/GlobGM Data</h1>
+    <div class="help">Fill the form, then copy or download ready-to-run code. Works fully in-browser—no backend required.</div>
+  </header>
+
+  <main>
+    <!-- Left: Form -->
+    <section class="card">
+      <h2>Parameters</h2>
+
+      <div class="preset">
+        <button type="button" id="presetCapeTown">Preset: Cape Town bbox</button>
+        <button type="button" id="presetGlobal">Preset: Global</button>
+        <button type="button" id="presetYears">Preset: 1960–2019</button>
+      </div>
+
+      <label>Dataset URL (Zarr zip/NetCDF/HTTP)
+        <input id="url" placeholder="https://.../hds_reference_gswp3-w5e5_annual_1960_2019.zarr.zip">
+      </label>
+      <div class="help">Paste a direct, public URL to the dataset file or store root.</div>
+
+      <div class="row3">
+        <div>
+          <label>Lat min
+            <input id="latMin" type="number" step="0.01" placeholder="-34.36">
+          </label>
+        </div>
+        <div>
+          <label>Lat max
+            <input id="latMax" type="number" step="0.01" placeholder="-33.56">
+          </label>
+        </div>
+        <div>
+          <label>Variables (comma-separated)
+            <input id="variables" class="mono" placeholder="hds">
+          </label>
+        </div>
+      </div>
+
+      <div class="row3">
+        <div>
+          <label>Lon min
+            <input id="lonMin" type="number" step="0.01" placeholder="18.29">
+          </label>
+        </div>
+        <div>
+          <label>Lon max
+            <input id="lonMax" type="number" step="0.01" placeholder="18.96">
+          </label>
+        </div>
+        <div>
+          <label>Years (start–end)
+            <input id="years" class="mono" placeholder="1960-2019">
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Output format
+            <select id="outputFormat">
+              <option value="zarr">Zarr</option>
+              <option value="netcdf">NetCDF</option>
+            </select>
+          </label>
+        </div>
+        <div>
+          <label>Language
+            <select id="language">
+              <option value="python">Python (xarray+fsspec)</option>
+              <option value="bash">Bash (curl/wget)</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <label>Output path (local)
+        <input id="outputPath" class="mono" placeholder="data/output.zarr or data/output.nc">
+      </label>
+
+      <div class="toolbar">
+        <button class="primary" id="generate">Generate code</button>
+        <button id="share">Shareable link</button>
+        <span id="status" class="help"></span>
+      </div>
+      <div id="errors" class="error" style="display:none;"></div>
+    </section>
+
+    <!-- Right: Output -->
+    <section class="card">
+      <h2>Generated code <span class="badge" id="langBadge">PY</span></h2>
+      <pre><code id="codeBlock"></code></pre>
+      <div class="toolbar">
+        <button class="good" id="copyBtn">Copy</button>
+        <button class="warn" id="downloadBtn">Download</button>
+      </div>
+      <div class="help">Tip: For Python, ensure packages installed: pip install xarray zarr fsspec dask tqdm</div>
+    </section>
+  </main>
+
+  <script>
+    // Utilities
+    const $ = (id) => document.getElementById(id);
+    const enc = encodeURIComponent;
+    const dec = decodeURIComponent;
+
+    // Restore state from URL
+    function stateFromQuery() {
+      const p = new URLSearchParams(location.search);
+      const get = (k, d="") => p.has(k) ? p.get(k) : d;
+      $("url").value = get("url");
+      $("latMin").value = get("latMin");
+      $("latMax").value = get("latMax");
+      $("lonMin").value = get("lonMin");
+      $("lonMax").value = get("lonMax");
+      $("variables").value = get("vars");
+      $("years").value = get("years");
+      $("outputFormat").value = get("fmt") || "zarr";
+      $("language").value = get("lang") || "python";
+      $("outputPath").value = get("out");
+      updateLangBadge();
+    }
+
+    function buildQuery() {
+      const p = new URLSearchParams();
+      const get = (id) => $(id).value.trim();
+      const push = (k, v) => { if (v) p.set(k, v); };
+      push("url", get("url"));
+      push("latMin", get("latMin"));
+      push("latMax", get("latMax"));
+      push("lonMin", get("lonMin"));
+      push("lonMax", get("lonMax"));
+      push("vars", get("variables"));
+      push("years", get("years"));
+      push("fmt", get("outputFormat"));
+      push("lang", get("language"));
+      push("out", get("outputPath"));
+      return p.toString();
+    }
+
+    function updateLangBadge() {
+      const lang = $("language").value;
+      $("langBadge").textContent = lang === "python" ? "PY" : "SH";
+    }
+
+    function validate() {
+      const errs = [];
+      const url = $("url").value.trim();
+      if (!url) errs.push("Dataset URL is required.");
+      if (url && !/^https?:\/\//i.test(url)) errs.push("Dataset URL must start with http:// or https://.");
+      const latMin = parseFloat($("latMin").value);
+      const latMax = parseFloat($("latMax").value);
+      const lonMin = parseFloat($("lonMin").value);
+      const lonMax = parseFloat($("lonMax").value);
+      if (Number.isNaN(latMin) || Number.isNaN(latMax)) errs.push("Lat min/max must be numbers.");
+      if (Number.isNaN(lonMin) || Number.isNaN(lonMax)) errs.push("Lon min/max must be numbers.");
+      if (latMin > latMax) errs.push("Lat min must be <= lat max.");
+      if (lonMin > lonMax) errs.push("Lon min must be <= lon max.");
+      const years = $("years").value.trim();
+      if (years && !/^\d{4}\s*-\s*\d{4}$/.test(years)) errs.push("Years must be in form YYYY-YYYY (e.g., 1960-2019).");
+      const out = $("outputPath").value.trim();
+      if (!out) errs.push("Output path is required.");
+      return errs;
+    }
+
+    // Templates
+    function pyTemplate(data) {
+      const { url, latMin, latMax, lonMin, lonMax, vars, years, out, fmt } = data;
+      const yearsLine = years ? `
+# Subset by time
+# Adjust to your dataset's time coordinate name (often 'time' or 'year')
+time_slice = slice(${years.split("-")[0]}, ${years.split("-")[1]})
+ds = ds.sel(time=time_slice)` : "";
+
+      const varsLine = vars.length ? `
+# Select variables
+ds = ds[${JSON.stringify(vars)}]` : "";
+
+      const writeLine = fmt === "netcdf"
+        ? `# Write NetCDF
+ds.to_netcdf("${out}")`
+        : `# Write Zarr
+ds.to_zarr("${out}", mode="w")`;
+
+      return `# Generated by globgm_cmip6 code generator
+# Requirements: pip install xarray zarr fsspec dask tqdm
+
+import xarray as xr
+import fsspec
+from fsspec.implementations.zip import ZipFileSystem
+from fsspec.callbacks import TqdmCallback
+from dask.diagnostics import ProgressBar
+
+url = "${url}"
+lat_min, lat_max = ${latMin}, ${latMax}
+lon_min, lon_max = ${lonMin}, ${lonMax}
+
+# Option A: Stream remote zip with progress
+cb = TqdmCallback(tqdm_kwargs={"desc": "Downloading/reading", "unit": "B", "unit_scale": True})
+fo = fsspec.open(url, mode="rb", callback=cb).open()
+zip_fs = ZipFileSystem(fo, mode="r")
+store = fsspec.FSMap("/", zip_fs, check=False, create=False)
+ds = xr.open_zarr(store, zarr_format=2)
+
+# Spatial subset (note: many datasets have decreasing latitude; slice accordingly)
+ds = ds.sel(latitude=slice(lat_max, lat_min), longitude=slice(lon_min, lon_max))${yearsLine}${varsLine}
+
+# Trigger compute and write with a task-level progress bar
+with ProgressBar():
+    _ = ds.load()
+${writeLine}
+
+print("Done -> ${out}")`;
+    }
+
+    function bashTemplate(data) {
+      const { url, out } = data;
+      const filename = url.split("/").pop().split("?")[0] || "dataset";
+      const local = `data/${filename}`;
+      const cmd = `mkdir -p data
+# Download with curl (shows progress)
+curl -L "${url}" -o "${local}"
+
+# OR with wget
+# wget -O "${local}" "${url}"
+
+# Next steps (Python example):
+# pip install xarray zarr fsspec dask tqdm
+python - <<'PY'
+import xarray as xr
+import fsspec
+from fsspec.implementations.zip import ZipFileSystem
+
+fo = fsspec.open("${local}", "rb").open()
+zip_fs = ZipFileSystem(fo, mode="r")
+store = fsspec.FSMap("/", zip_fs, check=False, create=False)
+ds = xr.open_zarr(store, zarr_format=2)
+print(ds)
+PY
+`;
+      return cmd;
+    }
+
+    function generate() {
+      const errs = validate();
+      const errBox = $("errors");
+      if (errs.length) {
+        errBox.style.display = "block";
+        errBox.textContent = "Please fix: " + errs.join(" ");
+        return;
+      }
+      errBox.style.display = "none";
+
+      const data = {
+        url: $("url").value.trim(),
+        latMin: parseFloat($("latMin").value),
+        latMax: parseFloat($("latMax").value),
+        lonMin: parseFloat($("lonMin").value),
+        lonMax: parseFloat($("lonMax").value),
+        vars: $("variables").value.trim()
+              ? $("variables").value.trim().split(",").map(s => s.trim()).filter(Boolean)
+              : [],
+        years: $("years").value.trim(),
+        fmt: $("outputFormat").value,
+        out: $("outputPath").value.trim(),
+      };
+
+      const lang = $("language").value;
+      const code = lang === "python" ? pyTemplate(data) : bashTemplate(data);
+      $("codeBlock").textContent = code;
+      $("status").textContent = "Generated " + (lang === "python" ? "Python" : "Bash") + " script.";
+      updateLangBadge();
+    }
+
+    function copyCode() {
+      const code = $("codeBlock").textContent;
+      if (!code) return;
+      navigator.clipboard.writeText(code).then(() => {
+        $("status").textContent = "Copied to clipboard.";
+      });
+    }
+
+    function downloadCode() {
+      const lang = $("language").value;
+      const code = $("codeBlock").textContent;
+      if (!code) return;
+      const ext = lang === "python" ? "py" : "sh";
+      const blob = new Blob([code], { type: "text/plain;charset=utf-8" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "download_generator." + ext;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      $("status").textContent = "Downloaded file.";
+    }
+
+    function shareLink() {
+      const qs = buildQuery();
+      const url = location.origin + location.pathname + "?" + qs;
+      navigator.clipboard.writeText(url).then(() => {
+        $("status").textContent = "Shareable link copied.";
+      });
+      history.replaceState(null, "", "?" + qs);
+    }
+
+    // Presets
+    $("presetCapeTown").addEventListener("click", () => {
+      $("latMin").value = "-34.36";
+      $("latMax").value = "-33.56";
+      $("lonMin").value = "18.29";
+      $("lonMax").value = "18.96";
+      $("variables").value = "hds";
+    });
+    $("presetGlobal").addEventListener("click", () => {
+      $("latMin").value = "-90";
+      $("latMax").value = "90";
+      $("lonMin").value = "-180";
+      $("lonMax").value = "180";
+    });
+    $("presetYears").addEventListener("click", () => {
+      $("years").value = "1960-2019";
+    });
+
+    $("language").addEventListener("change", updateLangBadge);
+    $("generate").addEventListener("click", generate);
+    $("copyBtn").addEventListener("click", copyCode);
+    $("downloadBtn").addEventListener("click", downloadCode);
+    $("share").addEventListener("click", shareLink);
+
+    // Init
+    stateFromQuery();
+  </script>
+</body>
+</html>
