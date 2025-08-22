@@ -7,7 +7,6 @@
   <style>
     :root { --bg:#0b1220; --card:#121a2b; --muted:#9fb0d2; --accent:#4fa3ff; --ok:#36c690; --warn:#ffb020; --err:#ff5d6c; }
     body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu; color:#e8eefc; background:var(--bg); }
-    header { padding:24px; border-bottom:1px solid #1e2a44; }
     main { max-width:1100px; margin:0 auto; padding:24px; display:grid; gap:16px; grid-template-columns: 1fr 1fr; }
     h1,h2 { margin:0 0 8px; }
     .card { background:var(--card); border:1px solid #1e2a44; border-radius:12px; padding:16px; }
@@ -31,15 +30,10 @@
   </style>
 </head>
 <body>
-  <header>
-    <h1>Code Generator: Download and Subset CMIP6/GlobGM Data</h1>
-    <div class="help">Fill the form, then copy or download ready-to-run code. Works fully in-browser—no backend required.</div>
-  </header>
-
   <main>
     <!-- Left: Form -->
     <section class="card">
-      <h2>Parameters</h2>
+      <h2>Code Generator</h2>
 
       <div class="preset">
         <button type="button" id="presetCapeTown">Preset: Cape Town bbox</button>
@@ -64,8 +58,11 @@
           </label>
         </div>
         <div>
-          <label>Variables (comma-separated)
-            <input id="variables" class="mono" placeholder="hds">
+          <label>Variable
+            <select id="variables">
+              <option value="hds">hds</option>
+              <option value="wtd">wtd</option>
+            </select>
           </label>
         </div>
       </div>
@@ -146,7 +143,7 @@
       $("latMax").value = get("latMax");
       $("lonMin").value = get("lonMin");
       $("lonMax").value = get("lonMax");
-      $("variables").value = get("vars");
+      $("variables").value = get("vars") || "hds";
       $("years").value = get("years");
       $("outputFormat").value = get("fmt") || "zarr";
       $("language").value = get("lang") || "python";
@@ -290,9 +287,7 @@ PY
         latMax: parseFloat($("latMax").value),
         lonMin: parseFloat($("lonMin").value),
         lonMax: parseFloat($("lonMax").value),
-        vars: $("variables").value.trim()
-              ? $("variables").value.trim().split(",").map(s => s.trim()).filter(Boolean)
-              : [],
+        vars: [$("variables").value],
         years: $("years").value.trim(),
         fmt: $("outputFormat").value,
         out: $("outputPath").value.trim(),

@@ -303,3 +303,49 @@ show(
     allow_html=True
 )
 ```
+
+<div style="text-align:left;">
+  <h3>
+    <a href="https://public.yoda.uu.nl/geo/UU01/16EJ3Y.html" target="_blank" rel="noopener">
+      Quality Assurance
+    </a>
+  </h3>
+</div>
+
+```{python}
+#| echo: False
+import pandas as pd
+from itables import init_notebook_mode, show
+from IPython.display import HTML, display
+
+df = pd.read_csv('quality_assurance.csv', header=None, names=['path', 'size', 'hash'])
+df[['Name']] = df['path'].str.split('/', n=1, expand=True)
+# Handle both GiB and MiB, converting MiB to GiB (divide by 1000)
+def parse_size(size_str):
+  if 'GiB' in size_str:
+    return float(size_str.replace(' GiB', ''))
+  elif 'MiB' in size_str:
+    return round(float(size_str.replace(' MiB', '')) / 1000, 3)
+  else:
+    return None
+
+df['Size'] = df['size'].apply(parse_size)
+df['Download'] = 'https://geo.public.data.uu.nl/vault-globgm-cmip6-quality/research-globgm-cmip6-quality[1755500055]/original/' + df['path']
+df = df[['Name', 'Size', 'Download']]
+df.columns = ["Name", "Size (Gb)", "Download"]
+
+# Use a Styler to format the URL column into a clickable link
+styled_df = df.style.format({
+    "Download": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+
+styled_df = df.style.format({
+    "Download": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+show(
+    styled_df, 
+    classes="display compact", 
+    columnDefs=[{"className": "dt-left", "targets": "_all"}], 
+    allow_html=True
+)
+```

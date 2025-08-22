@@ -45,9 +45,7 @@ ds = load_dataset(url)
   <h3>Direct Download</h3>
 </div>
 
-If you think you have enough computational resources at hand then please do download the data at the global scale. For this, we provide you with a option to download the data using YODA's web based acces.
-
-![](../images/web_dav_gif.gif)
+If you think you have enough computational resources at hand, you can download the data at the global scale. For this, we provide you with options to download the data using YODA's web-based access or from the [download links in the Data Catalogue](../data_overview/data_catalogue.qmd).
 
 <div style="text-align: center;">
   <h2>High Performance Computing</h2>
