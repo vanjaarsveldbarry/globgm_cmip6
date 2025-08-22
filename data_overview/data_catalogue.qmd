@@ -38,7 +38,7 @@ import pandas as pd
 from itables import init_notebook_mode, show
 from IPython.display import HTML, display
 
-df = pd.read_csv('historical_ref.csv', header=None, names=['path', 'size', 'hash'])
+df = pd.read_csv('historical_reference.csv', header=None, names=['path', 'size', 'hash'])
 df[['Aggregation', 'Name']] = df['path'].str.split('/', n=1, expand=True)
 df['Aggregation'] = df['Aggregation'].str.capitalize()
 df['Size (Gb)'] = df['size'].str.replace(' GiB', '').astype(float).round().astype(int)
@@ -51,6 +51,239 @@ resolution_order = [
     "Average",
     "Annual",
     "Monthly",
+]
+
+df['Aggregation'] = pd.Categorical(df['Aggregation'], categories=resolution_order, ordered=True)
+df = df.sort_values('Aggregation').reset_index(drop=True)
+# Use a Styler to format the URL column into a clickable link
+styled_df = df.style.format({
+    "Download": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+
+styled_df = df.style.format({
+    "Download": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+show(
+    styled_df, 
+    classes="display compact", 
+    columnDefs=[{"className": "dt-left", "targets": "_all"}], 
+    allow_html=True
+)
+```
+
+
+
+<div style="text-align:left;">
+  <h3>
+    <a href="https://public.yoda.uu.nl/geo/UU01/1BXLPD.html" target="_blank" rel="noopener">
+      CMIP6 Monthly
+    </a>
+  </h3>
+</div>
+
+```{python}
+#| echo: False
+import pandas as pd
+from itables import init_notebook_mode, show
+from IPython.display import HTML, display
+
+df = pd.read_csv('cmip6_monthly_ensemble.csv', header=None, names=['path', 'size', 'hash'])
+df[['Aggregation', 'Name']] = df['path'].str.split('/', n=1, expand=True)
+df['Aggregation'] = df['Aggregation'].str.capitalize()
+df['Size (Gb)'] = df['size'].str.replace(' GiB', '').astype(float).round().astype(int)
+df['Download'] = 'https://geo.public.data.uu.nl/vault-globgm-cmip6-monthly/research-globgm-cmip6-monthly%5B1755499987%5D/original/' + df['path']
+df = df[['Aggregation', 'Name', 'Size (Gb)', 'Download']]
+df.columns = ["Aggregation", "Name", "Size (Gb)", "Download"]
+df['Aggregation'] = "Monthly"
+resolution_order = [
+    "Monthly",
+]
+
+df['Aggregation'] = pd.Categorical(df['Aggregation'], categories=resolution_order, ordered=True)
+df = df.sort_values('Aggregation').reset_index(drop=True)
+# Use a Styler to format the URL column into a clickable link
+styled_df = df.style.format({
+    "Download": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+
+styled_df = df.style.format({
+    "Download": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+show(
+    styled_df, 
+    classes="display compact", 
+    columnDefs=[{"className": "dt-left", "targets": "_all"}], 
+    allow_html=True
+)
+```
+
+<div style="text-align:left;">
+  <h3>
+    <a href="https://public.yoda.uu.nl/geo/UU01/V6B9YS.html" target="_blank" rel="noopener">
+      CMIP6 Annual
+    </a>
+  </h3>
+</div>
+
+<div style="text-align:left;">
+  <h4>
+    Ensemble
+  </h4>
+</div>
+
+
+```{python}
+#| echo: False
+import pandas as pd
+from itables import init_notebook_mode, show
+from IPython.display import HTML, display
+
+df = pd.read_csv('cmip6_annual_ensemble.csv', header=None, names=['path', 'size', 'hash'])
+df[['Aggregation', 'Name']] = df['path'].str.split('/', n=1, expand=True)
+df['Aggregation'] = df['Aggregation'].str.capitalize()
+df['Size (Gb)'] = df['size'].str.replace(' GiB', '').astype(float).round().astype(int)
+df['Download'] = 'https://geo.public.data.uu.nl/vault-globgm-cmip6-annual/research-globgm-cmip6-annual%5B1755499806%5D/original/' + df['path']
+df = df[['Aggregation', 'Name', 'Size (Gb)', 'Download']]
+df.columns = ["Aggregation", "Name", "Size (Gb)", "Download"]
+df['Aggregation'] = "Annual"
+resolution_order = [
+    "Annual",
+]
+
+df['Aggregation'] = pd.Categorical(df['Aggregation'], categories=resolution_order, ordered=True)
+df = df.sort_values('Aggregation').reset_index(drop=True)
+# Use a Styler to format the URL column into a clickable link
+styled_df = df.style.format({
+    "Download": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+
+styled_df = df.style.format({
+    "Download": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+show(
+    styled_df, 
+    classes="display compact", 
+    columnDefs=[{"className": "dt-left", "targets": "_all"}], 
+    allow_html=True
+)
+```
+
+<div style="text-align:left;">
+  <h4>
+    GCM
+  </h4>
+</div>
+
+
+```{python}
+#| echo: False
+import pandas as pd
+from itables import init_notebook_mode, show
+from IPython.display import HTML, display
+
+df = pd.read_csv('cmip6_annual_GCM.csv', header=None, names=['path', 'size', 'hash'])
+df[['Aggregation', 'Name']] = df['path'].str.split('/', n=1, expand=True)
+df['Aggregation'] = df['Aggregation'].str.capitalize()
+df['Size (Gb)'] = df['size'].str.replace(' GiB', '').astype(float).round().astype(int)
+df['Download'] = 'https://geo.public.data.uu.nl/vault-globgm-cmip6-annual/research-globgm-cmip6-annual%5B1755499806%5D/original/' + df['path']
+df = df[['Aggregation', 'Name', 'Size (Gb)', 'Download']]
+df.columns = ["Aggregation", "Name", "Size (Gb)", "Download"]
+df['Aggregation'] = "Annual"
+resolution_order = [
+    "Annual",
+]
+
+df['Aggregation'] = pd.Categorical(df['Aggregation'], categories=resolution_order, ordered=True)
+df = df.sort_values('Aggregation').reset_index(drop=True)
+# Use a Styler to format the URL column into a clickable link
+styled_df = df.style.format({
+    "Download": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+
+styled_df = df.style.format({
+    "Download": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+show(
+    styled_df, 
+    classes="display compact", 
+    columnDefs=[{"className": "dt-left", "targets": "_all"}], 
+    allow_html=True
+)
+```
+
+<div style="text-align:left;">
+  <h3>
+    <a href="https://public.yoda.uu.nl/geo/UU01/SLRFI7.html" target="_blank" rel="noopener">
+      CMIP6 Average
+    </a>
+  </h3>
+</div>
+
+
+<div style="text-align:left;">
+  <h4>
+    Ensemble
+  </h4>
+</div>
+
+```{python}
+#| echo: False
+import pandas as pd
+from itables import init_notebook_mode, show
+from IPython.display import HTML, display
+
+df = pd.read_csv('cmip6_average_ensemble.csv', header=None, names=['path', 'size', 'hash'])
+df[['Aggregation', 'Name']] = df['path'].str.split('/', n=1, expand=True)
+df['Aggregation'] = df['Aggregation'].str.capitalize()
+df['Size (Gb)'] = df['size'].str.replace(' GiB', '').astype(float).round().astype(int)
+df['Download'] = 'https://geo.public.data.uu.nl/vault-globgm-cmip6-average/research-globgm-cmip6-average%5B1755499873%5D/original/' + df['path']
+df = df[['Aggregation', 'Name', 'Size (Gb)', 'Download']]
+df.columns = ["Aggregation", "Name", "Size (Gb)", "Download"]
+df['Aggregation'] = "Average"
+resolution_order = [
+    "Average",
+]
+
+df['Aggregation'] = pd.Categorical(df['Aggregation'], categories=resolution_order, ordered=True)
+df = df.sort_values('Aggregation').reset_index(drop=True)
+# Use a Styler to format the URL column into a clickable link
+styled_df = df.style.format({
+    "Download": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+
+styled_df = df.style.format({
+    "Download": lambda url: f"<a href='{url}' target='_blank'>Download</a>"
+})
+show(
+    styled_df, 
+    classes="display compact", 
+    columnDefs=[{"className": "dt-left", "targets": "_all"}], 
+    allow_html=True
+)
+```
+
+<div style="text-align:left;">
+  <h4>
+    GCM
+  </h4>
+</div>
+
+```{python}
+#| echo: False
+import pandas as pd
+from itables import init_notebook_mode, show
+from IPython.display import HTML, display
+
+df = pd.read_csv('cmip6_average_GCM.csv', header=None, names=['path', 'size', 'hash'])
+df[['Aggregation', 'Name']] = df['path'].str.split('/', n=1, expand=True)
+df['Aggregation'] = df['Aggregation'].str.capitalize()
+df['Size (Gb)'] = df['size'].str.replace(' GiB', '').astype(float).round().astype(int)
+df['Download'] = 'https://geo.public.data.uu.nl/vault-globgm-cmip6-average/research-globgm-cmip6-average%5B1755499873%5D/original/' + df['path']
+df = df[['Aggregation', 'Name', 'Size (Gb)', 'Download']]
+df.columns = ["Aggregation", "Name", "Size (Gb)", "Download"]
+df['Aggregation'] = "Average"
+resolution_order = [
+    "Average",
 ]
 
 df['Aggregation'] = pd.Categorical(df['Aggregation'], categories=resolution_order, ordered=True)
