@@ -20,7 +20,7 @@ The aquifer type at any location is determined by the data presence in each laye
 
 
 <div style="text-align: justify;">
-  Tables below are provide the filenames and general overview of the data package. Filenames are clickable and will redirect to the YODA repo containing the data. In addition, direct downloads are possible via the download button.
+  Tables below provide a general overview of the data package. Headings redirect to the associated YODA landing page. Direct downloads are possible via the download button.
 </div>
 
 
