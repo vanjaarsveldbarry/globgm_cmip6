@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://vanjaarsveldbarry.github.io/globgm_cmip6/data_access/data_access.html</loc>
-    <lastmod>2025-09-23T06:31:01.027Z</lastmod>
-  </url>
-  <url>
     <loc>https://vanjaarsveldbarry.github.io/globgm_cmip6/data_overview/data_catalogue.html</loc>
-    <lastmod>2025-09-23T06:31:01.028Z</lastmod>
+    <lastmod>2025-10-08T15:08:13.566Z</lastmod>
   </url>
   <url>
     <loc>https://vanjaarsveldbarry.github.io/globgm_cmip6/index.html</loc>
-    <lastmod>2025-09-23T06:31:01.031Z</lastmod>
+    <lastmod>2025-10-08T15:08:13.569Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vanjaarsveldbarry.github.io/globgm_cmip6/data_access/data_access.html</loc>
+    <lastmod>2025-10-08T15:08:13.566Z</lastmod>
   </url>
 </urlset>
