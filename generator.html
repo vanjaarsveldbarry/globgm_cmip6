@@ -19,12 +19,10 @@
     button { cursor:pointer; background:#162446; color:#e8eefc; border:1px solid #2a3b63; padding:10px 14px; border-radius:10px; }
     button.primary { background:var(--accent); color:#00122a; border-color:#79bbff; font-weight:600; }
     button.good { background:var(--ok); color:#001a0f; border-color:#66e0b6; font-weight:600; }
-    button.warn { background:var(--warn); color:#2a1900; border-color:#ffd27a; font-weight:600; }
     pre { margin:0; background:#0c1426; border:1px solid #253457; border-radius:12px; padding:12px; overflow:auto; max-height:520px; }
     code { color:#cfe6ff; }
     .badge { font-size:12px; color:#00122a; background:#79bbff; padding:4px 8px; border-radius:999px; font-weight:700; }
     .error { color:var(--err); font-size:13px; margin-top:8px; }
-    .preset { display:flex; gap:8px; flex-wrap:wrap; }
     .mono { font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; }
     @media (max-width: 980px) { main { grid-template-columns: 1fr; } }
   </style>
@@ -34,12 +32,6 @@
     <!-- Left: Form -->
     <section class="card">
       <h2>Code Generator</h2>
-
-      <div class="preset">
-        <button type="button" id="presetCapeTown">Preset: Cape Town bbox</button>
-        <button type="button" id="presetGlobal">Preset: Global</button>
-        <button type="button" id="presetYears">Preset: 1960–2019</button>
-      </div>
 
       <label>Dataset URL (Zarr zip/NetCDF/HTTP)
         <input id="url" placeholder="https://.../hds_reference_gswp3-w5e5_annual_1960_2019.zarr.zip">
@@ -110,7 +102,6 @@
 
       <div class="toolbar">
         <button class="primary" id="generate">Generate code</button>
-        <button id="share">Shareable link</button>
         <span id="status" class="help"></span>
       </div>
       <div id="errors" class="error" style="display:none;"></div>
@@ -122,22 +113,19 @@
       <pre><code id="codeBlock"></code></pre>
       <div class="toolbar">
         <button class="good" id="copyBtn">Copy</button>
-        <button class="warn" id="downloadBtn">Download</button>
       </div>
-      <div class="help">Tip: For Python, ensure packages installed: pip install xarray zarr fsspec dask tqdm</div>
     </section>
   </main>
 
   <script>
     // Utilities
     const $ = (id) => document.getElementById(id);
-    const enc = encodeURIComponent;
     const dec = decodeURIComponent;
 
     // Restore state from URL
     function stateFromQuery() {
       const p = new URLSearchParams(location.search);
-      const get = (k, d="") => p.has(k) ? p.get(k) : d;
+      const get = (k, d="") => p.has(k) ? dec(p.get(k)) : d;
       $("url").value = get("url");
       $("latMin").value = get("latMin");
       $("latMax").value = get("latMax");
@@ -149,23 +137,6 @@
       $("language").value = get("lang") || "python";
       $("outputPath").value = get("out");
       updateLangBadge();
-    }
-
-    function buildQuery() {
-      const p = new URLSearchParams();
-      const get = (id) => $(id).value.trim();
-      const push = (k, v) => { if (v) p.set(k, v); };
-      push("url", get("url"));
-      push("latMin", get("latMin"));
-      push("latMax", get("latMax"));
-      push("lonMin", get("lonMin"));
-      push("lonMax", get("lonMax"));
-      push("vars", get("variables"));
-      push("years", get("years"));
-      push("fmt", get("outputFormat"));
-      push("lang", get("language"));
-      push("out", get("outputPath"));
-      return p.toString();
     }
 
     function updateLangBadge() {
@@ -244,7 +215,7 @@ print("Done -> ${out}")`;
     }
 
     function bashTemplate(data) {
-      const { url, out } = data;
+      const { url } = data;
       const filename = url.split("/").pop().split("?")[0] || "dataset";
       const local = `data/${filename}`;
       const cmd = `mkdir -p data
@@ -308,53 +279,9 @@ PY
       });
     }
 
-    function downloadCode() {
-      const lang = $("language").value;
-      const code = $("codeBlock").textContent;
-      if (!code) return;
-      const ext = lang === "python" ? "py" : "sh";
-      const blob = new Blob([code], { type: "text/plain;charset=utf-8" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "download_generator." + ext;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      $("status").textContent = "Downloaded file.";
-    }
-
-    function shareLink() {
-      const qs = buildQuery();
-      const url = location.origin + location.pathname + "?" + qs;
-      navigator.clipboard.writeText(url).then(() => {
-        $("status").textContent = "Shareable link copied.";
-      });
-      history.replaceState(null, "", "?" + qs);
-    }
-
-    // Presets
-    $("presetCapeTown").addEventListener("click", () => {
-      $("latMin").value = "-34.36";
-      $("latMax").value = "-33.56";
-      $("lonMin").value = "18.29";
-      $("lonMax").value = "18.96";
-      $("variables").value = "hds";
-    });
-    $("presetGlobal").addEventListener("click", () => {
-      $("latMin").value = "-90";
-      $("latMax").value = "90";
-      $("lonMin").value = "-180";
-      $("lonMax").value = "180";
-    });
-    $("presetYears").addEventListener("click", () => {
-      $("years").value = "1960-2019";
-    });
-
     $("language").addEventListener("change", updateLangBadge);
     $("generate").addEventListener("click", generate);
     $("copyBtn").addEventListener("click", copyCode);
-    $("downloadBtn").addEventListener("click", downloadCode);
-    $("share").addEventListener("click", shareLink);
 
     // Init
     stateFromQuery();
