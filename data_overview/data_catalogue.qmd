@@ -33,14 +33,9 @@ The aquifer type at any location is determined by the data presence in each laye
   </h3>
 </div>
 
-Regions where GLOBGM has been shown to provide less accurate results due to practical and theoretical limitations; namely, karst aquifers, permafrost and mountainous regions. In addition, regions where spin up issues are prevalent are also indicated.
+Regions where GLOBGM has been shown to provide less accurate results due to practical and theoretical limitations; namely, karst aquifers, permafrost and mountainous regions each of which is contained by a seperate variable (static_quality_flags.nc). In addition, regions where spin up issues are prevalent are also indicated - values are explained the by the matrix below (spin_up_*.nc). 
 
-
-
-
-
-
-![Regions where GLOBGM has been shown to provide less accurate results due to practical and theoretical limitations; namely, karst aquifers, permafrost and mountainous regions. In addition, regions where spin up issues are prevalent are also indicated.](../images/quality_assurance.png){fig-align="center"}
+![Regions where GLOBGM has been shown to provide less accurate results due to practical and theoretical limitations; namely, karst aquifers, permafrost and mountainous regions. In addition, regions where spin up issues are prevalent are also indicated.](../images/QA_figure.png){fig-align="center"}
 
 
 ```{python}
