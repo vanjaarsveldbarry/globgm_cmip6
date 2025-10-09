@@ -126,7 +126,7 @@ Given the large volume of data in this package, we recognize that all users may 
   <h2>Publication & Citation</h2>
 </div>
 
-The associated manuscript has been submitetd to Scientific Data and a prepreint is available, to cite the date please cite the publication and relevenat data packages uswed. 
+The corresponding manuscript has been submitted to Scientific Data and a preprint is available - please cite the publication and relevant data packages.
 
 ```
 van Jaarsveld, B., Niko Wanders,N., Otoo, N.G., Sutanudjaja, E.H., Verkaik, J., Zamrsky, D., and Bierkens, M.F.P.: Global hyper-resolution groundwater dataset for assessing historical and future groundwater dynamics. EarthArxiv, https://doi.org/10.31223/X5QX7W.
