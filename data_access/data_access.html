@@ -212,8 +212,13 @@ Streaming Data into memory
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>save_path <span class="op">=</span> Path(<span class="st">"local_path_to_save_data"</span>)</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> load_dataset(url)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ds.to_netcdf(save_path / 'hds_reference_gswp3-w5e5_annual_1960_2019.nc')</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># ds.to_zarr(save_path / 'hds_reference_gswp3-w5e5_annual_1960_2019.zarr')</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>lat_min, lat_max <span class="op">=</span> <span class="op">-</span><span class="fl">34.84</span>, <span class="op">-</span><span class="fl">22.13</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>lon_min, lon_max <span class="op">=</span> <span class="fl">16.45</span>, <span class="fl">32.89</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> ProgressBar():</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    ds_cape_town <span class="op">=</span> ds.sel(latitude<span class="op">=</span><span class="bu">slice</span>(lat_max, lat_min), longitude<span class="op">=</span><span class="bu">slice</span>(lon_min, lon_max)).compute()</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ds_cape_town)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ds.to_netcdf(save_path / 'hds_reference_gswp3-w5e5_annual_1960_2019.nc')</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># ds.to_zarr(save_path / 'hds_reference_gswp3-w5e5_annual_1960_2019.zarr')</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div style="text-align: left;">
 <h3 class="anchored">
 Direct Download
@@ -240,7 +245,7 @@ Snellius Users
 </h3>
 </div>
 <p>We are actively working to make the GLOBGM dataset available as a managed dataset on the Snellius supercomputer. This will enable direct and optimized access for all Snellius users. Please watch this space for future updates on availability.</p>
-<p>In the interim, users on Snellius can request direct access to the data. Please contact the project administrator to arrange a data transfer via the scratch file system.</p>
+<p>In the interim, users on Snellius can request direct access to the data. Please contact us to arrange a data transfer via the scratch file system.</p>
 
 
 
