@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>GLOBGM Data Code Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bs-body-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --bs-body-bg: #fff;
+      --bs-body-color: #212529;
+      --bs-link-color: #2780e3;
+      --bs-link-hover-color: #1967c2;
+      --bs-border-color: #dee2e6;
+      --bs-secondary-bg: #f8f9fa;
+      --bs-code-bg: #ffffff;
+      --bs-code-color: #e83e8c;
+      --heading-color: #343a40;
+    }
+    
+    * { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      font-family: var(--bs-body-font-family);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--bs-body-color);
+      background: var(--bs-body-bg);
+    }
+    
+    main {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    h1, h2, h3 {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--heading-color);
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--bs-border-color);
+    }
+    
+    .card {
+      background: var(--bs-body-bg);
+      border: 1px solid var(--bs-border-color);
+      border-radius: 0.375rem;
+      padding: 1.5rem;
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--heading-color);
+    }
+    
+    select {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      border: 1px solid var(--bs-border-color);
+      border-radius: 0.375rem;
+      background: var(--bs-body-bg);
+      color: var(--bs-body-color);
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      cursor: pointer;
+    }
+    
+    select:focus {
+      border-color: #86b7fe;
+      outline: 0;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    
+    .radio-group {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+    
+    .radio-option input[type="radio"] {
+      width: 1.25rem;
+      height: 1.25rem;
+      cursor: pointer;
+      accent-color: var(--bs-link-color);
+    }
+    
+    .radio-option label {
+      margin: 0;
+      cursor: pointer;
+      font-weight: 400;
+    }
+    
+    .radio-option input[type="radio"]:disabled {
+      cursor: not-allowed;
+    }
+    
+    .radio-option.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group {
+      margin-bottom: 0;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .toolbar {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    
+    button {
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      border: 1px solid transparent;
+      border-radius: 0.375rem;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    }
+    
+    button.primary {
+      color: #fff;
+      background-color: var(--bs-link-color);
+      border-color: var(--bs-link-color);
+    }
+    
+    button.primary:hover {
+      background-color: var(--bs-link-hover-color);
+      border-color: var(--bs-link-hover-color);
+    }
+    
+    pre {
+      margin: 0;
+      padding: 1rem;
+      background: var(--bs-code-bg);
+      border: 1px solid var(--bs-border-color);
+      border-radius: 0.375rem;
+      overflow: auto;
+      max-height: 550px;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    
+    code {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+      color: var(--bs-body-color);
+    }
+    
+    .help {
+      margin-top: 0.25rem;
+      font-size: 0.875rem;
+      color: #6c757d;
+    }
+    
+    @media (max-width: 768px) {
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+      .radio-group { 
+        flex-direction: column; 
+        gap: 0.75rem; 
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <!-- Options Section -->
+    <section class="card">
+      <h2>Dataset Selector</h2>
+
+      <div class="form-group" style="margin-bottom: 1.5rem;">
+        <label>Dataset Type</label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" id="historical" name="datasetType" value="historical" checked>
+            <label for="historical">Historical Reference (GSWP3-W5E5, 1960-2019)</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" id="cmip6" name="datasetType" value="cmip6">
+            <label for="cmip6">CMIP6 Scenarios</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- CMIP6 Options Grid -->
+      <div id="cmip6OptionsContainer" class="hidden">
+        <div class="options-grid">
+          <!-- CMIP6 Data Type -->
+          <div class="form-group">
+            <label>CMIP6 Data Type</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="ensemble" name="cmip6Type" value="ensemble" checked>
+                <label for="ensemble">Ensemble</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="gcm" name="cmip6Type" value="gcm">
+                <label for="gcm">Individual GCM</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- GCM Model Selection -->
+          <div id="gcmSelector" class="form-group hidden">
+            <label for="gcmModel">GCM Model</label>
+            <select id="gcmModel" name="gcmModel">
+              <option value="gfdl-esm4">GFDL-ESM4</option>
+              <option value="ipsl-cm6a-lr">IPSL-CM6A-LR</option>
+              <option value="mpi-esm1-2-hr">MPI-ESM1-2-HR</option>
+              <option value="mri-esm2-0">MRI-ESM2-0</option>
+              <option value="ukesm1-0-ll">UKESM1-0-LL</option>
+            </select>
+          </div>
+
+          <!-- Climate Scenario -->
+          <div class="form-group">
+            <label>Climate Scenario</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="historical_cmip6" name="scenario" value="historical" checked>
+                <label for="historical_cmip6">Historical</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="ssp126" name="scenario" value="ssp126">
+                <label for="ssp126">SSP1-2.6</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="ssp370" name="scenario" value="ssp370">
+                <label for="ssp370">SSP3-7.0</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="ssp585" name="scenario" value="ssp585">
+                <label for="ssp585">SSP5-8.5</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variable and Temporal Grid -->
+      <div class="options-grid">
+        <div class="form-group">
+          <label>Variable</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="hds" name="variable" value="hds" checked>
+              <label for="hds">hds (hydraulic head)</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="wtd" name="variable" value="wtd">
+              <label for="wtd">wtd (water table depth)</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Temporal Aggregation</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="average" name="temporal" value="average" checked>
+              <label for="average">Average</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="annual" name="temporal" value="annual">
+              <label for="annual">Annual</label>
+            </div>
+            <div class="radio-option" id="monthlyOption">
+              <input type="radio" id="monthly" name="temporal" value="monthly">
+              <label for="monthly">Monthly</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <button class="primary" id="generate">Generate code</button>
+        <span id="status" class="help"></span>
+      </div>
+    </section>
+
+    <!-- Generated Code Section -->
+    <section class="card">
+      <h2>Generated code</h2>
+      <pre><code id="codeBlock">Select dataset options and click "Generate code"...</code></pre>
+    </section>
+  </main>
+
+  <script>
+    // URL Configuration
+    const URL_CONFIG = {
+      historical: {
+        baseUrl: "https://geo.public.data.uu.nl/vault-globgm-historical-reference-gswp3-w5e5/research-globgm-historical-reference-gswp3-w5e5%5B1754035745%5D/original/",
+        
+        build: function(variable, temporal) {
+          // Average uses .nc, annual and monthly use .zarr.zip
+          const extension = temporal === "average" ? "nc" : "zarr.zip";
+          const filename = `${variable}_reference_gswp3-w5e5_${temporal}_1960_2019.${extension}`;
+          return `${this.baseUrl}${temporal}/${filename}`;
+        }
+      },
+      
+      cmip6: {
+        ensemble: {
+          monthly: {
+            baseUrl: "https://geo.public.data.uu.nl/vault-globgm-cmip6-monthly/research-globgm-cmip6-monthly%5B1755499987%5D/original/ensemble_monthly/",
+            
+            build: function(variable, scenario) {
+              const yearRanges = {
+                historical: "1960_2014",
+                ssp126: "2015_2100",
+                ssp370: "2015_2100",
+                ssp585: "2015_2100"
+              };
+              const yearRange = yearRanges[scenario];
+              
+              // Special handling for monthly ensemble files - inconsistent naming
+              let scenarioInFilename = scenario;
+              
+              if (variable === "hds") {
+                // hds: all SSP scenarios drop "ssp" prefix
+                if (scenario === "ssp126") scenarioInFilename = "126";
+                else if (scenario === "ssp370") scenarioInFilename = "370";
+                else if (scenario === "ssp585") scenarioInFilename = "585";
+              } else if (variable === "wtd") {
+                // wtd: only ssp126 drops "ssp" prefix, others keep it
+                if (scenario === "ssp126") scenarioInFilename = "126";
+                // ssp370 and ssp585 keep "ssp" prefix
+              }
+              
+              const filename = `${variable}_monthly_${yearRange}_${scenarioInFilename}_ensemble.zarr.zip`;
+              return `${this.baseUrl}${filename}`;
+            }
+          },
+          
+          annual: {
+            baseUrl: "https://geo.public.data.uu.nl/vault-globgm-cmip6-annual/research-globgm-cmip6-annual%5B1755499806%5D/original/ensemble_annual/",
+            
+            build: function(variable, scenario) {
+              const yearRanges = {
+                historical: "1960_2014",
+                ssp126: "2015_2100",
+                ssp370: "2015_2100",
+                ssp585: "2015_2100"
+              };
+              const yearRange = yearRanges[scenario];
+              const filename = `${variable}_annual_${yearRange}_${scenario}_ensemble.zarr.zip`;
+              return `${this.baseUrl}${filename}`;
+            }
+          },
+          
+          average: {
+            baseUrl: "https://geo.public.data.uu.nl/vault-globgm-cmip6-average/research-globgm-cmip6-average%5B1755499873%5D/original/ensemble_average/",
+            
+            build: function(variable, scenario) {
+              const yearRanges = {
+                historical: "1960_2014",
+                ssp126: "2015_2100",
+                ssp370: "2015_2100",
+                ssp585: "2015_2100"
+              };
+              const yearRange = yearRanges[scenario];
+              const filename = `${variable}_average_${yearRange}_${scenario}_ensemble.nc`;
+              return `${this.baseUrl}${filename}`;
+            }
+          }
+        },
+        
+        gcm: {
+          // Note: GCM monthly data not available
+          
+          annual: {
+            baseUrl: "https://geo.public.data.uu.nl/vault-globgm-cmip6-annual/research-globgm-cmip6-annual%5B1755499806%5D/original/GCM_annual/",
+            
+            build: function(variable, scenario, gcmModel) {
+              const yearRanges = {
+                historical: "1960_2014",
+                ssp126: "2015_2100",
+                ssp370: "2015_2100",
+                ssp585: "2015_2100"
+              };
+              const yearRange = yearRanges[scenario];
+              const filename = `${variable}_annual_${yearRange}_${scenario}_${gcmModel}.zarr.zip`;
+              return `${this.baseUrl}${filename}`;
+            }
+          },
+          
+          average: {
+            baseUrl: "https://geo.public.data.uu.nl/vault-globgm-cmip6-average/research-globgm-cmip6-average%5B1755499873%5D/original/GCM_average/",
+            
+            build: function(variable, scenario, gcmModel) {
+              const yearRanges = {
+                historical: "1960_2014",
+                ssp126: "2015_2100",
+                ssp370: "2015_2100",
+                ssp585: "2015_2100"
+              };
+              const yearRange = yearRanges[scenario];
+              const filename = `${variable}_average_${yearRange}_${scenario}_${gcmModel}.nc`;
+              return `${this.baseUrl}${filename}`;
+            }
+          }
+        }
+      }
+    };
+
+    // Utilities
+    const $ = (id) => document.getElementById(id);
+    const getRadioValue = (name) => document.querySelector(`input[name="${name}"]:checked`)?.value;
+
+    function updateTemporalOptions() {
+      const datasetType = getRadioValue("datasetType");
+      const monthlyRadio = $("monthly");
+      const monthlyOption = $("monthlyOption");
+      
+      // Check if CMIP6 and Individual GCM is selected
+      if (datasetType === "cmip6") {
+        const cmip6Type = getRadioValue("cmip6Type");
+        
+        if (cmip6Type === "gcm") {
+          // Disable monthly for Individual GCM
+          monthlyRadio.disabled = true;
+          monthlyOption.classList.add("disabled");
+          
+          // If monthly is currently selected, switch to average
+          if (monthlyRadio.checked) {
+            $("average").checked = true;
+          }
+        } else {
+          // Enable monthly for ensemble
+          monthlyRadio.disabled = false;
+          monthlyOption.classList.remove("disabled");
+        }
+      } else {
+        // Enable monthly for historical
+        monthlyRadio.disabled = false;
+        monthlyOption.classList.remove("disabled");
+      }
+    }
+
+    function updateVisibility() {
+      const datasetType = getRadioValue("datasetType");
+      
+      if (datasetType === "cmip6") {
+        $("cmip6OptionsContainer").classList.remove("hidden");
+        
+        const cmip6Type = getRadioValue("cmip6Type");
+        if (cmip6Type === "gcm") {
+          $("gcmSelector").classList.remove("hidden");
+        } else {
+          $("gcmSelector").classList.add("hidden");
+        }
+      } else {
+        $("cmip6OptionsContainer").classList.add("hidden");
+        $("gcmSelector").classList.add("hidden");
+      }
+      
+      updateTemporalOptions();
+      updateURL();
+    }
+
+    function updateURL() {
+      const datasetType = getRadioValue("datasetType");
+      const variable = getRadioValue("variable");
+      const temporal = getRadioValue("temporal");
+      
+      if (datasetType === "historical") {
+        return URL_CONFIG.historical.build(variable, temporal);
+      } else if (datasetType === "cmip6") {
+        const cmip6Type = getRadioValue("cmip6Type");
+        const scenario = getRadioValue("scenario");
+        
+        if (cmip6Type === "ensemble") {
+          if (URL_CONFIG.cmip6.ensemble[temporal]) {
+            return URL_CONFIG.cmip6.ensemble[temporal].build(variable, scenario);
+          }
+        } else if (cmip6Type === "gcm") {
+          const gcmModel = $("gcmModel").value;
+          if (URL_CONFIG.cmip6.gcm[temporal]) {
+            return URL_CONFIG.cmip6.gcm[temporal].build(variable, scenario, gcmModel);
+          }
+        }
+      }
+      
+      return "";
+    }
+
+    // Python template
+    function pyTemplate(url, datasetType, temporal) {
+      const isAverage = temporal === "average";
+      
+      const timeSubset = isAverage ? "" : `
+
+# Example: Temporal subset (if applicable)
+start_year, end_year = 1960, 1960`;
+
+      const spatialSel = isAverage ? 
+        `ds_subset = ds.sel(latitude=slice(lat_max, lat_min), 
+                    longitude=slice(lon_min, lon_max))
+print("🔍 Dataset subset:", ds_subset, "\\n")
+
+with ProgressBar():
+    ds_subset = ds_subset.compute()` :
+        `ds_subset = ds.sel(latitude=slice(lat_max, lat_min), 
+                    longitude=slice(lon_min, lon_max),
+                    time=slice(f"{start_year}-01-01", f"{end_year}-01-31"))
+print("🔍 Dataset subset:", ds_subset, "\\n")
+
+with ProgressBar():
+    ds_subset = ds_subset.compute()`;
+
+      return `import xarray as xr
+import fsspec
+from fsspec.implementations.zip import ZipFileSystem
+from pathlib import Path
+from dask.diagnostics import ProgressBar
+
+# Dataset URL
+url = "${url}"
+
+def load_dataset(url: str) -> xr.Dataset:
+    """Load dataset from either NetCDF or zipped Zarr format."""
+    if url.endswith('.nc'):
+        ds = xr.open_dataset(url, chunks={}, engine='h5netcdf')
+    else:
+        file_object = fsspec.open(url).open()
+        zip_fs = ZipFileSystem(file_object, mode='r')
+        store_mapper = fsspec.FSMap('/', zip_fs, check=False, create=False)
+        ds = xr.open_zarr(store_mapper, zarr_format=2)
+
+    print("🌍 Dataset loaded:", ds, "\\n")
+    return ds
+
+ds = load_dataset(url)
+
+# ============================================================
+# CUSTOMIZE: Add your spatial/temporal subsetting here
+# ============================================================
+
+# Example: Spatial subset
+# Cape Town bounding box
+lat_min, lat_max = -34.2, -33.7
+lon_min, lon_max = 18.1, 18.7${timeSubset}
+
+${spatialSel}
+
+# ============================================================
+# CUSTOMIZE: Choose your output format
+# ============================================================
+
+# Option 1: Save as NetCDF
+# ds_subset.to_netcdf('output.nc')
+
+# Option 2: Save as Zarr
+# ds_subset.to_zarr('output.zarr')
+
+print("✅ Done!")`;
+    }
+
+    function generate() {
+      const datasetType = getRadioValue("datasetType");
+      const temporal = getRadioValue("temporal");
+      const url = updateURL();
+      
+      if (!url) {
+        $("status").textContent = "⚠ Please select a valid configuration";
+        return;
+      }
+      
+      const code = pyTemplate(url, datasetType, temporal);
+      $("codeBlock").textContent = code;
+      $("status").textContent = "✓ Code generated!";
+    }
+
+    // Event listeners
+    $("generate").addEventListener("click", generate);
+    
+    // Update visibility and URL when dataset type changes
+    document.querySelectorAll('input[name="datasetType"]').forEach(radio => {
+      radio.addEventListener("change", updateVisibility);
+    });
+    
+    // Update visibility when CMIP6 type changes
+    document.querySelectorAll('input[name="cmip6Type"]').forEach(radio => {
+      radio.addEventListener("change", updateVisibility);
+    });
+    
+    // Update URL when any option changes
+    document.querySelectorAll('input[name="scenario"], input[name="variable"], input[name="temporal"]').forEach(radio => {
+      radio.addEventListener("change", updateURL);
+    });
+    
+    // Update URL when GCM model changes
+    $("gcmModel").addEventListener("change", updateURL);
+
+    // Initialize
+    updateVisibility();
+  </script>
+</body>
+</html>

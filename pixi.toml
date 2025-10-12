@@ -12,5 +12,8 @@ zarr = "*"
 dask = "*"
 requests = "*"
 aiohttp = "*"
-
-[tasks]
+jupyter = "*"
+itables = "*"
+h5netcdf = "*"
+netcdf4 = "*"
+pydap = "*"

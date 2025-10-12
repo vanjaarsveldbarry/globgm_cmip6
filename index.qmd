@@ -3,10 +3,10 @@ title: ""
 toc: false
 ---
 
-<!-- 
+
 <div style="color: #856404; background-color: #fff3cd; border: 1px solid #ffeaa7; font-weight: bold; font-size: 1.2em; padding: 15px; border-radius: 8px; text-align: center; margin: 2rem 0;">
-  ⚠️ This website is currently under construction. Some features may not be available yet.
-</div> -->
+  ⚠️ This website is currently under construction. If you find any issues, please submit a issue on github.
+</div>
 
 
 <div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;">
@@ -120,14 +120,51 @@ Given the large volume of data in this package, we recognize that all users may 
     </div>
   </div>
 </div>
-
 ```
+
+
 <div style="text-align: center;">
-  <h2>Publication & Citation</h2>
+  <h2>Cite this work</h2>
 </div>
+::: {.callout-note appearance="simple"}
+## Manuscript Status
+The corresponding manuscript has been submitted to *Scientific Data*. A preprint is currently available on EarthArXiv.
+:::
 
-The corresponding manuscript has been submitted to Scientific Data and a preprint is available - please cite the publication and relevant data packages.
+When using GLOBGM CMIP6 data in your work, please cite the relevant dataset(s) in addition to the manuscript. Each dataset receives a unique DOI through the Yoda data repository and should be cited according to DataCite standards. Please cite the specific dataset(s) you use in your analysis. If you use multiple scenarios or time periods, cite all relevant datasets.
+
+
+### Publication Citation
+
+::: {#refs}
+van Jaarsveld, B., Wanders, N., Otoo, N.G., Sutanudjaja, E.H., Verkaik, J., Zamrsky, D., and Bierkens, M.F.P. (2025). Global hyper-resolution groundwater dataset for assessing historical and future groundwater dynamics. *EarthArxiv*. <https://doi.org/10.31223/X5QX7W>
+:::
+
 
 ```
-van Jaarsveld, B., Niko Wanders,N., Otoo, N.G., Sutanudjaja, E.H., Verkaik, J., Zamrsky, D., and Bierkens, M.F.P.: Global hyper-resolution groundwater dataset for assessing historical and future groundwater dynamics. EarthArxiv, https://doi.org/10.31223/X5QX7W.
+@Article{vanJaarsveld2025global,
+AUTHOR={van Jaarsveld, B. and Wanders, N. and Otoo, N.G. and Sutanudjaja, E.H. and Verkaik, J. and Zamrsky, D. and Bierkens, M.F.P.},
+TITLE={Global hyper-resolution groundwater dataset for assessing historical and future groundwater dynamics},
+JOURNAL={EarthArXiv},
+YEAR={2025},
+DOI={10.31223/X5QX7W},
+URL={https://doi.org/10.31223/X5QX7W}
+}
 ```
+
+### Data Citation
+
+1. **Historical Reference:**  
+   van Jaarsveld, B., et al. (2025). *GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [globgm_historical_reference_gswp3-w5e5]*. Utrecht University. https://doi.org/10.24416/UU01-AKSHOX
+
+2. **Climate Projections: Monthly**
+   van Jaarsveld, B., et al. (2025). *GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_monthly]*. Utrecht University. https://doi.org/10.24416/UU01-1BXLPD
+
+3. **Climate Projections: Annual**
+   van Jaarsveld, B., et al. (2025). *GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_annual]*. Utrecht University. https://doi.org/10.24416/UU01-V6B9YS
+
+4. **Climate Projections: Average**
+   van Jaarsveld, B., et al. (2025). *GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_average]*. Utrecht University. https://doi.org/10.24416/UU01-SLRFI7
+
+5. **Quality Assurance**
+   van Jaarsveld, B., et al. (2025). *GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [quality_assurance]*. Utrecht University. https://doi.org/10.24416/UU01-16EJ3Y
