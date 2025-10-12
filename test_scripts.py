@@ -14,9 +14,10 @@ url = "https://geo.public.data.uu.nl/vault-globgm-historical-reference-gswp3-w5e
 save_path = Path("local_path_to_save_data")
 
 ds = load_dataset(url)
-lat_min, lat_max = -34.36, -33.56
-lon_min, lon_max = 18.29, 18.96
+lat_min, lat_max = -34.84, -22.13
+lon_min, lon_max = 16.45, 32.89
 with ProgressBar():
     so_cape_town = ds.sel(latitude=slice(lat_max, lat_min), longitude=slice(lon_min, lon_max)).compute()
+print(so_cape_town)
 # ds.to_netcdf(save_path / 'hds_reference_gswp3-w5e5_annual_1960_2019.nc')
 # ds.to_zarr(save_path / 'hds_reference_gswp3-w5e5_annual_1960_2019.zarr')

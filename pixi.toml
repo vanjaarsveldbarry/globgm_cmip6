@@ -1,0 +1,16 @@
+[workspace]
+channels = ["conda-forge"]
+name = "globgm_cmip6"
+platforms = ["win-64", "linux-64"]
+version = "0.1.0"
+
+[dependencies]
+python = ">=3.12,<3.14"
+xarray = ">=2025.10"
+fsspec = "*"
+zarr = "*"
+dask = "*"
+requests = "*"
+aiohttp = "*"
+
+[tasks]

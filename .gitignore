@@ -9,3 +9,7 @@ __pycache__/
 .vscode/
 generator.html
 website.code-workspace
+
+# pixi environments
+.pixi/*
+!.pixi/config.toml

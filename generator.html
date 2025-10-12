@@ -2,103 +2,256 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>CMIP6 Downloader Code Generator</title>
+  <title>GLOBGM Data Code Generator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    :root { --bg:#0b1220; --card:#121a2b; --muted:#9fb0d2; --accent:#4fa3ff; --ok:#36c690; --warn:#ffb020; --err:#ff5d6c; }
-    body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu; color:#e8eefc; background:var(--bg); }
-    main { max-width:1100px; margin:0 auto; padding:24px; display:grid; gap:16px; grid-template-columns: 1fr 1fr; }
-    h1,h2 { margin:0 0 8px; }
-    .card { background:var(--card); border:1px solid #1e2a44; border-radius:12px; padding:16px; }
-    label { font-size:14px; color:#c9d6f3; display:block; margin:10px 0 6px; }
-    input, select, textarea { width:100%; padding:10px 12px; border-radius:8px; border:1px solid #253457; background:#0c1426; color:#e8eefc; }
-    .row { display:grid; gap:12px; grid-template-columns: repeat(2, 1fr); }
-    .row3 { display:grid; gap:12px; grid-template-columns: repeat(3, 1fr); }
-    .help { color:var(--muted); font-size:12px; margin-top:4px; }
-    .toolbar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:12px; }
-    button { cursor:pointer; background:#162446; color:#e8eefc; border:1px solid #2a3b63; padding:10px 14px; border-radius:10px; }
-    button.primary { background:var(--accent); color:#00122a; border-color:#79bbff; font-weight:600; }
-    button.good { background:var(--ok); color:#001a0f; border-color:#66e0b6; font-weight:600; }
-    pre { margin:0; background:#0c1426; border:1px solid #253457; border-radius:12px; padding:12px; overflow:auto; max-height:520px; }
-    code { color:#cfe6ff; }
-    .badge { font-size:12px; color:#00122a; background:#79bbff; padding:4px 8px; border-radius:999px; font-weight:700; }
-    .error { color:var(--err); font-size:13px; margin-top:8px; }
-    .mono { font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; }
-    @media (max-width: 980px) { main { grid-template-columns: 1fr; } }
+    :root {
+      --bs-body-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --bs-body-bg: #fff;
+      --bs-body-color: #212529;
+      --bs-link-color: #2780e3;
+      --bs-link-hover-color: #1967c2;
+      --bs-border-color: #dee2e6;
+      --bs-secondary-bg: #f8f9fa;
+      --bs-code-bg: #ffffff;
+      --bs-code-color: #e83e8c;
+      --heading-color: #343a40;
+    }
+    
+    * { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      font-family: var(--bs-body-font-family);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--bs-body-color);
+      background: var(--bs-body-bg);
+    }
+    
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    h1, h2, h3 {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--heading-color);
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--bs-border-color);
+    }
+    
+    .card {
+      background: var(--bs-body-bg);
+      border: 1px solid var(--bs-border-color);
+      border-radius: 0.375rem;
+      padding: 1.5rem;
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--heading-color);
+    }
+    
+    input, select {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      border: 1px solid var(--bs-border-color);
+      border-radius: 0.375rem;
+      background: var(--bs-body-bg);
+      color: var(--bs-body-color);
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    
+    input:focus, select:focus {
+      border-color: #86b7fe;
+      outline: 0;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    
+    .row {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(2, 1fr);
+      margin-bottom: 1rem;
+    }
+    
+    .row3 {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(3, 1fr);
+      margin-bottom: 1rem;
+    }
+    
+    .help {
+      margin-top: 0.25rem;
+      font-size: 0.875rem;
+      color: #6c757d;
+    }
+    
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    
+    .toolbar {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    
+    button {
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      border: 1px solid transparent;
+      border-radius: 0.375rem;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    }
+    
+    button.primary {
+      color: #fff;
+      background-color: var(--bs-link-color);
+      border-color: var(--bs-link-color);
+    }
+    
+    button.primary:hover {
+      background-color: var(--bs-link-hover-color);
+      border-color: var(--bs-link-hover-color);
+    }
+    
+    pre {
+      margin: 0;
+      padding: 1rem;
+      background: var(--bs-code-bg);
+      border: 1px solid var(--bs-border-color);
+      border-radius: 0.375rem;
+      overflow: auto;
+      max-height: 550px;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    
+    code {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+      color: var(--bs-body-color);
+    }
+    
+    .error {
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      background-color: #f8d7da;
+      border: 1px solid #f5c2c7;
+      border-radius: 0.375rem;
+    }
+    
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    }
+    
+    @media (max-width: 980px) {
+      main { grid-template-columns: 1fr; }
+      .row3 { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
   <main>
     <!-- Left: Form -->
     <section class="card">
-      <h2>Code Generator</h2>
+      <h2>Dataset Selector</h2>
 
-      <label>Dataset URL (Zarr zip/NetCDF/HTTP)
-        <input id="url" placeholder="https://.../hds_reference_gswp3-w5e5_annual_1960_2019.zarr.zip">
-      </label>
-      <div class="help">Paste a direct, public URL to the dataset file or store root.</div>
-
-      <div class="row3">
-        <div>
-          <label>Lat min
-            <input id="latMin" type="number" step="0.01" placeholder="-34.36">
-          </label>
-        </div>
-        <div>
-          <label>Lat max
-            <input id="latMax" type="number" step="0.01" placeholder="-33.56">
-          </label>
-        </div>
-        <div>
-          <label>Variable
-            <select id="variables">
-              <option value="hds">hds</option>
-              <option value="wtd">wtd</option>
-            </select>
-          </label>
-        </div>
-      </div>
-
-      <div class="row3">
-        <div>
-          <label>Lon min
-            <input id="lonMin" type="number" step="0.01" placeholder="18.29">
-          </label>
-        </div>
-        <div>
-          <label>Lon max
-            <input id="lonMax" type="number" step="0.01" placeholder="18.96">
-          </label>
-        </div>
-        <div>
-          <label>Years (start–end)
-            <input id="years" class="mono" placeholder="1960-2019">
-          </label>
-        </div>
+      <div class="form-group">
+        <label>Dataset Type</label>
+        <select id="datasetType">
+          <option value="historical">Historical Reference (GSWP3-W5E5, 1960-2019)</option>
+          <option value="cmip6" disabled>CMIP6 Scenarios (coming soon...)</option>
+        </select>
       </div>
 
       <div class="row">
-        <div>
-          <label>Output format
-            <select id="outputFormat">
-              <option value="zarr">Zarr</option>
-              <option value="netcdf">NetCDF</option>
-            </select>
-          </label>
+        <div class="form-group">
+          <label>Variable</label>
+          <select id="variable">
+            <option value="hds">hds (hydraulic head)</option>
+            <option value="wtd">wtd (water table depth)</option>
+          </select>
         </div>
-        <div>
-          <label>Language
-            <select id="language">
-              <option value="python">Python (xarray+fsspec)</option>
-              <option value="bash">Bash (curl/wget)</option>
-            </select>
-          </label>
+        <div class="form-group">
+          <label>Temporal Aggregation</label>
+          <select id="temporal">
+            <option value="average">Average (1960-2019 mean)</option>
+            <option value="annual">Annual (yearly time series)</option>
+            <option value="monthly">Monthly (monthly time series)</option>
+          </select>
         </div>
       </div>
 
-      <label>Output path (local)
-        <input id="outputPath" class="mono" placeholder="data/output.zarr or data/output.nc">
-      </label>
+      <h2 style="margin-top: 2rem;">Spatial & Temporal Subset</h2>
+
+      <div class="row3">
+        <div class="form-group">
+          <label>Lat min</label>
+          <input id="latMin" type="number" step="0.01" min="-90" max="90" value="-60">
+          <div class="help">Range: -90 to 90</div>
+        </div>
+        <div class="form-group">
+          <label>Lat max</label>
+          <input id="latMax" type="number" step="0.01" min="-90" max="90" value="60">
+          <div class="help">Range: -90 to 90</div>
+        </div>
+        <div class="form-group">
+          <label>Lon min</label>
+          <input id="lonMin" type="number" step="0.01" min="-180" max="180" value="-180">
+          <div class="help">Range: -180 to 180</div>
+        </div>
+      </div>
+
+      <div class="row3">
+        <div class="form-group">
+          <label>Lon max</label>
+          <input id="lonMax" type="number" step="0.01" min="-180" max="180" value="180">
+          <div class="help">Range: -180 to 180</div>
+        </div>
+        <div class="form-group">
+          <label>Years (optional)</label>
+          <input id="years" class="mono" placeholder="e.g., 1980-2010">
+          <div class="help">Only for annual/monthly data</div>
+        </div>
+        <div class="form-group">
+          <label>Output format</label>
+          <select id="outputFormat">
+            <option value="netcdf">NetCDF</option>
+            <option value="zarr">Zarr</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Output path (local)</label>
+        <input id="outputPath" class="mono" placeholder="data/output.nc">
+      </div>
 
       <div class="toolbar">
         <button class="primary" id="generate">Generate code</button>
@@ -109,137 +262,131 @@
 
     <!-- Right: Output -->
     <section class="card">
-      <h2>Generated code <span class="badge" id="langBadge">PY</span></h2>
-      <pre><code id="codeBlock"></code></pre>
-      <div class="toolbar">
-        <button class="good" id="copyBtn">Copy</button>
-      </div>
+      <h2>Generated code</h2>
+      <pre><code id="codeBlock">Select dataset options and click "Generate code"...</code></pre>
     </section>
   </main>
 
   <script>
+    // URL Configuration for Historical Reference
+    const URL_CONFIG = {
+      historical: {
+        baseUrl: "https://geo.public.data.uu.nl/vault-globgm-historical-reference-gswp3-w5e5/research-globgm-historical-reference-gswp3-w5e5%5B1754035745%5D/original/",
+        
+        build: function(variable, temporal) {
+          // Pattern: {temporal}/{variable}_reference_gswp3-w5e5_{temporal}_1960_2019.nc
+          const filename = `${variable}_reference_gswp3-w5e5_${temporal}_1960_2019.nc`;
+          return `${this.baseUrl}${temporal}/${filename}`;
+        }
+      }
+    };
+
     // Utilities
     const $ = (id) => document.getElementById(id);
-    const dec = decodeURIComponent;
 
-    // Restore state from URL
-    function stateFromQuery() {
-      const p = new URLSearchParams(location.search);
-      const get = (k, d="") => p.has(k) ? dec(p.get(k)) : d;
-      $("url").value = get("url");
-      $("latMin").value = get("latMin");
-      $("latMax").value = get("latMax");
-      $("lonMin").value = get("lonMin");
-      $("lonMax").value = get("lonMax");
-      $("variables").value = get("vars") || "hds";
-      $("years").value = get("years");
-      $("outputFormat").value = get("fmt") || "zarr";
-      $("language").value = get("lang") || "python";
-      $("outputPath").value = get("out");
-      updateLangBadge();
-    }
-
-    function updateLangBadge() {
-      const lang = $("language").value;
-      $("langBadge").textContent = lang === "python" ? "PY" : "SH";
+    function updateURL() {
+      const datasetType = $("datasetType").value;
+      const variable = $("variable").value;
+      const temporal = $("temporal").value;
+      
+      if (datasetType === "historical") {
+        const url = URL_CONFIG.historical.build(variable, temporal);
+        
+        // Disable year filter for "average" temporal
+        if (temporal === "average") {
+          $("years").disabled = true;
+          $("years").value = "";
+          $("years").placeholder = "N/A for average data";
+        } else {
+          $("years").disabled = false;
+          $("years").placeholder = "e.g., 1980-2010";
+        }
+        
+        return url;
+      }
+      
+      return "";
     }
 
     function validate() {
       const errs = [];
-      const url = $("url").value.trim();
-      if (!url) errs.push("Dataset URL is required.");
-      if (url && !/^https?:\/\//i.test(url)) errs.push("Dataset URL must start with http:// or https://.");
       const latMin = parseFloat($("latMin").value);
       const latMax = parseFloat($("latMax").value);
       const lonMin = parseFloat($("lonMin").value);
       const lonMax = parseFloat($("lonMax").value);
+      
       if (Number.isNaN(latMin) || Number.isNaN(latMax)) errs.push("Lat min/max must be numbers.");
       if (Number.isNaN(lonMin) || Number.isNaN(lonMax)) errs.push("Lon min/max must be numbers.");
+      
+      // Validate coordinate ranges
+      if (latMin < -90 || latMin > 90) errs.push("Lat min must be between -90 and 90.");
+      if (latMax < -90 || latMax > 90) errs.push("Lat max must be between -90 and 90.");
+      if (lonMin < -180 || lonMin > 180) errs.push("Lon min must be between -180 and 180.");
+      if (lonMax < -180 || lonMax > 180) errs.push("Lon max must be between -180 and 180.");
+      
       if (latMin > latMax) errs.push("Lat min must be <= lat max.");
       if (lonMin > lonMax) errs.push("Lon min must be <= lon max.");
+      
       const years = $("years").value.trim();
-      if (years && !/^\d{4}\s*-\s*\d{4}$/.test(years)) errs.push("Years must be in form YYYY-YYYY (e.g., 1960-2019).");
+      const temporal = $("temporal").value;
+      if (years && temporal !== "average") {
+        if (!/^\d{4}\s*-\s*\d{4}$/.test(years)) {
+          errs.push("Years must be in form YYYY-YYYY (e.g., 1980-2010).");
+        } else {
+          const [start, end] = years.split("-").map(y => parseInt(y.trim()));
+          if (start < 1960 || end > 2019) {
+            errs.push("Years must be within 1960-2019 range.");
+          }
+        }
+      }
+      
       const out = $("outputPath").value.trim();
       if (!out) errs.push("Output path is required.");
+      
       return errs;
     }
 
-    // Templates
+    // Python template
     function pyTemplate(data) {
-      const { url, latMin, latMax, lonMin, lonMax, vars, years, out, fmt } = data;
-      const yearsLine = years ? `
+      const { url, latMin, latMax, lonMin, lonMax, variable, years, out, fmt, temporal } = data;
+      
+      const yearsLine = (years && temporal !== "average") ? `
 # Subset by time
-# Adjust to your dataset's time coordinate name (often 'time' or 'year')
-time_slice = slice(${years.split("-")[0]}, ${years.split("-")[1]})
+time_slice = slice("${years.split("-")[0]}", "${years.split("-")[1]}")
 ds = ds.sel(time=time_slice)` : "";
-
-      const varsLine = vars.length ? `
-# Select variables
-ds = ds[${JSON.stringify(vars)}]` : "";
 
       const writeLine = fmt === "netcdf"
         ? `# Write NetCDF
-ds.to_netcdf("${out}")`
+ds.to_netcdf("${out}", encoding={var: {"zlib": True, "complevel": 4} for var in ds.data_vars})`
         : `# Write Zarr
 ds.to_zarr("${out}", mode="w")`;
 
-      return `# Generated by globgm_cmip6 code generator
-# Requirements: pip install xarray zarr fsspec dask tqdm
+      return `# Generated by GLOBGM Data Code Generator
+# Requirements: pip install xarray netcdf4 dask
 
 import xarray as xr
-import fsspec
-from fsspec.implementations.zip import ZipFileSystem
-from fsspec.callbacks import TqdmCallback
-from dask.diagnostics import ProgressBar
 
 url = "${url}"
 lat_min, lat_max = ${latMin}, ${latMax}
 lon_min, lon_max = ${lonMin}, ${lonMax}
 
-# Option A: Stream remote zip with progress
-cb = TqdmCallback(tqdm_kwargs={"desc": "Downloading/reading", "unit": "B", "unit_scale": True})
-fo = fsspec.open(url, mode="rb", callback=cb).open()
-zip_fs = ZipFileSystem(fo, mode="r")
-store = fsspec.FSMap("/", zip_fs, check=False, create=False)
-ds = xr.open_zarr(store, zarr_format=2)
+# Open dataset
+print(f"Opening: {url}")
+ds = xr.open_dataset(url, chunks="auto")
+print(f"Original dataset: {ds}")
 
-# Spatial subset (note: many datasets have decreasing latitude; slice accordingly)
-ds = ds.sel(latitude=slice(lat_max, lat_min), longitude=slice(lon_min, lon_max))${yearsLine}${varsLine}
+# Spatial subset
+# Note: latitude is typically decreasing (90 to -90)
+ds = ds.sel(latitude=slice(lat_max, lat_min), longitude=slice(lon_min, lon_max))${yearsLine}
 
-# Trigger compute and write with a task-level progress bar
-with ProgressBar():
-    _ = ds.load()
+print(f"Subset dataset: {ds}")
+
+# Load and write
+print(f"Writing to: ${out}")
+ds = ds.load()
 ${writeLine}
 
-print("Done -> ${out}")`;
-    }
-
-    function bashTemplate(data) {
-      const { url } = data;
-      const filename = url.split("/").pop().split("?")[0] || "dataset";
-      const local = `data/${filename}`;
-      const cmd = `mkdir -p data
-# Download with curl (shows progress)
-curl -L "${url}" -o "${local}"
-
-# OR with wget
-# wget -O "${local}" "${url}"
-
-# Next steps (Python example):
-# pip install xarray zarr fsspec dask tqdm
-python - <<'PY'
-import xarray as xr
-import fsspec
-from fsspec.implementations.zip import ZipFileSystem
-
-fo = fsspec.open("${local}", "rb").open()
-zip_fs = ZipFileSystem(fo, mode="r")
-store = fsspec.FSMap("/", zip_fs, check=False, create=False)
-ds = xr.open_zarr(store, zarr_format=2)
-print(ds)
-PY
-`;
-      return cmd;
+print("✓ Done!")`;
     }
 
     function generate() {
@@ -247,44 +394,71 @@ PY
       const errBox = $("errors");
       if (errs.length) {
         errBox.style.display = "block";
-        errBox.textContent = "Please fix: " + errs.join(" ");
+        errBox.textContent = "⚠ " + errs.join(" ");
         return;
       }
       errBox.style.display = "none";
 
+      const url = updateURL();
       const data = {
-        url: $("url").value.trim(),
+        url: url,
         latMin: parseFloat($("latMin").value),
         latMax: parseFloat($("latMax").value),
         lonMin: parseFloat($("lonMin").value),
         lonMax: parseFloat($("lonMax").value),
-        vars: [$("variables").value],
+        variable: $("variable").value,
+        temporal: $("temporal").value,
         years: $("years").value.trim(),
         fmt: $("outputFormat").value,
         out: $("outputPath").value.trim(),
       };
 
-      const lang = $("language").value;
-      const code = lang === "python" ? pyTemplate(data) : bashTemplate(data);
+      const code = pyTemplate(data);
       $("codeBlock").textContent = code;
-      $("status").textContent = "Generated " + (lang === "python" ? "Python" : "Bash") + " script.";
-      updateLangBadge();
+      $("status").textContent = "✓ Code generated!";
     }
 
-    function copyCode() {
-      const code = $("codeBlock").textContent;
-      if (!code) return;
-      navigator.clipboard.writeText(code).then(() => {
-        $("status").textContent = "Copied to clipboard.";
-      });
+    // Auto-update output path to match original filename with custom years
+    function updateOutputPath() {
+      const variable = $("variable").value;
+      const temporal = $("temporal").value;
+      const fmt = $("outputFormat").value;
+      const years = $("years").value.trim();
+      
+      // Determine year range for filename
+      let yearRange = "1960_2019"; // Default
+      
+      // If years are specified and valid, use those
+      if (years && temporal !== "average" && /^\d{4}\s*-\s*\d{4}$/.test(years)) {
+        const [start, end] = years.split("-").map(y => y.trim());
+        yearRange = `${start}_${end}`;
+      }
+      
+      // Build filename matching the original pattern with appropriate year range
+      // Pattern: {variable}_reference_gswp3-w5e5_{temporal}_{yearRange}.{ext}
+      const ext = fmt === "zarr" ? "zarr" : "nc";
+      const filename = `${variable}_reference_gswp3-w5e5_${temporal}_${yearRange}.${ext}`;
+      
+      $("outputPath").value = `data/${filename}`;
     }
 
-    $("language").addEventListener("change", updateLangBadge);
+    // Event listeners
     $("generate").addEventListener("click", generate);
-    $("copyBtn").addEventListener("click", copyCode);
+    
+    // Update URL when selectors change
+    ["datasetType", "variable", "temporal"].forEach(id => {
+      $(id).addEventListener("change", updateURL);
+    });
 
-    // Init
-    stateFromQuery();
+    // Auto-update output path (including when years change)
+    ["variable", "temporal", "outputFormat", "years"].forEach(id => {
+      $(id).addEventListener("change", updateOutputPath);
+      $(id).addEventListener("input", updateOutputPath); // Real-time update as user types
+    });
+
+    // Initialize
+    updateURL();
+    updateOutputPath();
   </script>
 </body>
 </html>
