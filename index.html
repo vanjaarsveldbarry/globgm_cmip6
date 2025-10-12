@@ -20,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -29,7 +48,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./data_overview/data_catalogue.html" rel="next">
+<link href="./data_catalogue/data_catalogue.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -119,7 +138,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_overview/data_catalogue.html" class="sidebar-item-text sidebar-link">
+  <a href="./data_catalogue/data_catalogue.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data Catalogue</span></a>
   </div>
 </li>
@@ -143,10 +162,9 @@ GLOBGM CMIP6
 
 
 
-<!-- 
 <div style="color: #856404; background-color: #fff3cd; border: 1px solid #ffeaa7; font-weight: bold; font-size: 1.2em; padding: 15px; border-radius: 8px; text-align: center; margin: 2rem 0;">
-  ⚠️ This website is currently under construction. Some features may not be available yet.
-</div> -->
+<p>⚠️ This website is currently under construction. If you find any issues, please submit a issue on github.</p>
+</div>
 <div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;">
 
 <p style="font-size: 1.4rem; font-weight: 400; color: #2d3748; line-height: 1.6; max-width: 750px; margin: 0 auto;">
@@ -244,16 +262,52 @@ Data Access
     </div>
   </div>
 </div>
-
 <div style="text-align: center;">
 <h2 class="anchored">
-Publication &amp; Citation
+Cite this work
 </h2>
 </div>
-<p>The corresponding manuscript has been submitted to Scientific Data and a preprint is available - please cite the publication and relevant data packages.</p>
-<pre><code>van Jaarsveld, B., Niko Wanders,N., Otoo, N.G., Sutanudjaja, E.H., Verkaik, J., Zamrsky, D., and Bierkens, M.F.P.: Global hyper-resolution groundwater dataset for assessing historical and future groundwater dynamics. EarthArxiv, https://doi.org/10.31223/X5QX7W.</code></pre>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Manuscript Status
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The corresponding manuscript has been submitted to <em>Scientific Data</em>. A preprint is currently available on EarthArXiv.</p>
+</div>
+</div>
+<p>When using GLOBGM CMIP6 data in your work, please cite the relevant dataset(s) in addition to the manuscript. Each dataset receives a unique DOI through the Yoda data repository and should be cited according to DataCite standards. Please cite the specific dataset(s) you use in your analysis. If you use multiple scenarios or time periods, cite all relevant datasets.</p>
+<section id="publication-citation" class="level3">
+<h3 class="anchored" data-anchor-id="publication-citation">Publication Citation</h3>
+<div id="refs" role="list">
+<p>van Jaarsveld, B., Wanders, N., Otoo, N.G., Sutanudjaja, E.H., Verkaik, J., Zamrsky, D., and Bierkens, M.F.P. (2025). Global hyper-resolution groundwater dataset for assessing historical and future groundwater dynamics. <em>EarthArxiv</em>. <a href="https://doi.org/10.31223/X5QX7W" class="uri">https://doi.org/10.31223/X5QX7W</a></p>
+</div>
+<pre><code>@Article{vanJaarsveld2025global,
+AUTHOR={van Jaarsveld, B. and Wanders, N. and Otoo, N.G. and Sutanudjaja, E.H. and Verkaik, J. and Zamrsky, D. and Bierkens, M.F.P.},
+TITLE={Global hyper-resolution groundwater dataset for assessing historical and future groundwater dynamics},
+JOURNAL={EarthArXiv},
+YEAR={2025},
+DOI={10.31223/X5QX7W},
+URL={https://doi.org/10.31223/X5QX7W}
+}</code></pre>
+</section>
+<section id="data-citation" class="level3">
+<h3 class="anchored" data-anchor-id="data-citation">Data Citation</h3>
+<ol type="1">
+<li><p><strong>Historical Reference:</strong><br>
+van Jaarsveld, B., et al.&nbsp;(2025). <em>GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [globgm_historical_reference_gswp3-w5e5]</em>. Utrecht University. https://doi.org/10.24416/UU01-AKSHOX</p></li>
+<li><p><strong>Climate Projections: Monthly</strong> van Jaarsveld, B., et al.&nbsp;(2025). <em>GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_monthly]</em>. Utrecht University. https://doi.org/10.24416/UU01-1BXLPD</p></li>
+<li><p><strong>Climate Projections: Annual</strong> van Jaarsveld, B., et al.&nbsp;(2025). <em>GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_annual]</em>. Utrecht University. https://doi.org/10.24416/UU01-V6B9YS</p></li>
+<li><p><strong>Climate Projections: Average</strong> van Jaarsveld, B., et al.&nbsp;(2025). <em>GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_average]</em>. Utrecht University. https://doi.org/10.24416/UU01-SLRFI7</p></li>
+<li><p><strong>Quality Assurance</strong> van Jaarsveld, B., et al.&nbsp;(2025). <em>GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [quality_assurance]</em>. Utrecht University. https://doi.org/10.24416/UU01-16EJ3Y</p></li>
+</ol>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -660,7 +714,7 @@ Publication &amp; Citation
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./data_overview/data_catalogue.html" class="pagination-link" aria-label="Data Catalogue">
+      <a href="./data_catalogue/data_catalogue.html" class="pagination-link" aria-label="Data Catalogue">
         <span class="nav-page-text">Data Catalogue</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
