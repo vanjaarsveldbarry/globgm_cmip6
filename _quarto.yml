@@ -29,7 +29,7 @@ website:
       - href: index.qmd
         text: Introduction
 
-      - href: data_overview/data_catalogue.qmd
+      - href: data_catalogue/data_catalogue.qmd
         text: "Data Catalogue"
 
       - href: data_access/data_access.qmd

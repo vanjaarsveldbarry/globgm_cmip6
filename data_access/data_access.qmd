@@ -27,7 +27,7 @@ To make this process as smooth as possible, we have formatted the data using Zar
   <h3>Direct Download</h3>
 </div>
 
-If you think you have enough computational resources at hand, you can download the data at the global scale. For this, we provide you with options to download the data using YODA's web-based access or from the [download links in the Data Catalogue](../data_overview/data_catalogue.qmd).
+If you think you have enough computational resources at hand, you can download the data at the global scale. For this, we provide you with options to download the data using YODA's web-based access or from the [download links in the Data Catalogue](../data_catalogue/data_catalogue.qmd).
 
 <div style="text-align: center;">
   <h2>High Performance Computing</h2>
