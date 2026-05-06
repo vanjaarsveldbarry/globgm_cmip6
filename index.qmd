@@ -128,7 +128,7 @@ Given the large volume of data in this package, we recognize that all users may 
 </div>
 ::: {.callout-note appearance="simple"}
 ## Manuscript Status
-The corresponding manuscript has been submitted to *Scientific Data*. A preprint is currently available on EarthArXiv.
+The corresponding manuscript has been submitted to *Earth System Dynamics*. A preprint is currently available on EarthArXiv.
 :::
 
 When using GLOBGM CMIP6 data in your work, please cite the relevant dataset(s) in addition to the manuscript. Each dataset receives a unique DOI through the Yoda data repository and should be cited according to DataCite standards. Please cite the specific dataset(s) you use in your analysis. If you use multiple scenarios or time periods, cite all relevant datasets.
@@ -137,8 +137,8 @@ When using GLOBGM CMIP6 data in your work, please cite the relevant dataset(s) i
 ### Publication Citation
 
 ::: {#refs}
-van Jaarsveld, B., Wanders, N., Otoo, N.G., Sutanudjaja, E.H., Verkaik, J., Zamrsky, D., and Bierkens, M.F.P. (2025). Global hyper-resolution groundwater dataset for assessing historical and future groundwater dynamics. *EarthArxiv*. <https://doi.org/10.31223/X5QX7W>
-:::
+van Jaarsveld, B., Wanders, N., Otoo, N.G., Sutanudjaja, E.H., Verkaik, J., Zamrsky, D., and Bierkens, M.F.P. (2026). Global hyper-resolution modeling of historical and future groundwater dynamics, *EGUsphere [preprint] *, <https://doi.org/10.5194/egusphere-2026-804>.
+::
 
 
 ```
