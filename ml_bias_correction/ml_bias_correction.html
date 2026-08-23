@@ -91,35 +91,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -195,13 +166,8 @@ window.Quarto = {
    
   <ul>
   <li><a href="#the-correction-field" id="toc-the-correction-field" class="nav-link active" data-scroll-target="#the-correction-field">The correction field</a></li>
-  <li><a href="#how-the-correction-works" id="toc-how-the-correction-works" class="nav-link" data-scroll-target="#how-the-correction-works">How the correction works</a></li>
   <li><a href="#the-function" id="toc-the-function" class="nav-link" data-scroll-target="#the-function">The function</a></li>
-  <li><a href="#applying-it" id="toc-applying-it" class="nav-link" data-scroll-target="#applying-it">Applying it</a>
-  <ul class="collapse">
-  <li><a href="#keeping-heads-consistent" id="toc-keeping-heads-consistent" class="nav-link" data-scroll-target="#keeping-heads-consistent">Keeping heads consistent</a></li>
-  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
-  </ul></li>
+  <li><a href="#applying-it" id="toc-applying-it" class="nav-link" data-scroll-target="#applying-it">Applying it</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/vanjaarsveldbarry/globgm_cmip6/edit/main/ml_bias_correction/ml_bias_correction.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/vanjaarsveldbarry/globgm_cmip6/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -227,8 +193,7 @@ window.Quarto = {
 </header>
 
 
-<p>GLOBGM’s water table is too deep in some places and too shallow in others, and the pattern is consistent enough to be worth fixing. We trained a machine-learning model to predict that error, and the result is a single global field you can apply to the simulations yourself.</p>
-<p>Two things to know up front. The simulations we publish are <strong>not</strong> corrected - this is something you do afterwards, if you want it. And it only touches the water table depth, <code>wtd</code>, plus the head <code>hds</code> that follows from it.</p>
+<p>We trained a machine-learning model to predict that error, and the result is a single global field you can apply to the simulations yourself.</p>
 <section id="the-correction-field" class="level2">
 <h2 class="anchored" data-anchor-id="the-correction-field">The correction field</h2>
 <div class="catalogue-spec">
@@ -242,20 +207,7 @@ window.Quarto = {
 <span class="catalogue-spec-label">Archive</span> <span class="catalogue-spec-value"><a href="https://public.yoda.uu.nl/geo/UU01/16EJ3Y.html" target="_blank" rel="noopener">Quality assurance vault</a></span>
 </div>
 </div>
-<p>You’ll find it in the <strong>quality assurance</strong> collection, next to the spin-up and quality-flag layers listed in the <a href="../data_catalogue/data_catalogue.html#quality-assurance">Data Catalogue</a>. Inside is a variable called <code>bias</code>, in metres, on the usual 30 arc-second grid and split by model layer. Positive means the corrected water table ends up deeper.</p>
-</section>
-<section id="how-the-correction-works" class="level2">
-<h2 class="anchored" data-anchor-id="how-the-correction-works">How the correction works</h2>
-<p>We don’t apply the bias at full strength everywhere. Two rules hold it back.</p>
-<p><strong>Leave shallow water tables alone.</strong> If the long-term average water table is within 10 cm of the surface, the correction is switched off completely. From there it fades in gradually, reaching full strength about 5 m down. Wetlands and river corridors are supposed to be wet, and we would rather do nothing than push them underground.</p>
-<p><strong>Don’t overdo it.</strong> Whatever the correction works out to, it can’t move the water table by more than half its long-term depth. It can shift things; it can’t turn a deep water table into a shallow one.</p>
-<p>Written out:</p>
-<p><span class="math display">\[
-\Delta = \mathrm{clip}\!\left(b \cdot \mathrm{clip}\!\left(\frac{\bar{d} - d_0}{w},\, 0,\, 1\right),\; -\frac{|\bar{d}|}{2},\; \frac{|\bar{d}|}{2}\right)
-\qquad
-d_\text{corrected} = d + \Delta
-\]</span></p>
-<p><span class="math inline">\(d\)</span> is the simulated water table depth, <span class="math inline">\(\bar{d}\)</span> its long-term average, <span class="math inline">\(b\)</span> the ML bias, and <span class="math inline">\(d_0 = 0.1\)</span> m and <span class="math inline">\(w = 4.9\)</span> m are the two thresholds above.</p>
+<p>You’ll find it in the <strong>quality assurance</strong> collection <a href="../data_catalogue/data_catalogue.html#quality-assurance">Data Catalogue</a>.</p>
 </section>
 <section id="the-function" class="level2">
 <h2 class="anchored" data-anchor-id="the-function">The function</h2>
@@ -274,22 +226,19 @@ d_\text{corrected} = d + \Delta
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">    Comes back the same shape as `wtd`.</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ramp the correction in over `ramp_width` metres below `protect_depth`, so</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># cells whose long-term water table sits at the surface keep it there.</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    ramp_factor <span class="op">=</span> ((average_wtd <span class="op">-</span> protect_depth) <span class="op">/</span> ramp_width).clip(<span class="bu">min</span><span class="op">=</span><span class="fl">0.0</span>, <span class="bu">max</span><span class="op">=</span><span class="fl">1.0</span>)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Cap the adjustment at half the long-term depth in either direction.</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    limit <span class="op">=</span> np.<span class="bu">abs</span>(average_wtd <span class="op">/</span> <span class="dv">2</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    delta <span class="op">=</span> (bias <span class="op">*</span> ramp_factor).clip(<span class="bu">min</span><span class="op">=-</span>limit, <span class="bu">max</span><span class="op">=</span>limit)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> wtd <span class="op">+</span> delta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>It’s plain xarray arithmetic, so it broadcasts over <code>time</code> on its own and stays lazy if your arrays are Dask-backed. You never need the whole time series in memory.</p>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    ramp_factor <span class="op">=</span> ((average_wtd <span class="op">-</span> protect_depth) <span class="op">/</span> ramp_width).clip(<span class="bu">min</span><span class="op">=</span><span class="fl">0.0</span>, <span class="bu">max</span><span class="op">=</span><span class="fl">1.0</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Cap the adjustment at half the long-term depth in either direction.</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    limit <span class="op">=</span> np.<span class="bu">abs</span>(average_wtd <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    delta <span class="op">=</span> (bias <span class="op">*</span> ramp_factor).clip(<span class="bu">min</span><span class="op">=-</span>limit, <span class="bu">max</span><span class="op">=</span>limit)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> wtd <span class="op">+</span> delta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="applying-it" class="level2">
 <h2 class="anchored" data-anchor-id="applying-it">Applying it</h2>
-<p>You need three things lined up.</p>
+<p>You need three:</p>
 <p><strong>The simulation you want to correct</strong> - any <code>wtd</code> product from the <a href="../data_access/data_access.html">Data Access</a> page.</p>
-<p><strong>Its long-term average.</strong> This has to be the historical average for the same forcing: <code>wtd_reference_gswp3-w5e5_average_1960_2019.nc</code> if you’re working with the historical reference, or <code>wtd_average_1960_2014_historical_&lt;member&gt;.nc</code> for a projection, matching whichever GCM or ensemble you picked. Both of the rules above ask “where does the water table normally sit?”, and that’s the file that answers it - so don’t reach for the average of the scenario period instead.</p>
+<p><strong>Its long-term average.</strong> This has to be the historical average for the same forcing: <code>wtd_reference_gswp3-w5e5_average_1960_2019.nc</code></p>
 <p><strong>The bias field, on your grid.</strong> Reindex it rather than hoping it already lines up:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zarr</span>
@@ -312,26 +261,8 @@ d_\text{corrected} = d + \Delta
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>corrected <span class="op">=</span> apply_bias_correction(sim[<span class="st">"wtd"</span>], average[<span class="st">"wtd"</span>], bias)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="keeping-heads-consistent" class="level3">
-<h3 class="anchored" data-anchor-id="keeping-heads-consistent">Keeping heads consistent</h3>
-<p>Head and depth describe the same surface from opposite directions, so once you’ve moved <code>wtd</code> the published <code>hds</code> no longer matches it. They’re separate files, so open the <code>hds</code> twin, add the two together to get the land surface back, and subtract your corrected depth from that:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>head <span class="op">=</span> xr.open_zarr(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    zarr.storage.ZipStore(<span class="st">"hds_annual_2015_2100_ssp370_gfdl-esm4.zarr.zip"</span>, mode<span class="op">=</span><span class="st">"r"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>).isel(model<span class="op">=</span><span class="dv">0</span>, drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>top_uppermost_layer <span class="op">=</span> head[<span class="st">"hds"</span>] <span class="op">+</span> sim[<span class="st">"wtd"</span>]   <span class="co"># constant in time</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>corrected_hds <span class="op">=</span> top_uppermost_layer <span class="op">-</span> corrected</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="notes" class="level3">
-<h3 class="anchored" data-anchor-id="notes">Notes</h3>
-<ul>
-<li>Both rules look at the <em>average</em> field rather than the current one, so a given cell gets the same adjustment at every time step. Only the depth it’s added to changes.</li>
-<li>Where the average is missing or dry, the missing value carries through and the cell comes out uncorrected - it isn’t quietly set to zero.</li>
-<li>Save the result as <code>float32</code>. Correcting the data doesn’t make it more precise than the simulations it came from.</li>
-</ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
