@@ -1,0 +1,5 @@
+filename,size,checksum
+grace_agreement.nc,131.02 KiB,1a4db0f2a0b8c36f1db7bf9e41b05a7302a7fb12416b273410283092cb2992aa
+ml_bias_correction.nc,896.61 MiB,ef3e538778a8f40e454fbb21f3d9e156453cc9237bbd2d367e4f67aa9caaf35c
+quality_assurance.nc,24.46 MiB,0b6cf3ba9135b0b90d18134b79cb8e2ac60328a00255c230b55d871a83eb0c41
+spinup_info.nc,49.08 MiB,3c47eb42ad59ef56c4556d730784db25bd07eebecdce9b7ada03a2839a901380

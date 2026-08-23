@@ -1,13 +1,7 @@
 ---
-title: ""
+pagetitle: "GLOBGM CMIP6"
 toc: false
 ---
-
-
-<div style="color: #856404; background-color: #fff3cd; border: 1px solid #ffeaa7; font-weight: bold; font-size: 1.2em; padding: 15px; border-radius: 8px; text-align: center; margin: 2rem 0;">
-  ⚠️ This website is currently under construction. If you find any issues, please submit a issue on github.
-</div>
-
 
 <div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;">
   <h1 style="text-align: center; font-size: 3.5rem; font-weight: 700; color: #1a365d; margin-bottom: 1.5rem; letter-spacing: 0.02em;">
@@ -48,9 +42,6 @@ toc: false
   **GLOBGM** (Global Groundwater Model) is a transient global-scale groundwater flow model operating at a high spatial resolution of 30 arc-seconds (~1 km). It employs a parallelized implementation of MODFLOW 6 with two model layers representing confined and unconfined aquifers. Designed for high-performance computing environments, GLOBGM efficiently simulates groundwater heads and water table depths worldwide, enabling detailed assessments of groundwater dynamics under historical and future climate and socioeconomic scenarios. The model uses refined input data and parameterization to capture global groundwater behavior while addressing computational challenges related to runtime, memory, and data storage at this fine resolution. We present comprehensive **groundwater heads and water table depth data** following the ISIMIP framework protocols.
 </div>
 
-<div style="text-align: center;">
-  <h2>Data Overview</h2>
-</div>
 
 ```{=html}
 <div class="dataset-highlight">
@@ -81,90 +72,3 @@ toc: false
   </div>
 </div>
 ```
-
-
-<div style="text-align: center;">
-  <h2>Data Access</h2>
-</div>
-
-<div style="text-align: justify;">
-Given the large volume of data in this package, we recognize that all users may not have the computing resources necessary to process the data at a global scale. Therefore, we have provided two sets of instructions tailored to different user needs. Please visit the data catalog page to review the disk storage requirements for each dataset to ensure you have adequate resources.
-</div>
-
-
-```{=html}
-<div class="dataset-highlight">
-  <!-- Single Machine Access -->
-  <div class="dataset-item dataset-single-machine">
-    <div class="dataset-avatar">
-      <span class="dataset-icon">💻</span>
-    </div>
-    <div class="dataset-content">
-      <h3 class="dataset-title">Single Machine</h3>
-      <p class="dataset-purpose">
-        Instructions for accessing data on a laptop or desktop.
-      </p>
-    </div>
-  </div>
-
-  <!-- HPC Access -->
-  <div class="dataset-item dataset-hpc">
-    <div class="dataset-avatar">
-      <span class="dataset-icon">🚀</span>
-    </div>
-    <div class="dataset-content">
-      <h3 class="dataset-title">HPC/Cluster</h3>
-      <p class="dataset-purpose">
-        Instructions for accessing data on a HPC system or cluster.
-      </p>
-    </div>
-  </div>
-</div>
-```
-
-
-<div style="text-align: center;">
-  <h2>Cite this work</h2>
-</div>
-::: {.callout-note appearance="simple"}
-## Manuscript Status
-The corresponding manuscript has been submitted to *Earth System Dynamics*. A preprint is currently available on EarthArXiv.
-:::
-
-When using GLOBGM CMIP6 data in your work, please cite the relevant dataset(s) in addition to the manuscript. Each dataset receives a unique DOI through the Yoda data repository and should be cited according to DataCite standards. Please cite the specific dataset(s) you use in your analysis. If you use multiple scenarios or time periods, cite all relevant datasets.
-
-
-### Publication Citation
-
-::: {#refs}
-van Jaarsveld, B., Wanders, N., Otoo, N.G., Sutanudjaja, E.H., Verkaik, J., Zamrsky, D., and Bierkens, M.F.P. (2026). Global hyper-resolution modeling of historical and future groundwater dynamics, *EGUsphere [preprint] *, <https://doi.org/10.5194/egusphere-2026-804>.
-::
-
-
-```
-@Article{vanJaarsveld2025global,
-AUTHOR={van Jaarsveld, B. and Wanders, N. and Otoo, N.G. and Sutanudjaja, E.H. and Verkaik, J. and Zamrsky, D. and Bierkens, M.F.P.},
-TITLE={Global hyper-resolution groundwater dataset for assessing historical and future groundwater dynamics},
-JOURNAL={EarthArXiv},
-YEAR={2025},
-DOI={10.31223/X5QX7W},
-URL={https://doi.org/10.31223/X5QX7W}
-}
-```
-
-### Data Citation
-
-1. **Historical Reference:**  
-   van Jaarsveld, B., et al. (2025). *GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [globgm_historical_reference_gswp3-w5e5]*. Utrecht University. https://doi.org/10.24416/UU01-AKSHOX
-
-2. **Climate Projections: Monthly**
-   van Jaarsveld, B., et al. (2025). *GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_monthly]*. Utrecht University. https://doi.org/10.24416/UU01-1BXLPD
-
-3. **Climate Projections: Annual**
-   van Jaarsveld, B., et al. (2025). *GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_annual]*. Utrecht University. https://doi.org/10.24416/UU01-V6B9YS
-
-4. **Climate Projections: Average**
-   van Jaarsveld, B., et al. (2025). *GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_average]*. Utrecht University. https://doi.org/10.24416/UU01-SLRFI7
-
-5. **Quality Assurance**
-   van Jaarsveld, B., et al. (2025). *GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [quality_assurance]*. Utrecht University. https://doi.org/10.24416/UU01-16EJ3Y

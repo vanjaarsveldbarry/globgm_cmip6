@@ -151,3 +151,383 @@ $enable-grid-classes: true;
 .dataset-hpc .dataset-avatar {
   background: linear-gradient(120deg, #d3fbe9 60%, #b1f5d6 100%);
 }
+
+// --- Data catalogue ---------------------------------------------------------
+
+// Three-up variant of .dataset-highlight. A modifier rather than an edit,
+// because index.qmd still relies on the two-column base rule.
+.dataset-highlight.dataset-highlight-3 {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+  }
+
+  .dataset-item {
+    padding: 1.75rem 1.5rem;
+    min-height: 0;
+    flex-direction: column;
+
+    .dataset-avatar {
+      margin-right: 0;
+      margin-bottom: 1rem;
+      width: 52px;
+      height: 52px;
+    }
+
+    .dataset-icon {
+      font-size: 2rem;
+    }
+  }
+}
+
+.dataset-reference .dataset-avatar {
+  background: linear-gradient(120deg, #d0eaff 60%, #a7cef6 100%);
+}
+.dataset-scenarios .dataset-avatar {
+  background: linear-gradient(120deg, #d3fbe9 60%, #b1f5d6 100%);
+}
+.dataset-quality .dataset-avatar {
+  background: linear-gradient(120deg, #ffe9cc 60%, #f8d3a0 100%);
+}
+
+.dataset-meta {
+  margin: 0.9rem 0 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.92rem;
+  color: #4a5568;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.22rem 0;
+    border-top: 1px solid rgba(26, 54, 93, 0.08);
+  }
+
+  .dataset-meta-label {
+    font-variation-settings: "wght" 500;
+  }
+
+  .dataset-meta-value {
+    text-align: right;
+    color: #1a365d;
+    font-variation-settings: "wght" 600;
+  }
+}
+
+// Headline figures. Computed at render time from the manifests, never typed in.
+.catalogue-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2.5rem 0;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.catalogue-stat {
+  text-align: center;
+  padding: 1.4rem 1rem;
+  border-radius: 16px;
+  background: linear-gradient(129deg, #f8fafc 75%, #e3ecfc 100%);
+  box-shadow: 0 4px 16px rgba(24, 56, 120, 0.06);
+
+  .catalogue-stat-value {
+    display: block;
+    font-size: 2.1rem;
+    font-variation-settings: "wght" 700;
+    color: #1a365d;
+    line-height: 1.15;
+  }
+
+  .catalogue-stat-label {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.9rem;
+    color: #4a5568;
+    letter-spacing: 0.02em;
+  }
+}
+
+// Inline label/value pairs above a collection table.
+.catalogue-spec {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 2.2rem;
+  margin: 1.25rem 0 1.75rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid #a7cef6;
+  background: #f8fafc;
+  border-radius: 0 10px 10px 0;
+  font-size: 0.95rem;
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  dt, .catalogue-spec-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #718096;
+  }
+
+  dd, .catalogue-spec-value {
+    margin: 0.15rem 0 0 0;
+    color: #1a365d;
+    font-variation-settings: "wght" 600;
+  }
+}
+
+// Wide tables scroll inside their own container rather than pushing the page
+// into horizontal scroll on narrow viewports.
+.catalogue-table {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.catalogue-todo {
+  margin: 1.25rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid #f6ad55;
+  background: #fffaf0;
+  border-radius: 0 10px 10px 0;
+  font-size: 0.95rem;
+  color: #744210;
+
+  strong {
+    letter-spacing: 0.04em;
+  }
+}
+
+// Dropdown column filters, in a second header row of the scenarios table.
+.catalogue-filter-row th {
+  padding: 0.4rem 0.5rem !important;
+  background: #f8fafc;
+  font-weight: 400;
+}
+
+.catalogue-filter {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.3rem 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #1a365d;
+  background: #fff;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+
+  &:focus {
+    outline: none;
+    border-color: #a7cef6;
+    box-shadow: 0 0 0 2px rgba(167, 206, 246, 0.4);
+  }
+}
+
+// --- Download generator -----------------------------------------------------
+//
+// Request builder: pick facets, read the running total, copy the generated
+// rclone commands. The facets live in one bordered panel divided by hairlines
+// rather than five separate cards - stacked header bands drew more attention
+// than the options they labelled.
+
+.dl-generator {
+  margin: 2rem 0;
+}
+
+#dl-facets {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.dl-facet {
+  padding: 0.95rem 1.2rem;
+  border-bottom: 1px solid #eef1f5;
+
+  &:last-child { border-bottom: 0; }
+
+  // Facets that do not apply to the current product selection.
+  &.is-inactive { opacity: 0.45; pointer-events: none; }
+}
+
+.dl-facet-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.55rem;
+}
+
+.dl-facet-title {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #4a5568;
+  font-variation-settings: "wght" 600;
+}
+
+// Always present, deliberately quiet - they are a convenience, not a step.
+.dl-facet-actions {
+  display: flex;
+  gap: 0.85rem;
+  font-size: 0.78rem;
+
+  button {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #a0aec0;
+    cursor: pointer;
+
+    &:hover { color: #3c6ea8; }
+  }
+}
+
+.dl-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+// The whole pill is the hit target, not just the 13px box.
+.dl-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.34rem 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  color: #2d3748;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.12s ease, border-color 0.12s ease;
+
+  &:hover { background: #f8fafc; border-color: #cbd5e0; }
+
+  input { margin: 0; flex-shrink: 0; cursor: pointer; }
+
+  &:has(input:checked) {
+    background: #eef5fd;
+    border-color: #a7cef6;
+    color: #1a365d;
+  }
+
+  // No files match this option given the rest of the selection. Left visible
+  // rather than removed, so the form does not reflow as boxes are ticked.
+  &.is-empty {
+    opacity: 0.38;
+    cursor: not-allowed;
+    &:hover { background: none; border-color: #e2e8f0; }
+    input { cursor: not-allowed; }
+  }
+}
+
+.dl-summary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.9rem 2rem;
+  margin-top: 1rem;
+  padding: 0.85rem 1.2rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fbfcfe;
+}
+
+.dl-summary-figures {
+  display: flex;
+  gap: 2rem;
+  flex: 1;
+  min-width: 200px;
+
+  > div { display: flex; flex-direction: column; }
+}
+
+.dl-summary-label {
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #a0aec0;
+}
+
+.dl-summary-value {
+  font-size: 1.2rem;
+  line-height: 1.3;
+  color: #1a365d;
+  font-variation-settings: "wght" 650;
+}
+
+.dl-generate {
+  padding: 0.55rem 1.35rem;
+  border: 0;
+  border-radius: 8px;
+  background: #1a365d;
+  color: #fff;
+  font-size: 0.92rem;
+  font-variation-settings: "wght" 600;
+  cursor: pointer;
+  transition: background 0.12s ease;
+
+  &:hover:not(:disabled) { background: #24487a; }
+
+  &:disabled { background: #cbd5e0; cursor: not-allowed; }
+}
+
+.dl-output {
+  margin: 1.25rem 0 0 0;
+
+  &[hidden] { display: none; }
+}
+
+.dl-output-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.55rem;
+}
+
+.dl-output-title {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #4a5568;
+  font-variation-settings: "wght" 600;
+}
+
+.dl-copy {
+  padding: 0.35rem 0.9rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  color: #1a365d;
+  font-size: 0.82rem;
+  font-variation-settings: "wght" 600;
+  cursor: pointer;
+
+  &:hover { background: #f8fafc; border-color: #cbd5e0; }
+  &.is-copied { background: #d3fbe9; border-color: #7fd9b4; }
+}
+
+.dl-generator pre.dl-code {
+  max-height: 420px;
+  overflow: auto;
+  margin: 0;
+  padding: 1.05rem 1.2rem;
+  border: 0;
+  border-radius: 12px;
+  background: #1a2332;
+  color: #e2e8f0;
+  font-size: 0.84rem;
+  line-height: 1.55;
+
+  code { color: inherit; background: none; padding: 0; }
+}

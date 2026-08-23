@@ -11,34 +11,24 @@ jobs:
     permissions:
       contents: write
 
-    defaults:
-      run:
-        shell: bash -l {0}
-
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-
-      - name: Set up Miniconda and Create Environment
-        run: |
-          wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-          bash miniconda.sh -b -p $HOME/miniconda
-          eval "$($HOME/miniconda/bin/conda shell.bash hook)"
-          conda create -y -n quarto-env -c conda-forge python=3.10 jupyter nbformat pandas ipykernel itables
-          conda activate quarto-env
-          python -m ipykernel install --user --name quarto-env
-
-      - name: Add Conda environment to PATH
-        run: |
-          echo "$HOME/miniconda/envs/quarto-env/bin" >> $GITHUB_PATH
-
-      - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-
-      - name: Render and Publish
-        uses: quarto-dev/quarto-actions/publish@v2
         with:
-          target: gh-pages
+          fetch-depth: 0        # quarto publish needs the gh-pages branch history
+
+      - name: Set up pixi
+        uses: prefix-dev/setup-pixi@v0.9.1
+        with:
+          pixi-version: v0.76.2
+          cache: true
+
+      - name: Configure git identity
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+      - name: Render and publish
+        run: pixi run publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          QUARTO_PYTHON: $HOME/miniconda/envs/quarto-env/bin/python

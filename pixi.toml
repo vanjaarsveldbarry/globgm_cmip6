@@ -1,7 +1,7 @@
 [workspace]
 channels = ["conda-forge"]
 name = "globgm_cmip6"
-platforms = ["win-64", "linux-64"]
+platforms = ["win-64", "linux-64", "osx-arm64", "osx-64"]
 version = "0.1.0"
 
 [dependencies]
@@ -17,3 +17,11 @@ itables = "*"
 h5netcdf = "*"
 netcdf4 = "*"
 pydap = "*"
+pandas = "*"
+quarto = ">=1.9,<2"
+rclone = ">=1.75.0,<2"
+
+[tasks]
+render = "quarto render"
+preview = "quarto preview"
+publish = "quarto publish gh-pages --no-prompt --no-browser"

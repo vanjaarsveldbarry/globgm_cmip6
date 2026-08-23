@@ -8,10 +8,12 @@ __pycache__/
 .ipynb_checkpoints/
 .vscode/
 generator.html
-website.code-workspace
+*.code-workspace
 
 # pixi environments
 .pixi/*
 !.pixi/config.toml
 
 **/*.quarto_ipynb
+
+.DS_Store

@@ -1,8 +1,13 @@
 project: 
   type: website
+  render:
+    # .qmd only, so working notes such as CATALOGUE_REDESIGN_PLAN.md
+    # do not get published to the live site.
+    - "**/*.qmd"
   
 website: 
   page-navigation: true
+  search: false
   title: "GLOBGM_CMIP6" 
   site-url: https://vanjaarsveldbarry.github.io/globgm_cmip6/
   repo-url: https://github.com/vanjaarsveldbarry/globgm_cmip6
@@ -23,7 +28,7 @@ website:
         href: https://github.com/vanjaarsveldbarry/globgm_cmip6
 
     style: "docked"
-    search: true
+    search: false
     collapse: false
     contents:
       - href: index.qmd
@@ -34,6 +39,12 @@ website:
 
       - href: data_access/data_access.qmd
         text: "Data Access"
+
+      - href: ml_bias_correction/ml_bias_correction.qmd
+        text: "ML Bias Correction"
+
+      - href: cite/cite.qmd
+        text: "Cite this Work"
 
 
 format:
