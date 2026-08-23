@@ -2,14 +2,8 @@
 title: "ML Bias Correction"
 ---
 
-GLOBGM's water table is too deep in some places and too shallow in others, and the
-pattern is consistent enough to be worth fixing. We trained a machine-learning model to
-predict that error, and the result is a single global field you can apply to the
+We trained a machine-learning model to predict that error, and the result is a single global field you can apply to the
 simulations yourself.
-
-Two things to know up front. The simulations we publish are **not** corrected - this is
-something you do afterwards, if you want it. And it only touches the water table depth,
-`wtd`, plus the head `hds` that follows from it.
 
 
 ## The correction field
@@ -37,36 +31,8 @@ print(f"""
 """)
 ```
 
-You'll find it in the **quality assurance** collection, next to the spin-up and
-quality-flag layers listed in the
-[Data Catalogue](../data_catalogue/data_catalogue.qmd#quality-assurance). Inside is a
-variable called `bias`, in metres, on the usual 30 arc-second grid and split by model
-layer. Positive means the corrected water table ends up deeper.
-
-
-## How the correction works
-
-We don't apply the bias at full strength everywhere. Two rules hold it back.
-
-**Leave shallow water tables alone.** If the long-term average water table is within
-10 cm of the surface, the correction is switched off completely. From there it fades in
-gradually, reaching full strength about 5 m down. Wetlands and river corridors are
-supposed to be wet, and we would rather do nothing than push them underground.
-
-**Don't overdo it.** Whatever the correction works out to, it can't move the water table
-by more than half its long-term depth. It can shift things; it can't turn a deep water
-table into a shallow one.
-
-Written out:
-
-$$
-\Delta = \mathrm{clip}\!\left(b \cdot \mathrm{clip}\!\left(\frac{\bar{d} - d_0}{w},\, 0,\, 1\right),\; -\frac{|\bar{d}|}{2},\; \frac{|\bar{d}|}{2}\right)
-\qquad
-d_\text{corrected} = d + \Delta
-$$
-
-$d$ is the simulated water table depth, $\bar{d}$ its long-term average, $b$ the ML
-bias, and $d_0 = 0.1$ m and $w = 4.9$ m are the two thresholds above.
+You'll find it in the **quality assurance** collection 
+[Data Catalogue](../data_catalogue/data_catalogue.qmd#quality-assurance). 
 
 
 ## The function
@@ -87,8 +53,6 @@ def apply_bias_correction(wtd, average_wtd, bias, protect_depth=0.1, ramp_width=
 
     Comes back the same shape as `wtd`.
     """
-    # Ramp the correction in over `ramp_width` metres below `protect_depth`, so
-    # cells whose long-term water table sits at the surface keep it there.
     ramp_factor = ((average_wtd - protect_depth) / ramp_width).clip(min=0.0, max=1.0)
 
     # Cap the adjustment at half the long-term depth in either direction.
@@ -98,23 +62,16 @@ def apply_bias_correction(wtd, average_wtd, bias, protect_depth=0.1, ramp_width=
     return wtd + delta
 ```
 
-It's plain xarray arithmetic, so it broadcasts over `time` on its own and stays lazy if
-your arrays are Dask-backed. You never need the whole time series in memory.
-
 
 ## Applying it
 
-You need three things lined up.
+You need three:
 
 **The simulation you want to correct** - any `wtd` product from the
 [Data Access](../data_access/data_access.qmd) page.
 
 **Its long-term average.** This has to be the historical average for the same forcing:
-`wtd_reference_gswp3-w5e5_average_1960_2019.nc` if you're working with the historical
-reference, or `wtd_average_1960_2014_historical_<member>.nc` for a projection, matching
-whichever GCM or ensemble you picked. Both of the rules above ask "where does the water
-table normally sit?", and that's the file that answers it - so don't reach for the
-average of the scenario period instead.
+`wtd_reference_gswp3-w5e5_average_1960_2019.nc`
 
 **The bias field, on your grid.** Reindex it rather than hoping it already lines up:
 
@@ -141,28 +98,3 @@ bias = xr.open_dataset("ml_bias_correction.nc")["bias"].reindex(
 
 corrected = apply_bias_correction(sim["wtd"], average["wtd"], bias)
 ```
-
-### Keeping heads consistent
-
-Head and depth describe the same surface from opposite directions, so once you've moved
-`wtd` the published `hds` no longer matches it. They're separate files, so open the `hds`
-twin, add the two together to get the land surface back, and subtract your corrected
-depth from that:
-
-```python
-head = xr.open_zarr(
-    zarr.storage.ZipStore("hds_annual_2015_2100_ssp370_gfdl-esm4.zarr.zip", mode="r")
-).isel(model=0, drop=True)
-
-top_uppermost_layer = head["hds"] + sim["wtd"]   # constant in time
-corrected_hds = top_uppermost_layer - corrected
-```
-
-### Notes
-
--   Both rules look at the *average* field rather than the current one, so a given cell
-    gets the same adjustment at every time step. Only the depth it's added to changes.
--   Where the average is missing or dry, the missing value carries through and the cell
-    comes out uncorrected - it isn't quietly set to zero.
--   Save the result as `float32`. Correcting the data doesn't make it more precise than
-    the simulations it came from.
