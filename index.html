@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>GLOBGM_CMIP6</title>
+<title>GLOBGM CMIP6 – GLOBGM_CMIP6</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,35 +23,12 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
 <link href="./data_catalogue/data_catalogue.html" rel="next">
+<script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -61,20 +38,8 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e9d6bcd7119481c38990db584e19fa54.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-cd98ee35c305127ed19a8eb74290b835.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -105,9 +70,6 @@ div.csl-indent {
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
     </div>
   </nav>
 </header>
@@ -125,11 +87,6 @@ div.csl-indent {
     <a href="https://github.com/vanjaarsveldbarry/globgm_cmip6" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
 </div>
       </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -150,6 +107,18 @@ div.csl-indent {
  <span class="menu-text">Data Access</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ml_bias_correction/ml_bias_correction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ML Bias Correction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cite/cite.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cite this Work</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -164,9 +133,6 @@ GLOBGM CMIP6
 
 
 
-<div style="color: #856404; background-color: #fff3cd; border: 1px solid #ffeaa7; font-weight: bold; font-size: 1.2em; padding: 15px; border-radius: 8px; text-align: center; margin: 2rem 0;">
-<p>⚠️ This website is currently under construction. If you find any issues, please submit a issue on github.</p>
-</div>
 <div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;">
 
 <p style="font-size: 1.4rem; font-weight: 400; color: #2d3748; line-height: 1.6; max-width: 750px; margin: 0 auto;">
@@ -197,11 +163,6 @@ A Global Hyper-Resolution Groundwater Dataset for the Past and Future Under Clim
 <div style="text-align: justify;">
 <p><strong>GLOBGM</strong> (Global Groundwater Model) is a transient global-scale groundwater flow model operating at a high spatial resolution of 30 arc-seconds (~1 km). It employs a parallelized implementation of MODFLOW 6 with two model layers representing confined and unconfined aquifers. Designed for high-performance computing environments, GLOBGM efficiently simulates groundwater heads and water table depths worldwide, enabling detailed assessments of groundwater dynamics under historical and future climate and socioeconomic scenarios. The model uses refined input data and parameterization to capture global groundwater behavior while addressing computational challenges related to runtime, memory, and data storage at this fine resolution. We present comprehensive <strong>groundwater heads and water table depth data</strong> following the ISIMIP framework protocols.</p>
 </div>
-<div style="text-align: center;">
-<h2 class="anchored">
-Data Overview
-</h2>
-</div>
 <div class="dataset-highlight">
   <!-- Historical Reference (Block 1) -->
   <div class="dataset-item dataset-historical">
@@ -229,87 +190,8 @@ Data Overview
     </div>
   </div>
 </div>
-<div style="text-align: center;">
-<h2 class="anchored">
-Data Access
-</h2>
-</div>
-<div style="text-align: justify;">
-<p>Given the large volume of data in this package, we recognize that all users may not have the computing resources necessary to process the data at a global scale. Therefore, we have provided two sets of instructions tailored to different user needs. Please visit the data catalog page to review the disk storage requirements for each dataset to ensure you have adequate resources.</p>
-</div>
-<div class="dataset-highlight">
-  <!-- Single Machine Access -->
-  <div class="dataset-item dataset-single-machine">
-    <div class="dataset-avatar">
-      <span class="dataset-icon">💻</span>
-    </div>
-    <div class="dataset-content">
-      <h3 class="dataset-title anchored">Single Machine</h3>
-      <p class="dataset-purpose">
-        Instructions for accessing data on a laptop or desktop.
-      </p>
-    </div>
-  </div>
-
-  <!-- HPC Access -->
-  <div class="dataset-item dataset-hpc">
-    <div class="dataset-avatar">
-      <span class="dataset-icon">🚀</span>
-    </div>
-    <div class="dataset-content">
-      <h3 class="dataset-title anchored">HPC/Cluster</h3>
-      <p class="dataset-purpose">
-        Instructions for accessing data on a HPC system or cluster.
-      </p>
-    </div>
-  </div>
-</div>
-<div style="text-align: center;">
-<h2 class="anchored">
-Cite this work
-</h2>
-</div>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Manuscript Status
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The corresponding manuscript has been submitted to <em>Earth System Dynamics</em>. A preprint is currently available on EarthArXiv.</p>
-</div>
-</div>
-<p>When using GLOBGM CMIP6 data in your work, please cite the relevant dataset(s) in addition to the manuscript. Each dataset receives a unique DOI through the Yoda data repository and should be cited according to DataCite standards. Please cite the specific dataset(s) you use in your analysis. If you use multiple scenarios or time periods, cite all relevant datasets.</p>
-<section id="publication-citation" class="level3">
-<h3 class="anchored" data-anchor-id="publication-citation">Publication Citation</h3>
-<div id="refs" role="list">
-<p>van Jaarsveld, B., Wanders, N., Otoo, N.G., Sutanudjaja, E.H., Verkaik, J., Zamrsky, D., and Bierkens, M.F.P. (2026). Global hyper-resolution modeling of historical and future groundwater dynamics, <em>EGUsphere [preprint] </em>, <a href="https://doi.org/10.5194/egusphere-2026-804" class="uri">https://doi.org/10.5194/egusphere-2026-804</a>. ::</p>
-<pre><code>@Article{vanJaarsveld2025global,
-AUTHOR={van Jaarsveld, B. and Wanders, N. and Otoo, N.G. and Sutanudjaja, E.H. and Verkaik, J. and Zamrsky, D. and Bierkens, M.F.P.},
-TITLE={Global hyper-resolution groundwater dataset for assessing historical and future groundwater dynamics},
-JOURNAL={EarthArXiv},
-YEAR={2025},
-DOI={10.31223/X5QX7W},
-URL={https://doi.org/10.31223/X5QX7W}
-}</code></pre>
-<section id="data-citation" class="level3">
-<h3 class="anchored" data-anchor-id="data-citation">Data Citation</h3>
-<ol type="1">
-<li><p><strong>Historical Reference:</strong><br>
-van Jaarsveld, B., et al.&nbsp;(2025). <em>GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [globgm_historical_reference_gswp3-w5e5]</em>. Utrecht University. https://doi.org/10.24416/UU01-AKSHOX</p></li>
-<li><p><strong>Climate Projections: Monthly</strong> van Jaarsveld, B., et al.&nbsp;(2025). <em>GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_monthly]</em>. Utrecht University. https://doi.org/10.24416/UU01-1BXLPD</p></li>
-<li><p><strong>Climate Projections: Annual</strong> van Jaarsveld, B., et al.&nbsp;(2025). <em>GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_annual]</em>. Utrecht University. https://doi.org/10.24416/UU01-V6B9YS</p></li>
-<li><p><strong>Climate Projections: Average</strong> van Jaarsveld, B., et al.&nbsp;(2025). <em>GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_average]</em>. Utrecht University. https://doi.org/10.24416/UU01-SLRFI7</p></li>
-<li><p><strong>Quality Assurance</strong> van Jaarsveld, B., et al.&nbsp;(2025). <em>GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [quality_assurance]</em>. Utrecht University. https://doi.org/10.24416/UU01-16EJ3Y</p></li>
-</ol>
 
 
-</section>
-</div>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
