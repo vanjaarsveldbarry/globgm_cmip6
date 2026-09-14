@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-cd98ee35c305127ed19a8eb74290b835.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-12cc3c6d8e5a5ad9cd7e78ef01522fcb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -155,6 +155,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Cite this Work</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../feedback/feedback.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Feedback</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -165,9 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-correction-field" id="toc-the-correction-field" class="nav-link active" data-scroll-target="#the-correction-field">The correction field</a></li>
-  <li><a href="#the-function" id="toc-the-function" class="nav-link" data-scroll-target="#the-function">The function</a></li>
-  <li><a href="#applying-it" id="toc-applying-it" class="nav-link" data-scroll-target="#applying-it">Applying it</a></li>
+  <li><a href="#applying-it" id="toc-applying-it" class="nav-link active" data-scroll-target="#applying-it">Applying it</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/vanjaarsveldbarry/globgm_cmip6/edit/main/ml_bias_correction/ml_bias_correction.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/vanjaarsveldbarry/globgm_cmip6/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -194,73 +198,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>We trained a machine-learning model to predict that error, and the result is a single global field you can apply to the simulations yourself.</p>
-<section id="the-correction-field" class="level2">
-<h2 class="anchored" data-anchor-id="the-correction-field">The correction field</h2>
-<div class="catalogue-spec">
-<div>
-<span class="catalogue-spec-label">File</span> <span class="catalogue-spec-value"><a href="https://geo.public.data.uu.nl/vault-globgm-cmip6-quality/research-globgm-cmip6-quality%5B1755500055%5D/original/ml_bias_correction.nc">ml_bias_correction.nc</a></span>
-</div>
-<div>
-<span class="catalogue-spec-label">Size</span> <span class="catalogue-spec-value">897 MiB</span>
-</div>
-<div>
-<span class="catalogue-spec-label">Archive</span> <span class="catalogue-spec-value"><a href="https://public.yoda.uu.nl/geo/UU01/16EJ3Y.html" target="_blank" rel="noopener">Quality assurance vault</a></span>
-</div>
-</div>
-<p>You’ll find it in the <strong>quality assurance</strong> collection <a href="../data_catalogue/data_catalogue.html#quality-assurance">Data Catalogue</a>.</p>
-</section>
-<section id="the-function" class="level2">
-<h2 class="anchored" data-anchor-id="the-function">The function</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> apply_bias_correction(wtd, average_wtd, bias, protect_depth<span class="op">=</span><span class="fl">0.1</span>, ramp_width<span class="op">=</span><span class="fl">4.9</span>):</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Correct a simulated water table depth with the ML bias field.</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">    wtd          the water table depth you want to correct, in metres below the</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">                 surface. Any time resolution, or none at all.</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">    average_wtd  the long-term historical average depth for the same simulation,</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">                 also in metres below the surface.</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">    bias         the `bias` variable from ml_bias_correction.nc, in metres, on</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">                 the same grid as `wtd`.</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">    Comes back the same shape as `wtd`.</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    ramp_factor <span class="op">=</span> ((average_wtd <span class="op">-</span> protect_depth) <span class="op">/</span> ramp_width).clip(<span class="bu">min</span><span class="op">=</span><span class="fl">0.0</span>, <span class="bu">max</span><span class="op">=</span><span class="fl">1.0</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Cap the adjustment at half the long-term depth in either direction.</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    limit <span class="op">=</span> np.<span class="bu">abs</span>(average_wtd <span class="op">/</span> <span class="dv">2</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    delta <span class="op">=</span> (bias <span class="op">*</span> ramp_factor).clip(<span class="bu">min</span><span class="op">=-</span>limit, <span class="bu">max</span><span class="op">=</span>limit)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> wtd <span class="op">+</span> delta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
 <section id="applying-it" class="level2">
 <h2 class="anchored" data-anchor-id="applying-it">Applying it</h2>
-<p>You need three:</p>
-<p><strong>The simulation you want to correct</strong> - any <code>wtd</code> product from the <a href="../data_access/data_access.html">Data Access</a> page.</p>
+<p>You need three datasets to apply the correction:</p>
+<p><strong>The simulation you want to correct</strong> - <code>wtd</code> product from the <a href="../data_access/data_access.html">Data Access</a> page.</p>
 <p><strong>Its long-term average.</strong> This has to be the historical average for the same forcing: <code>wtd_reference_gswp3-w5e5_average_1960_2019.nc</code></p>
-<p><strong>The bias field, on your grid.</strong> Reindex it rather than hoping it already lines up:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zarr</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The annual and monthly products are deposited as zipped Zarr stores, the</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># averages as NetCDF; both carry a length-one `model` dimension.</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> xr.open_zarr(</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    zarr.storage.ZipStore(<span class="st">"wtd_annual_2015_2100_ssp370_gfdl-esm4.zarr.zip"</span>, mode<span class="op">=</span><span class="st">"r"</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>).isel(model<span class="op">=</span><span class="dv">0</span>, drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>average <span class="op">=</span> xr.open_dataset(</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"wtd_average_1960_2014_historical_gfdl-esm4.nc"</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>).isel(model<span class="op">=</span><span class="dv">0</span>, drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>bias <span class="op">=</span> xr.open_dataset(<span class="st">"ml_bias_correction.nc"</span>)[<span class="st">"bias"</span>].reindex(</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    latitude<span class="op">=</span>sim.latitude,</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    longitude<span class="op">=</span>sim.longitude,</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    layer<span class="op">=</span>sim.layer,</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    method<span class="op">=</span><span class="st">"nearest"</span>,</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>corrected <span class="op">=</span> apply_bias_correction(sim[<span class="st">"wtd"</span>], average[<span class="st">"wtd"</span>], bias)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>The bias field .</strong> - <code>ml_bias_correction.nc</code> from the <strong>quality assurance</strong> collection of the <a href="../data_catalogue/data_catalogue.html#quality-assurance">Data Catalogue</a>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zarr</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> apply_bias_correction(wtd, average_wtd, bias, protect_depth<span class="op">=</span><span class="fl">0.1</span>, ramp_width<span class="op">=</span><span class="fl">4.9</span>):</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Correct a simulated water table depth with the ML bias field.</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">    wtd          the water table depth you want to correct, in metres below the</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">                 surface.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">    average_wtd  the long-term historical average depth for the same simulation,</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">                 also in metres below the surface.</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">    bias         the `bias` variable from ml_bias_correction.nc, in metres, on</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">                 the same grid as `wtd`.</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    ramp_factor <span class="op">=</span> ((average_wtd <span class="op">-</span> protect_depth) <span class="op">/</span> ramp_width).clip(<span class="bu">min</span><span class="op">=</span><span class="fl">0.0</span>, <span class="bu">max</span><span class="op">=</span><span class="fl">1.0</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    limit <span class="op">=</span> np.<span class="bu">abs</span>(average_wtd <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    delta <span class="op">=</span> (bias <span class="op">*</span> ramp_factor).clip(<span class="bu">min</span><span class="op">=-</span>limit, <span class="bu">max</span><span class="op">=</span>limit)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> wtd <span class="op">+</span> delta</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> xr.open_zarr(</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    zarr.storage.ZipStore(<span class="st">"wtd_annual_2015_2100_ssp370_gfdl-esm4.zarr.zip"</span>, mode<span class="op">=</span><span class="st">"r"</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>).isel(model<span class="op">=</span><span class="dv">0</span>, drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>average <span class="op">=</span> xr.open_dataset(</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"wtd_average_1960_2014_historical_gfdl-esm4.nc"</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>).isel(model<span class="op">=</span><span class="dv">0</span>, drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>bias <span class="op">=</span> xr.open_dataset(<span class="st">"ml_bias_correction.nc"</span>)[<span class="st">"bias"</span>].reindex(</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    latitude<span class="op">=</span>sim.latitude,</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    longitude<span class="op">=</span>sim.longitude,</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    layer<span class="op">=</span>sim.layer,</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    method<span class="op">=</span><span class="st">"nearest"</span>,</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>corrected <span class="op">=</span> apply_bias_correction(sim[<span class="st">"wtd"</span>], average[<span class="st">"wtd"</span>], bias)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>

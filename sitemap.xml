@@ -2,22 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://vanjaarsveldbarry.github.io/globgm_cmip6/ml_bias_correction/ml_bias_correction.html</loc>
-    <lastmod>2026-08-23T19:50:13.631Z</lastmod>
+    <lastmod>2026-09-14T08:14:46.577Z</lastmod>
   </url>
   <url>
-    <loc>https://vanjaarsveldbarry.github.io/globgm_cmip6/data_catalogue/data_catalogue.html</loc>
-    <lastmod>2026-08-23T19:50:13.610Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vanjaarsveldbarry.github.io/globgm_cmip6/cite/cite.html</loc>
-    <lastmod>2026-08-23T19:50:13.609Z</lastmod>
+    <loc>https://vanjaarsveldbarry.github.io/globgm_cmip6/feedback/feedback.html</loc>
+    <lastmod>2026-09-14T08:14:46.571Z</lastmod>
   </url>
   <url>
     <loc>https://vanjaarsveldbarry.github.io/globgm_cmip6/data_access/data_access.html</loc>
-    <lastmod>2026-08-23T19:50:13.610Z</lastmod>
+    <lastmod>2026-09-14T08:14:46.571Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vanjaarsveldbarry.github.io/globgm_cmip6/cite/cite.html</loc>
+    <lastmod>2026-09-14T08:14:46.570Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vanjaarsveldbarry.github.io/globgm_cmip6/data_catalogue/data_catalogue.html</loc>
+    <lastmod>2026-09-14T08:14:46.571Z</lastmod>
   </url>
   <url>
     <loc>https://vanjaarsveldbarry.github.io/globgm_cmip6/index.html</loc>
-    <lastmod>2026-08-23T19:50:13.631Z</lastmod>
+    <lastmod>2026-09-14T08:14:46.577Z</lastmod>
   </url>
 </urlset>

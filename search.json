@@ -10,33 +10,43 @@
     ]
   },
   {
-    "objectID": "ml_bias_correction/ml_bias_correction.html#the-correction-field",
-    "href": "ml_bias_correction/ml_bias_correction.html#the-correction-field",
-    "title": "ML Bias Correction",
-    "section": "The correction field",
-    "text": "The correction field\n\n\nFile ml_bias_correction.nc\n\n\nSize 897 MiB\n\n\nArchive Quality assurance vault\n\n\nYou’ll find it in the quality assurance collection Data Catalogue.",
-    "crumbs": [
-      "ML Bias Correction"
-    ]
-  },
-  {
-    "objectID": "ml_bias_correction/ml_bias_correction.html#the-function",
-    "href": "ml_bias_correction/ml_bias_correction.html#the-function",
-    "title": "ML Bias Correction",
-    "section": "The function",
-    "text": "The function\nimport numpy as np\n\n\ndef apply_bias_correction(wtd, average_wtd, bias, protect_depth=0.1, ramp_width=4.9):\n    \"\"\"Correct a simulated water table depth with the ML bias field.\n\n    wtd          the water table depth you want to correct, in metres below the\n                 surface. Any time resolution, or none at all.\n    average_wtd  the long-term historical average depth for the same simulation,\n                 also in metres below the surface.\n    bias         the `bias` variable from ml_bias_correction.nc, in metres, on\n                 the same grid as `wtd`.\n\n    Comes back the same shape as `wtd`.\n    \"\"\"\n    ramp_factor = ((average_wtd - protect_depth) / ramp_width).clip(min=0.0, max=1.0)\n\n    # Cap the adjustment at half the long-term depth in either direction.\n    limit = np.abs(average_wtd / 2)\n    delta = (bias * ramp_factor).clip(min=-limit, max=limit)\n\n    return wtd + delta",
-    "crumbs": [
-      "ML Bias Correction"
-    ]
-  },
-  {
     "objectID": "ml_bias_correction/ml_bias_correction.html#applying-it",
     "href": "ml_bias_correction/ml_bias_correction.html#applying-it",
     "title": "ML Bias Correction",
     "section": "Applying it",
-    "text": "Applying it\nYou need three:\nThe simulation you want to correct - any wtd product from the Data Access page.\nIts long-term average. This has to be the historical average for the same forcing: wtd_reference_gswp3-w5e5_average_1960_2019.nc\nThe bias field, on your grid. Reindex it rather than hoping it already lines up:\nimport xarray as xr\nimport zarr\n\n# The annual and monthly products are deposited as zipped Zarr stores, the\n# averages as NetCDF; both carry a length-one `model` dimension.\nsim = xr.open_zarr(\n    zarr.storage.ZipStore(\"wtd_annual_2015_2100_ssp370_gfdl-esm4.zarr.zip\", mode=\"r\")\n).isel(model=0, drop=True)\n\naverage = xr.open_dataset(\n    \"wtd_average_1960_2014_historical_gfdl-esm4.nc\"\n).isel(model=0, drop=True)\n\nbias = xr.open_dataset(\"ml_bias_correction.nc\")[\"bias\"].reindex(\n    latitude=sim.latitude,\n    longitude=sim.longitude,\n    layer=sim.layer,\n    method=\"nearest\",\n)\n\ncorrected = apply_bias_correction(sim[\"wtd\"], average[\"wtd\"], bias)",
+    "text": "Applying it\nYou need three datasets to apply the correction:\nThe simulation you want to correct - wtd product from the Data Access page.\nIts long-term average. This has to be the historical average for the same forcing: wtd_reference_gswp3-w5e5_average_1960_2019.nc\nThe bias field . - ml_bias_correction.nc from the quality assurance collection of the Data Catalogue.\nimport xarray as xr\nimport zarr\nimport numpy as np\n\ndef apply_bias_correction(wtd, average_wtd, bias, protect_depth=0.1, ramp_width=4.9):\n    \"\"\"Correct a simulated water table depth with the ML bias field.\n\n    wtd          the water table depth you want to correct, in metres below the\n                 surface.\n    average_wtd  the long-term historical average depth for the same simulation,\n                 also in metres below the surface.\n    bias         the `bias` variable from ml_bias_correction.nc, in metres, on\n                 the same grid as `wtd`.\n    \"\"\"\n    ramp_factor = ((average_wtd - protect_depth) / ramp_width).clip(min=0.0, max=1.0)\n    limit = np.abs(average_wtd / 2)\n    delta = (bias * ramp_factor).clip(min=-limit, max=limit)\n\n    return wtd + delta\n\nsim = xr.open_zarr(\n    zarr.storage.ZipStore(\"wtd_annual_2015_2100_ssp370_gfdl-esm4.zarr.zip\", mode=\"r\")\n).isel(model=0, drop=True)\n\naverage = xr.open_dataset(\n    \"wtd_average_1960_2014_historical_gfdl-esm4.nc\"\n).isel(model=0, drop=True)\n\nbias = xr.open_dataset(\"ml_bias_correction.nc\")[\"bias\"].reindex(\n    latitude=sim.latitude,\n    longitude=sim.longitude,\n    layer=sim.layer,\n    method=\"nearest\",\n)\n\ncorrected = apply_bias_correction(sim[\"wtd\"], average[\"wtd\"], bias)",
     "crumbs": [
       "ML Bias Correction"
+    ]
+  },
+  {
+    "objectID": "feedback/feedback.html",
+    "href": "feedback/feedback.html",
+    "title": "Feedback",
+    "section": "",
+    "text": "Found an error, a broken link, or something missing from the data? Tell us here. Submitting opens a pre-filled issue on GitHub in a new tab - you only need to press Submit new issue there. A GitHub account is required.\n\n  \n    What is this about?\n    \n      Suggestion or missing content\n      Error or bug on the website\n      Question\n    \n  \n\n  \n    Summary\n    \n  \n\n  \n    Details\n    \n  \n\n  \n    Page or file this concerns optional\n    \n  \n\n  \n    Open issue on GitHub\n    \n  \n\n\n\nPrefer email? Contact the corresponding author listed in the publication.",
+    "crumbs": [
+      "Feedback"
+    ]
+  },
+  {
+    "objectID": "data_access/data_access.html",
+    "href": "data_access/data_access.html",
+    "title": "Data Access",
+    "section": "",
+    "text": "Note🚧 Under construction\n\n\n\nWe are still working on this page. The code-generating download tool is currently blocked by Anubis, and is being reworked to get around this. In the meantime, direct downloads are still possible: every file is listed individually in the Data Catalogue.",
+    "crumbs": [
+      "Data Access"
+    ]
+  },
+  {
+    "objectID": "cite/cite.html",
+    "href": "cite/cite.html",
+    "title": "Cite this Work",
+    "section": "",
+    "text": "When using GLOBGM CMIP6 data in your work, please cite the relevant dataset(s) in addition to the manuscript. Each dataset receives a unique DOI through the Yoda data repository and should be cited according to DataCite standards. Please cite the specific dataset(s) you use in your analysis. If you use multiple scenarios or time periods, cite all relevant datasets.\n\nPublication Citation\n\nvan Jaarsveld, B., Wanders, N., Otoo, N. G., Sutanudjaja, E. H., Verkaik, J., Zamrsky, D., and Bierkens, M. F. P.: Global hyper-resolution modeling of historical and future groundwater dynamics, Earth Syst. Dynam., 17, 1201–1236, https://doi.org/10.5194/esd-17-1201-2026, 2026.\n\n@Article{vanJaarsveld2025global,\nAUTHOR={van Jaarsveld, B. and Wanders, N. and Otoo, N.G. and Sutanudjaja, E.H. and Verkaik, J. and Zamrsky, D. and Bierkens, M.F.P.},\nTITLE={Global hyper-resolution modeling of historical and future groundwater dynamics},\nJOURNAL={Earth System Dynamics},\nYEAR={2026},\nDOI={10.5194/esd-17-1201-2026},\nURL={https://esd.copernicus.org/articles/17/1201/2026/}\n}\n\n\nDataset Citation\n\nHistorical Reference: van Jaarsveld, B., et al. (2025). GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [globgm_historical_reference_gswp3-w5e5]. Utrecht University. https://doi.org/10.24416/UU01-AKSHOX\nClimate Projections: Monthly van Jaarsveld, B., et al. (2025). GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_monthly]. Utrecht University. https://doi.org/10.24416/UU01-1BXLPD\nClimate Projections: Annual van Jaarsveld, B., et al. (2025). GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_annual]. Utrecht University. https://doi.org/10.24416/UU01-V6B9YS\nClimate Projections: Average van Jaarsveld, B., et al. (2025). GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_average]. Utrecht University. https://doi.org/10.24416/UU01-SLRFI7\nQuality Assurance van Jaarsveld, B., et al. (2025). GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [quality_assurance]. Utrecht University. https://doi.org/10.24416/UU01-16EJ3Y",
+    "crumbs": [
+      "Cite this Work"
     ]
   },
   {
@@ -77,26 +87,6 @@
     "text": "Quality assurance\n\n\n  Archive\n       YODA landing page\n\n\nStatic quality flags: karst aquifers, mountainous regions and permafrost, each held as a separate variable. These are the settings where the model’s physical assumptions hold least well.\nSpin-up completion: the month, as YYYYMM, at which spin-up is achieved for each cell. Output earlier than that month has not equilibrated and should not be used.\nGRACE agreement: categorical classes recording where GRACE observations agree with the modelled storage change.\n\n\n\n\n\n\n  \n    \n      \n    \n        \n        \n        \n        \n        \n        \n        \n        \n    \n    \n   \n    \n      \n  \n        \n    \n    \n  \n        \n    \n    \n  \n        \n    \n      \n  \n        \n            \n                \n                \n            \n\n            \n                \n                \n            \n\n            \n                \n                \n            \n\n            \n                \n                \n            \n\n            \n                \n                \n            \n        \n    \n\n\n        Loading ITables v2.9.1 from the init_notebook_mode cell...\n        (need help?)\n      \n    \n  \n\n    \n      🔒ⓘItem\n      Contents\n      Size (MiB)\n      Download\n    \nStatic quality flagsKarst aquifers, mountainous regions and permafrost, each as a separate variable24.46Download\nSpin-up completionMonth (YYYYMM) at which spin-up is achieved for each cell49.08Download\nGRACE agreementCategorical classes recording where GRACE agrees with the modelled storage change0.13Download",
     "crumbs": [
       "Data Catalogue"
-    ]
-  },
-  {
-    "objectID": "cite/cite.html",
-    "href": "cite/cite.html",
-    "title": "Cite this Work",
-    "section": "",
-    "text": "When using GLOBGM CMIP6 data in your work, please cite the relevant dataset(s) in addition to the manuscript. Each dataset receives a unique DOI through the Yoda data repository and should be cited according to DataCite standards. Please cite the specific dataset(s) you use in your analysis. If you use multiple scenarios or time periods, cite all relevant datasets.\n\nPublication Citation\n\nvan Jaarsveld, B., Wanders, N., Otoo, N.G., Sutanudjaja, E.H., Verkaik, J., Zamrsky, D., and Bierkens, M.F.P. (2026). Global hyper-resolution modeling of historical and future groundwater dynamics, EGUsphere [preprint], https://doi.org/10.5194/egusphere-2026-804.\n\n@Article{vanJaarsveld2025global,\nAUTHOR={van Jaarsveld, B. and Wanders, N. and Otoo, N.G. and Sutanudjaja, E.H. and Verkaik, J. and Zamrsky, D. and Bierkens, M.F.P.},\nTITLE={Global hyper-resolution modeling of historical and future groundwater dynamics},\nJOURNAL={Earth System Dynamics [preprint]},\nYEAR={2025},\nDOI={10.5194/egusphere-2026-804},\nURL={https://egusphere.copernicus.org/preprints/2026/egusphere-2026-804/}\n}\n\n\nDataset Citation\n\nHistorical Reference: van Jaarsveld, B., et al. (2025). GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [globgm_historical_reference_gswp3-w5e5]. Utrecht University. https://doi.org/10.24416/UU01-AKSHOX\nClimate Projections: Monthly van Jaarsveld, B., et al. (2025). GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_monthly]. Utrecht University. https://doi.org/10.24416/UU01-1BXLPD\nClimate Projections: Annual van Jaarsveld, B., et al. (2025). GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_annual]. Utrecht University. https://doi.org/10.24416/UU01-V6B9YS\nClimate Projections: Average van Jaarsveld, B., et al. (2025). GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [ssp_rcp_average]. Utrecht University. https://doi.org/10.24416/UU01-SLRFI7\nQuality Assurance van Jaarsveld, B., et al. (2025). GLOBGM_CMIP6: A Global Hyper-Resolution Groundwater Dataset for Assessing Historical and Future Groundwater Dynamics Under Climate and Socioeconomic Change - [quality_assurance]. Utrecht University. https://doi.org/10.24416/UU01-16EJ3Y",
-    "crumbs": [
-      "Cite this Work"
-    ]
-  },
-  {
-    "objectID": "data_access/data_access.html",
-    "href": "data_access/data_access.html",
-    "title": "Data Access",
-    "section": "",
-    "text": "Note🚧 Under construction\n\n\n\nWe are still working on this page. The download generator is being reworked and will be back shortly. In the meantime, every file is listed individually in the Data Catalogue.",
-    "crumbs": [
-      "Data Access"
     ]
   },
   {
