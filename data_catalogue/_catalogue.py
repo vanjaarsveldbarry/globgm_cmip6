@@ -1,16 +1,3 @@
-"""Parsing and rendering helpers for the GLOBGM CMIP6 data catalogue.
-
-The seven CSVs in this directory are manifests of what was deposited in the YODA
-vaults: one row per file, ``path,size,sha256``, no header. The filenames encode
-variable, aggregation, period, scenario and ensemble member; this module turns
-that string into real columns so the catalogue page can be organised by what the
-data *is* rather than by which vault it landed in.
-
-Parsing is strict on purpose. A filename that does not match raises rather than
-producing NaN columns, because a silent parse failure becomes a wrong download
-link.
-"""
-
 from __future__ import annotations
 
 import re
@@ -20,16 +7,9 @@ import pandas as pd
 import itables
 from itables import show
 
-# ``searching`` and ``info`` are valid DataTables options that itables does not
-# list in its own typed schema; without this the SyntaxWarning is captured by
-# Quarto and rendered as visible output on the page.
 itables.options.warn_on_undocumented_option = False
 
 HERE = Path(__file__).parent
-
-# --- Vaults -----------------------------------------------------------------
-# Square brackets are percent-encoded in every entry, including quality, which
-# the old inline chunks left raw.
 
 _BASE = "https://geo.public.data.uu.nl"
 
@@ -38,7 +18,7 @@ YODA_VAULTS = {
     "monthly": f"{_BASE}/vault-globgm-cmip6-monthly/research-globgm-cmip6-monthly%5B1755499987%5D/original/",
     "annual": f"{_BASE}/vault-globgm-cmip6-annual/research-globgm-cmip6-annual%5B1755499806%5D/original/",
     "average": f"{_BASE}/vault-globgm-cmip6-average/research-globgm-cmip6-average%5B1755499873%5D/original/",
-    "quality": f"{_BASE}/vault-globgm-cmip6-quality/research-globgm-cmip6-quality%5B1755500055%5D/original/",
+    "quality": f"{_BASE}/vault-globgm-cmip6-quality/research-globgm-cmip6-quality%5B1788514864%5D/original/",
 }
 
 DOI_LANDING = {
@@ -52,17 +32,12 @@ DOI_LANDING = {
 # --- Display maps -----------------------------------------------------------
 
 VARIABLE = {"hds": "Head", "wtd": "Water table depth"}
-
-# Never render a bare "historical": it collides with the observation-forced
-# historical reference collection, which is the exact ambiguity this page exists
-# to remove.
 SCENARIO = {
     "historical": "CMIP6 historical",
     "ssp126": "SSP1-2.6",
     "ssp370": "SSP3-7.0",
     "ssp585": "SSP5-8.5",
 }
-
 MEMBER = {
     "ensemble": "Ensemble",
     "gfdl-esm4": "GFDL-ESM4",
@@ -74,17 +49,12 @@ MEMBER = {
 
 AGGREGATION = {"average": "Average", "annual": "Annual", "monthly": "Monthly"}
 
-# Coarse to fine, which is also cheapest to heaviest.
 AGGREGATION_ORDER = ["Average", "Annual", "Monthly"]
 
 SCENARIO_ORDER = ["CMIP6 historical", "SSP1-2.6", "SSP3-7.0", "SSP5-8.5"]
 
 MEMBER_ORDER = ["Ensemble"] + [MEMBER[k] for k in MEMBER if k != "ensemble"]
 
-# Which CSV belongs to which collection and vault. The parser is told this; it
-# must never infer it from the directory prefix, which is inconsistent between
-# collections (bare ``annual/`` for the reference, ``ensemble_annual/`` and
-# ``GCM_annual/`` for the scenarios).
 SCENARIO_SOURCES = [
     ("cmip6_average_ensemble.csv", "average"),
     ("cmip6_average_GCM.csv", "average"),
@@ -92,8 +62,6 @@ SCENARIO_SOURCES = [
     ("cmip6_annual_GCM.csv", "annual"),
     ("cmip6_monthly_ensemble.csv", "monthly"),
 ]
-
-# --- Filename grammar -------------------------------------------------------
 
 _EXT = r"(?P<ext>\.nc|\.zarr\.zip)"
 
@@ -134,17 +102,12 @@ def parse_size(size: str) -> float:
 
 
 def parse_scenario_token(token: str) -> str:
-    """Normalise the bare scenario tokens used by four monthly ensemble files.
-
-    ``126`` -> ``ssp126``. Anything already prefixed passes through untouched.
-    """
     if token.isdigit():
         return f"ssp{token}"
     return token
 
 
 def _read_manifest(name: str) -> pd.DataFrame:
-    """Read one CSV. Hash fields carry a trailing space in every file."""
     df = pd.read_csv(
         HERE / name,
         header=None,
@@ -169,16 +132,19 @@ def _match(regex: re.Pattern, path: str, source: str) -> re.Match:
 
 
 def _download_url(vault: str, path: str) -> str:
-    """Build a download URL from the *raw* manifest path.
-
-    Normalisation happens only in derived display columns; the URL must use the
-    filename exactly as deposited or it will 404.
-    """
     return YODA_VAULTS[vault] + path
 
 
+def _finalize(
+    df: pd.DataFrame, sort_cols: list[str], orders: dict[str, list[str]]
+) -> pd.DataFrame:
+    """Apply categorical ordering to `orders` columns, then sort by `sort_cols`."""
+    for col, order in orders.items():
+        df[col] = pd.Categorical(df[col], categories=order, ordered=True)
+    return df.sort_values(sort_cols).reset_index(drop=True)
+
+
 def load_reference() -> pd.DataFrame:
-    """The six observation-forced (GSWP3-W5E5) files."""
     raw = _read_manifest("historical_reference.csv")
     rows = []
     for row in raw.itertuples():
@@ -193,10 +159,9 @@ def load_reference() -> pd.DataFrame:
             }
         )
     df = pd.DataFrame(rows)
-    df["Aggregation"] = pd.Categorical(
-        df["Aggregation"], categories=AGGREGATION_ORDER, ordered=True
+    return _finalize(
+        df, ["Aggregation", "Variable"], {"Aggregation": AGGREGATION_ORDER}
     )
-    return df.sort_values(["Aggregation", "Variable"]).reset_index(drop=True)
 
 
 def load_scenarios() -> pd.DataFrame:
@@ -227,19 +192,17 @@ def load_scenarios() -> pd.DataFrame:
                 }
             )
     df = pd.DataFrame(rows)
-    for col, order in (
-        ("Aggregation", AGGREGATION_ORDER),
-        ("Scenario", SCENARIO_ORDER),
-        ("Member", MEMBER_ORDER),
-    ):
-        df[col] = pd.Categorical(df[col], categories=order, ordered=True)
-    return df.sort_values(
-        ["Member", "Scenario", "Aggregation", "Variable"]
-    ).reset_index(drop=True)
+    return _finalize(
+        df,
+        ["Member", "Scenario", "Aggregation", "Variable"],
+        {
+            "Aggregation": AGGREGATION_ORDER,
+            "Scenario": SCENARIO_ORDER,
+            "Member": MEMBER_ORDER,
+        },
+    )
 
 
-# What each file in the quality collection holds. Keyed by filename so an
-# undescribed deposit raises rather than rendering a blank row.
 QUALITY_ITEMS = {
     "quality_assurance.nc": (
         "Static quality flags",
@@ -264,8 +227,7 @@ def load_quality() -> pd.DataFrame:
     """The quality-assurance collection, from ``quality_data.csv``.
 
     Unlike the other manifests this one carries a header row and a bare
-    filename with no directory prefix. The files are not yet deposited, so the
-    download URLs it builds do not resolve.
+    filename with no directory prefix.
     """
     raw = pd.read_csv(HERE / "quality_data.csv")
     raw.columns = [c.strip() for c in raw.columns]
@@ -287,12 +249,9 @@ def load_quality() -> pd.DataFrame:
                 "Download": _download_url("quality", name),
             }
         )
-    order = list(QUALITY_ITEMS.values())
+    item_order = [item for item, _ in QUALITY_ITEMS.values()]
     df = pd.DataFrame(rows)
-    df["Item"] = pd.Categorical(
-        df["Item"], categories=[i[0] for i in order], ordered=True
-    )
-    return df.sort_values("Item").reset_index(drop=True)
+    return _finalize(df, ["Item"], {"Item": item_order})
 
 
 # --- Rendering --------------------------------------------------------------

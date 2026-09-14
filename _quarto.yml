@@ -46,6 +46,9 @@ website:
       - href: cite/cite.qmd
         text: "Cite this Work"
 
+      - href: feedback/feedback.qmd
+        text: "Feedback"
+
 
 format:
   html:

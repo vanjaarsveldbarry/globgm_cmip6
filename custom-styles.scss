@@ -531,3 +531,76 @@ $enable-grid-classes: true;
 
   code { color: inherit; background: none; padding: 0; }
 }
+
+// --- Feedback form ----------------------------------------------------------
+
+.fb-form {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.fb-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1.1rem;
+
+  label {
+    font-size: 0.82rem;
+    color: #4a5568;
+    font-variation-settings: "wght" 600;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 0.5rem 0.65rem;
+    font: inherit;
+    font-size: 0.92rem;
+    color: #1a365d;
+    background: #fff;
+    border: 1px solid #cbd5e0;
+    border-radius: 8px;
+
+    &:focus {
+      outline: none;
+      border-color: #a7cef6;
+      box-shadow: 0 0 0 2px rgba(167, 206, 246, 0.4);
+    }
+  }
+
+  textarea { resize: vertical; }
+}
+
+.fb-optional {
+  margin-left: 0.4rem;
+  color: #a0aec0;
+  font-variation-settings: "wght" 400;
+}
+
+.fb-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.fb-submit {
+  padding: 0.55rem 1.35rem;
+  border: 0;
+  border-radius: 8px;
+  background: #1a365d;
+  color: #fff;
+  font-size: 0.92rem;
+  font-variation-settings: "wght" 600;
+  cursor: pointer;
+
+  &:hover { background: #24487a; }
+}
+
+.fb-status {
+  font-size: 0.88rem;
+  color: #4a5568;
+}

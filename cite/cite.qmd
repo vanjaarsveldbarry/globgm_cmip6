@@ -9,7 +9,7 @@ When using GLOBGM CMIP6 data in your work, please cite the relevant dataset(s) i
 ### Publication Citation
 
 ::: {#refs}
-van Jaarsveld, B., Wanders, N., Otoo, N.G., Sutanudjaja, E.H., Verkaik, J., Zamrsky, D., and Bierkens, M.F.P. (2026). Global hyper-resolution modeling of historical and future groundwater dynamics, *EGUsphere [preprint]*, <https://doi.org/10.5194/egusphere-2026-804>.
+van Jaarsveld, B., Wanders, N., Otoo, N. G., Sutanudjaja, E. H., Verkaik, J., Zamrsky, D., and Bierkens, M. F. P.: Global hyper-resolution modeling of historical and future groundwater dynamics, Earth Syst. Dynam., 17, 1201–1236, <https://doi.org/10.5194/esd-17-1201-2026>, 2026.
 :::
 
 
@@ -17,10 +17,10 @@ van Jaarsveld, B., Wanders, N., Otoo, N.G., Sutanudjaja, E.H., Verkaik, J., Zamr
 @Article{vanJaarsveld2025global,
 AUTHOR={van Jaarsveld, B. and Wanders, N. and Otoo, N.G. and Sutanudjaja, E.H. and Verkaik, J. and Zamrsky, D. and Bierkens, M.F.P.},
 TITLE={Global hyper-resolution modeling of historical and future groundwater dynamics},
-JOURNAL={Earth System Dynamics [preprint]},
-YEAR={2025},
-DOI={10.5194/egusphere-2026-804},
-URL={https://egusphere.copernicus.org/preprints/2026/egusphere-2026-804/}
+JOURNAL={Earth System Dynamics},
+YEAR={2026},
+DOI={10.5194/esd-17-1201-2026},
+URL={https://esd.copernicus.org/articles/17/1201/2026/}
 }
 ```
 

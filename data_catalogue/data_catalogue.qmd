@@ -78,7 +78,7 @@ cards = [
             ("Forcing", "&mdash;"),
             ("Coverage", "Global"),
             ("Layers", f"{len(quality)}"),
-            ("Status", "Awaiting deposit"),
+            ("Size", f"{quality['Size (MiB)'].sum():.1f} MiB"),
         ],
     ),
 ]

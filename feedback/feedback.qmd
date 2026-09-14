@@ -1,0 +1,93 @@
+---
+title: "Feedback"
+toc: false
+---
+
+Found an error, a broken link, or something missing from the data? Tell us here.
+Submitting opens a pre-filled issue on
+[GitHub](https://github.com/vanjaarsveldbarry/globgm_cmip6/issues) in a new tab -
+you only need to press *Submit new issue* there. A GitHub account is required.
+
+```{=html}
+<form id="fb-form" class="fb-form" novalidate>
+  <div class="fb-field">
+    <label for="fb-type">What is this about?</label>
+    <select id="fb-type" name="type">
+      <option value="suggestion">Suggestion or missing content</option>
+      <option value="error">Error or bug on the website</option>
+      <option value="question">Question</option>
+    </select>
+  </div>
+
+  <div class="fb-field">
+    <label for="fb-title">Summary</label>
+    <input id="fb-title" name="title" type="text" maxlength="120"
+           placeholder="One line, e.g. 'Broken DOI link on the cite page'" required>
+  </div>
+
+  <div class="fb-field">
+    <label for="fb-body">Details</label>
+    <textarea id="fb-body" name="body" rows="6"
+              placeholder="What did you expect, what happened instead, or what would you like to see?" required></textarea>
+  </div>
+
+  <div class="fb-field">
+    <label for="fb-page">Page or file this concerns <span class="fb-optional">optional</span></label>
+    <input id="fb-page" name="page" type="text"
+           placeholder="URL of the page, or a file name from the Data Catalogue">
+  </div>
+
+  <div class="fb-actions">
+    <button type="submit" class="fb-submit">Open issue on GitHub</button>
+    <span id="fb-status" class="fb-status" role="status"></span>
+  </div>
+</form>
+
+<script type="module">
+  const REPO = "https://github.com/vanjaarsveldbarry/globgm_cmip6";
+  const LABELS = {
+    suggestion: "enhancement",
+    error: "bug",
+    question: "question",
+  };
+  const PREFIX = {
+    suggestion: "Suggestion",
+    error: "Website error",
+    question: "Question",
+  };
+
+  const form = document.getElementById("fb-form");
+  const status = document.getElementById("fb-status");
+  const page = document.getElementById("fb-page");
+
+  if (document.referrer.startsWith(location.origin)) page.value = document.referrer;
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const type = form.type.value;
+    const title = `[${PREFIX[type]}] ${form.title.value.trim()}`;
+    const body = [
+      form.body.value.trim(),
+      "",
+      "---",
+      `**Page / file:** ${page.value.trim() || "not specified"}`,
+      `**Submitted via:** website feedback form`,
+    ].join("\n");
+
+    const url = new URL(`${REPO}/issues/new`);
+    url.searchParams.set("title", title);
+    url.searchParams.set("body", body);
+    url.searchParams.set("labels", LABELS[type]);
+
+    const opened = window.open(url, "_blank", "noopener");
+    status.innerHTML = opened
+      ? "Opened in a new tab. Press <em>Submit new issue</em> there to finish."
+      : `Pop-up blocked. <a href="${url}" target="_blank" rel="noopener">Open the issue manually</a>.`;
+  });
+</script>
+```
+
+Prefer email? Contact the corresponding author listed in the
+[publication](../cite/cite.qmd).
